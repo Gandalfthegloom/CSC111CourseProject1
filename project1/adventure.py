@@ -101,7 +101,24 @@ class AdventureGame:
         """
 
         # TODO: Complete this method as specified
-        # YOUR CODE BELOW
+        if loc_id is None:
+            loc_id = self.current_location_id
+
+        return self._locations[loc_id]
+
+    def move(self, direction: str) -> bool:
+        """Attempt to move the player in the given direction.
+        If the movement is valid, update the current location and return True.
+        If not, return False and print an error message.
+        """
+        current_location = self.get_location()
+        if direction in current_location.available_commands:
+            new_location_id = current_location.available_commands[direction]
+            self.current_location_id = new_location_id
+            return True
+        else:
+            print("You can't go that way.")
+            return False
 
 
 if __name__ == "__main__":
@@ -129,11 +146,20 @@ if __name__ == "__main__":
 
         # TODO: Add new Event to game log to represent current game location
         #  Note that the <choice> variable should be the command which led to this event
-        # YOUR CODE HERE
+        new_event = Event(
+            id_num=location.id_num,
+            description=location.long_description if not location.visited else location.brief_description,
+            next_command=choice,
+            next=None,
+            prev=None
+        )
+        game_log.add_event(new_event, choice)
+        location.visited = True  # Mark location as visited
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
+        print(location.long_description if not location.visited else location.brief_description)
+
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit")
@@ -150,17 +176,37 @@ if __name__ == "__main__":
         print("========")
         print("You decided to:", choice)
 
-        if choice in menu:
-            # TODO: Handle each menu command as appropriate
-            # Note: For the "undo" command, remember to manipulate the game_log event list to keep it up-to-date
-            if choice == "log":
-                game_log.display_events()
+        if choice == "look":
+            print(location.long_description)
+        elif choice == "inventory":
+            inventory_items = [item.name for item in game._items if item.start_position == -1]
+            print("Inventory:", ", ".join(inventory_items) if inventory_items else "(empty)")
+        elif choice == "score":
+            print("Score functionality not yet implemented.")
+        elif choice == "undo":
+            game_log.remove_last_event()
+        elif choice == "log":
+            game_log.display_events()
+        elif choice == "quit":
+            print("Quitting game...")
+            game.ongoing = False
             # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
-
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]
             game.current_location_id = result
-
-            # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
+            # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
+            if "pick up" in choice:
+                item_name = choice.replace("pick up ", "")
+                item = next((i for i in game._items if i.name == item_name and i.start_position == game.current_location_id), None)
+                if item:
+                    item.start_position = -1  # Move item to inventory
+                    print(f"You picked up {item.name}!")
+                else:
+                    print("There's no such item here.")
+            elif "use" in choice:
+                print("Using items is not implemented yet.")
+            else:
+                # Handle movement
+                game.move(choice)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game

@@ -27,75 +27,56 @@ from game_entities import Location
 
 
 class AdventureGameSimulation:
-    """A simulation of an adventure game playthrough.
-    """
-    # Private Instance Attributes:
-    #   - _game: The AdventureGame instance that this simulation uses.
-    #   - _events: A collection of the events to process during the simulation.
+    """A simulation of an adventure game playthrough."""
     _game: AdventureGame
     _events: EventList
 
-    # TODO: Copy/paste your code from ex1_simulation below, and make adjustments as needed
     def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str]) -> None:
-        """Initialize a new game simulation based on the given game data, that runs through the given commands.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
-        """
+        """Initialize a new game simulation with a list of commands."""
         self._events = EventList()
         self._game = AdventureGame(game_data_file, initial_location_id)
+        initial_location = self._game.get_location()
 
-        # TODO: Add first event (initial location, no previous command)
-        # Hint: self._game.get_location() gives you back the current location
+        # Add first event
+        self._events.add_event(Event(
+            id_num=initial_location.id_num,
+            description=initial_location.long_description,
+            next_command=None,
+            next=None,
+            prev=None
+        ), command=None)
 
-        # TODO: Generate the remaining events based on the commands and initial location
-        # Hint: Call self.generate_events with the appropriate arguments
+        self.generate_events(commands, initial_location)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
-        """Generate all events in this simulation.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
-        """
-
-        # TODO: Complete this method as specified. For each command, generate the event and add
-        #  it to self._events.
-        # Hint: current_location.available_commands[command] will return the next location ID
-        # which executing <command> while in <current_location_id> leads to
+        """Generate all events based on the given list of commands."""
+        for command in commands:
+            if command in current_location.available_commands:
+                next_loc_id = current_location.available_commands[command]
+                next_loc = self._game.get_location(next_loc_id)
+                new_event = Event(
+                    id_num=next_loc.id_num,
+                    description=next_loc.long_description,
+                    next_command=command,
+                    next=None,
+                    prev=None
+                )
+                self._events.add_event(new_event, command)
+                current_location = next_loc
+            else:
+                print(f"Invalid command: {command}")
 
     def get_id_log(self) -> list[int]:
-        """
-        Get back a list of all location IDs in the order that they are visited within a game simulation
-        that follows the given commands.
-
-        >>> sim = AdventureGameSimulation('sample_locations.json', 1, ["go east"])
-        >>> sim.get_id_log()
-        [1, 2]
-
-        >>> sim = AdventureGameSimulation('sample_locations.json', 1, ["go east", "go east", "buy coffee"])
-        >>> sim.get_id_log()
-        [1, 2, 3, 3]
-        """
-
-        # Note: We have completed this method for you. Do NOT modify it for ex1.
-
+        """Return a list of all visited location IDs."""
         return self._events.get_id_log()
 
     def run(self) -> None:
-        """Run the game simulation and log location descriptions."""
-
-        # Note: We have completed this method for you. Do NOT modify it for ex1.
-
-        current_event = self._events.first  # Start from the first event in the list
-
+        """Run the game simulation and print location descriptions."""
+        current_event = self._events.first
         while current_event:
             print(current_event.description)
             if current_event is not self._events.last:
-                print("You choose:", current_event.next_command)
-
-            # Move to the next event in the linked list
+                print("You chose:", current_event.next_command)
             current_event = current_event.next
 
 

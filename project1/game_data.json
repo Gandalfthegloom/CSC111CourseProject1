@@ -10,6 +10,17 @@
         "go east": 2
       },
       "items": ["toonie"]
+    },
+    {
+      "id": 2,
+      "name": "Bahen 2F",
+      "brief_description":  "testing",
+      "long_description": "testing loooong",
+      "available_commands": {
+        "go south": 4,
+        "go east": 2
+      },
+      "items": ["toonie"]
     }
   ],
   "items": [
