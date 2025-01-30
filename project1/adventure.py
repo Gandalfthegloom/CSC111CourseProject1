@@ -75,25 +75,24 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
-        """Load locations and items from a JSON file with the given filename and
-        return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
-        and (2) a list of all Item objects."""
-
+    def _load_game_data(filename: str) -> tuple[Dict[int, Location], List[str]]:
+        """Load locations and items from a JSON file and return structured game data."""
         with open(filename, 'r') as f:
-            data = json.load(f)  # This loads all the data from the JSON file
+            data = json.load(f)  # Load JSON data
 
         locations = {}
-        for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
-                                    loc_data['available_commands'], loc_data['items'])
-            locations[loc_data['id']] = location_obj
+        for loc_data in data['locations']:
+            locations[loc_data['id']] = Location(
+                id_num=loc_data['id'],
+                name=loc_data['name'],
+                brief_description=loc_data['brief_description'],
+                long_description=loc_data['long_description'],
+                available_commands=loc_data['available_commands'],
+                items=loc_data['items']
+            )
 
-        items = []
-        # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
-        # YOUR CODE BELOW
+        return locations, data.get("items", [])  # Ensure items are properly returned
 
-        return locations, items
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
         """Return Location object associated with the provided location ID.
@@ -107,13 +106,11 @@ class AdventureGame:
         return self._locations[loc_id]
 
     def move(self, direction: str) -> bool:
-        """Attempt to move the player in the given direction.
-        If the movement is valid, update the current location and return True.
-        If not, return False and print an error message.
-        """
+        """Attempt to move the player in the given direction."""
         current_location = self.get_location()
         if direction in current_location.available_commands:
             new_location_id = current_location.available_commands[direction]
+            print(f"Moving from {self.current_location_id} ({current_location.name}) to {new_location_id} ({self.get_location(new_location_id).name})")  # Debugging
             self.current_location_id = new_location_id
             return True
         else:

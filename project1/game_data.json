@@ -1,367 +1,405 @@
 {
   "locations": [
-      {
-          "id": "200",
-          "name": "Robarts Library",
-          "brief_description": "This is R, an important landmark at UofT.",
-          "long_description": "You are currently at R. There's a lot happening around you.",
-          "available_commands": {
-              "go east": "500"
-          },
-          "items": []
+    {
+      "id": 200,
+      "name": "Robarts Library",
+      "brief_description": "This is R, an important landmark at UofT.",
+      "long_description": "You are currently at R. There's a lot happening around you.",
+      "available_commands": {
+        "go east": 500
       },
-      {
-          "id": "500",
-          "name": "Saint George and Harbord Crossroads",
-          "brief_description": "This is SG&H, an important landmark at UofT.",
-          "long_description": "You are currently at SG&H. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "200",
-              "go south": "301",
-              "go east": "401"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 500,
+      "name": "Saint George and Hoskin Crossroads",
+      "brief_description": "This is SG&H, an important landmark at UofT.",
+      "long_description": "You are currently at SG&H. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 200,
+        "go south": 301,
+        "go east": 401
       },
-      {
-          "id": "401",
-          "name": "Harbord Street 1",
-          "brief_description": "This is H1, an important landmark at UofT.",
-          "long_description": "You are currently at H1. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "500",
-              "go south": "1100",
-              "go east": "402"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 401,
+      "name": "Hoskin Street 1",
+      "brief_description": "This is H1, an important landmark at UofT.",
+      "long_description": "You are currently at H1. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 500,
+        "go south": 1100,
+        "go east": 402
       },
-      {
-          "id": "402",
-          "name": "Harbord Street 2",
-          "brief_description": "This is H2, an important landmark at UofT.",
-          "long_description": "You are currently at H2. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "401",
-              "go south": "1201",
-              "go east": "403"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 402,
+      "name": "Hoskin Street 2",
+      "brief_description": "This is H2, an important landmark at UofT.",
+      "long_description": "You are currently at H2. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 401,
+        "go south": 1201,
+        "go east": 403
       },
-      {
-          "id": "403",
-          "name": "Harbord Street 3",
-          "brief_description": "This is H3, an important landmark at UofT.",
-          "long_description": "You are currently at H3. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "402",
-              "go south": "1400",
-              "go east": "800"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 403,
+      "name": "Hoskin Street 3",
+      "brief_description": "This is H3, an important landmark at UofT.",
+      "long_description": "You are currently at H3. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 402,
+        "go south": 1400,
+        "go east": 800
       },
-      {
-          "id": "800",
-          "name": "Harbord and Queen's Crescent Crossroads",
-          "brief_description": "This is H&QC, an important landmark at UofT.",
-          "long_description": "You are currently at H&QC. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "403",
-              "go south": "901",
-              "go east": "1001"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 800,
+      "name": "Hoskin and Queen's Crescent Crossroads",
+      "brief_description": "This is H&QC, an important landmark at UofT.",
+      "long_description": "You are currently at H&QC. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 403,
+        "go south": 901,
+        "go east": 1001
       },
-      {
-          "id": "301",
-          "name": "St. George Street 1",
-          "brief_description": "This is SG1, an important landmark at UofT.",
-          "long_description": "You are currently at SG1. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "500",
-              "go south": "302",
-              "go east": "1100"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 301,
+      "name": "St. George Street 1",
+      "brief_description": "This is SG1, an important landmark at UofT.",
+      "long_description": "You are currently at SG1. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 500,
+        "go south": 302,
+        "go east": 1100
       },
-      {
-          "id": "302",
-          "name": "St. George Street 2",
-          "brief_description": "This is SG2, an important landmark at UofT.",
-          "long_description": "You are currently at SG2. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "301",
-              "go south": "303",
-              "go east": "100"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 302,
+      "name": "St. George Street 2",
+      "brief_description": "This is SG2, an important landmark at UofT.",
+      "long_description": "You are currently at SG2. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 301,
+        "go south": 303,
+        "go east": 100
       },
-      {
-          "id": "303",
-          "name": "St. George Street 3",
-          "brief_description": "This is SG3, an important landmark at UofT.",
-          "long_description": "You are currently at SG3. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "302",
-              "go south": "304",
-              "go east": "1202"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 303,
+      "name": "St. George Street 3",
+      "brief_description": "This is SG3, an important landmark at UofT.",
+      "long_description": "You are currently at SG3. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 302,
+        "go south": 304,
+        "go east": 1202
       },
-      {
-          "id": "304",
-          "name": "St. George Street 4",
-          "brief_description": "This is SG4, an important landmark at UofT.",
-          "long_description": "You are currently at SG4. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "303",
-              "go south": "600"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 304,
+      "name": "St. George Street 4",
+      "brief_description": "This is SG4, an important landmark at UofT.",
+      "long_description": "You are currently at SG4. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 303,
+        "go south": 600
       },
-      {
-          "id": "1100",
-          "name": "Cafe Reznikoff",
-          "brief_description": "This is CR, an important landmark at UofT.",
-          "long_description": "You are currently at CR. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "401",
-              "go south": "100",
-              "go west": "301",
-              "go east": "1201"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1100,
+      "name": "Cafe Reznikoff",
+      "brief_description": "This is CR, an important landmark at UofT.",
+      "long_description": "You are currently at CR. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 401,
+        "go south": 100,
+        "go west": 301,
+        "go east": 1201
       },
-      {
-          "id": "100",
-          "name": "Dorm Room (Knox Residence)",
-          "brief_description": "This is KR, an important landmark at UofT.",
-          "long_description": "You are currently at KR. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "1100",
-              "go south": "1600",
-              "go west": "302",
-              "go east": "1202"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 100,
+      "name": "Dorm Room (Knox Residence)",
+      "brief_description": "This is KR, an important landmark at UofT.",
+      "long_description": "You are currently at KR. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1100,
+        "go south": 1600,
+        "go west": 302,
+        "go east": 1202
       },
-      {
-          "id": "1201",
-          "name": "Front Campus 1",
-          "brief_description": "This is FC1, an important landmark at UofT.",
-          "long_description": "You are currently at FC1. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "402",
-              "go south": "1202",
-              "go west": "1100",
-              "go east": "1400"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1201,
+      "name": "Front Campus 1",
+      "brief_description": "This is FC1, an important landmark at UofT.",
+      "long_description": "You are currently at FC1. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 402,
+        "go south": 1202,
+        "go west": 1100,
+        "go east": 1400
       },
-      {
-          "id": "1202",
-          "name": "Front Campus 2",
-          "brief_description": "This is FC2, an important landmark at UofT.",
-          "long_description": "You are currently at FC2. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "303",
-              "go south": "1300",
-              "go west": "100",
-              "go east": "1400"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1202,
+      "name": "Front Campus 2",
+      "brief_description": "This is FC2, an important landmark at UofT.",
+      "long_description": "You are currently at FC2. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 303,
+        "go south": 1300,
+        "go west": 100,
+        "go east": 1400
       },
-      {
-          "id": "1300",
-          "name": "Anatomy Lane",
-          "brief_description": "This is AL, an important landmark at UofT.",
-          "long_description": "You are currently at AL. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "1202",
-              "go east": "903"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1300,
+      "name": "Anatomy Lane",
+      "brief_description": "This is AL, an important landmark at UofT.",
+      "long_description": "You are currently at AL. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1202,
+        "go east": 903
       },
-      {
-          "id": "1400",
-          "name": "Hart House Circle",
-          "brief_description": "This is HC, an important landmark at UofT.",
-          "long_description": "You are currently at HC. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "403",
-              "go west": "1201",
-              "go south": "902"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1400,
+      "name": "Hart House Circle",
+      "brief_description": "This is HC, an important landmark at UofT.",
+      "long_description": "You are currently at HC. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 403,
+        "go west": 1201,
+        "go south": 902
       },
-      {
-          "id": "901",
-          "name": "Queen's Park Crescent 1",
-          "brief_description": "This is QC1, an important landmark at UofT.",
-          "long_description": "You are currently at QC1. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "800",
-              "go south": "902",
-              "go east": "1002"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 901,
+      "name": "Queen's Park Crescent 1",
+      "brief_description": "This is QC1, an important landmark at UofT.",
+      "long_description": "You are currently at QC1. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 800,
+        "go south": 902,
+        "go east": 1002
       },
-      {
-          "id": "902",
-          "name": "Queen's Park Crescent 2",
-          "brief_description": "This is QC2, an important landmark at UofT.",
-          "long_description": "You are currently at QC2. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "901",
-              "go south": "903",
-              "go west": "1400",
-              "go east": "1003"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 902,
+      "name": "Queen's Park Crescent 2",
+      "brief_description": "This is QC2, an important landmark at UofT.",
+      "long_description": "You are currently at QC2. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 901,
+        "go south": 903,
+        "go west": 1400,
+        "go east": 1003
       },
-      {
-          "id": "903",
-          "name": "Queen's Park Crescent 3",
-          "brief_description": "This is QC3, an important landmark at UofT.",
-          "long_description": "You are currently at QC3. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "902",
-              "go south": "904",
-              "go west": "1300",
-              "go east": "1004"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 903,
+      "name": "Queen's Park Crescent 3",
+      "brief_description": "This is QC3, an important landmark at UofT.",
+      "long_description": "You are currently at QC3. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 902,
+        "go south": 904,
+        "go west": 1300,
+        "go east": 1004
       },
-      {
-          "id": "904",
-          "name": "Queen's Park Crescent 4",
-          "brief_description": "This is QC4, an important landmark at UofT.",
-          "long_description": "You are currently at QC4. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "903",
-              "go west": "1600"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 904,
+      "name": "Queen's Park Crescent 4",
+      "brief_description": "This is QC4, an important landmark at UofT.",
+      "long_description": "You are currently at QC4. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 903,
+        "go west": 1600
       },
-      {
-        "id": "1001",
-        "name": "Queen's Park 1",
-        "brief_description": "This is Q1, an important landmark at UofT.",
-        "long_description": "You are currently at Q1. There's a lot happening around you.",
-        "available_commands": {
-            "go west": "800",
-            "go south": "1002"
-        },
-        "items": []
+      "items": []
+    },
+    {
+      "id": 1001,
+      "name": "Queen's Park 1",
+      "brief_description": "This is Q1, an important landmark at UofT.",
+      "long_description": "You are currently at Q1. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 800,
+        "go south": 1002
       },
-      {
-          "id": "1002",
-          "name": "Queen's Park 2",
-          "brief_description": "This is Q2, an important landmark at UofT.",
-          "long_description": "You are currently at Q2. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "1001",
-              "go south": "1003",
-              "go west": "901"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1002,
+      "name": "Queen's Park 2",
+      "brief_description": "This is Q2, an important landmark at UofT.",
+      "long_description": "You are currently at Q2. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1001,
+        "go south": 1003,
+        "go west": 901
       },
-      {
-          "id": "1003",
-          "name": "Queen's Park 3",
-          "brief_description": "This is Q3, an important landmark at UofT.",
-          "long_description": "You are currently at Q3. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "1002",
-              "go south": "1004",
-              "go west": "902"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1003,
+      "name": "Queen's Park 3",
+      "brief_description": "This is Q3, an important landmark at UofT.",
+      "long_description": "You are currently at Q3. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1002,
+        "go south": 1004,
+        "go west": 902
       },
-      {
-          "id": "1004",
-          "name": "Queen's Park 4",
-          "brief_description": "This is Q4, an important landmark at UofT.",
-          "long_description": "You are currently at Q4. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "1003",
-              "go west": "903"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1004,
+      "name": "Queen's Park 4",
+      "brief_description": "This is Q4, an important landmark at UofT.",
+      "long_description": "You are currently at Q4. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1003,
+        "go west": 903
       },
-      {
-          "id": "1600",
-          "name": "Bahen",
-          "brief_description": "This is B, an important landmark at UofT.",
-          "long_description": "You are currently at B. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "100",
-              "go east": "904",
-              "go south": "600"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 1600,
+      "name": "Bahen",
+      "brief_description": "This is B, an important landmark at UofT.",
+      "long_description": "You are currently at B. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 100,
+        "go east": 904,
+        "go south": 600
       },
-      {
-          "id": "600",
-          "name": "St George and College Crossroads",
-          "brief_description": "This is SG&C, an important landmark at UofT.",
-          "long_description": "You are currently at SG&C. There's a lot happening around you.",
-          "available_commands": {
-              "go north": "304",
-              "go east": "601"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 600,
+      "name": "St George and College Crossroads",
+      "brief_description": "This is SG&C, an important landmark at UofT.",
+      "long_description": "You are currently at SG&C. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 304,
+        "go east": 601
       },
-      {
-          "id": "601",
-          "name": "College Street 1",
-          "brief_description": "This is C1, an important landmark at UofT.",
-          "long_description": "You are currently at C1. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "600",
-              "go east": "602"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 601,
+      "name": "College Street 1",
+      "brief_description": "This is C1, an important landmark at UofT.",
+      "long_description": "You are currently at C1. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 600,
+        "go east": 602
       },
-      {
-          "id": "602",
-          "name": "College Street 2",
-          "brief_description": "This is C2, an important landmark at UofT.",
-          "long_description": "You are currently at C2. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "601",
-              "go east": "603"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 602,
+      "name": "College Street 2",
+      "brief_description": "This is C2, an important landmark at UofT.",
+      "long_description": "You are currently at C2. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 601,
+        "go east": 603
       },
-      {
-          "id": "603",
-          "name": "College Street 3",
-          "brief_description": "This is C3, an important landmark at UofT.",
-          "long_description": "You are currently at C3. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "602",
-              "go east": "700"
-          },
-          "items": []
+      "items": []
+    },
+    {
+      "id": 603,
+      "name": "College Street 3",
+      "brief_description": "This is C3, an important landmark at UofT.",
+      "long_description": "You are currently at C3. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 602,
+        "go east": 700
       },
-      {
-          "id": "700",
-          "name": "College and Queen's Park Crescent Crossroads",
-          "brief_description": "This is C&QC, an important landmark at UofT.",
-          "long_description": "You are currently at C&QC. There's a lot happening around you.",
-          "available_commands": {
-              "go west": "603"
-          },
-          "items": []
-      }
+      "items": []
+    },
+    {
+      "id": 700,
+      "name": "College and Queen's Park Crescent Crossroads",
+      "brief_description": "This is C&QC, an important landmark at UofT.",
+      "long_description": "You are currently at C&QC. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 603
+      },
+      "items": []
+    },
+    {
+      "id": 1700,
+      "name": "Tower Road",
+      "brief_description": "This is T, an important landmark at UofT.",
+      "long_description": "You are currently at T. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 603
+      },
+      "items": []
+    }
   ],
   "items": [
-    {"name": "wallet", "description": "Contains your TCard.", "start_position": 1},
-    {"name": "first note", "description": "A handwritten note, strangely familiar.", "start_position": 1},
-    {"name": "laptop charger", "description": "Your essential laptop charger.", "start_position": 7},
-    {"name": "library note", "description": "A note with a cryptic call number.", "start_position": 8},
-    {"name": "USB drive", "description": "Contains your project.", "start_position": 9},
-    {"name": "lucky mug", "description": "Your lucky UofT mug.", "start_position": 13},
-    {"name": "time-turner", "description": "A golden-rimmed pocket watch, its hands moving strangely.", "start_position": 13}
+    {
+      "name": "wallet",
+      "description": "Contains your TCard.",
+      "start_position": 1
+    },
+    {
+      "name": "first note",
+      "description": "A handwritten note, strangely familiar.",
+      "start_position": 1
+    },
+    {
+      "name": "laptop charger",
+      "description": "Your essential laptop charger.",
+      "start_position": 7
+    },
+    {
+      "name": "library note",
+      "description": "A note with a cryptic call number.",
+      "start_position": 8
+    },
+    {
+      "name": "USB drive",
+      "description": "Contains your project.",
+      "start_position": 9
+    },
+    {
+      "name": "lucky mug",
+      "description": "Your lucky UofT mug.",
+      "start_position": 13
+    },
+    {
+      "name": "time-turner",
+      "description": "A golden-rimmed pocket watch, its hands moving strangely.",
+      "start_position": 13
+    }
   ]
 }
 

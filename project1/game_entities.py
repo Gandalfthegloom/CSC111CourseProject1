@@ -19,38 +19,23 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from dataclasses import dataclass
-
+from typing import Dict, List
 
 @dataclass
 class Location:
-    """A location in our text adventure game world.
+    """A location in our text adventure game world."""
 
-    Instance Attributes:
-        - # TODO Describe each instance attribute here
+    id_num: int
+    name: str
+    brief_description: str
+    long_description: str
+    available_commands: Dict[str, int]  # Dictionary mapping directions to location IDs
+    items: List[str]  # List of item names present in this location
+    visited: bool = False  # Tracks if player has been here before
 
-    Representation Invariants:
-        - # TODO Describe any necessary representation invariants
-    """
-
-    # This is just a suggested starter class for Location.
-    # You may change/add parameters and the data available for each Location object as you see fit.
-    #
-    # The only thing you must NOT change is the name of this class: Location.
-    # All locations in your game MUST be represented as an instance of this class.
-
-    def __init__(self, location_id, brief_description, long_description, available_commands, items,
-                 visited=False) -> None:
-        """Initialize a new location.
-
-        # TODO Add more details here about the initialization if needed
-        """
-
-        self.id_num = location_id
-        self.brief_description = brief_description
-        self.long_description = long_description
-        self.available_commands = available_commands
-        self.items = items
-        self.visited = visited
+    def get_description(self) -> str:
+        """Return the appropriate description based on whether this location has been visited."""
+        return self.long_description if not self.visited else self.brief_description
 
 
 @dataclass
