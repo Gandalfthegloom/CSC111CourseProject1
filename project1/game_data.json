@@ -29,7 +29,6 @@
       "long_description": "You are currently at H1. There's a lot happening around you.",
       "available_commands": {
         "go west": 500,
-        "go south": 1100,
         "go east": 402
       },
       "items": []
@@ -41,7 +40,7 @@
       "long_description": "You are currently at H2. There's a lot happening around you.",
       "available_commands": {
         "go west": 401,
-        "go south": 1201,
+        "go south": 1700,
         "go east": 403
       },
       "items": []
@@ -53,7 +52,6 @@
       "long_description": "You are currently at H3. There's a lot happening around you.",
       "available_commands": {
         "go west": 402,
-        "go south": 1400,
         "go east": 800
       },
       "items": []
@@ -77,8 +75,7 @@
       "long_description": "You are currently at SG1. There's a lot happening around you.",
       "available_commands": {
         "go north": 500,
-        "go south": 302,
-        "go east": 1100
+        "go south": 302
       },
       "items": []
     },
@@ -90,7 +87,7 @@
       "available_commands": {
         "go north": 301,
         "go south": 303,
-        "go east": 100
+        "go east": 1100
       },
       "items": []
     },
@@ -102,7 +99,7 @@
       "available_commands": {
         "go north": 302,
         "go south": 304,
-        "go east": 1202
+        "go east": 100
       },
       "items": []
     },
@@ -113,7 +110,8 @@
       "long_description": "You are currently at SG4. There's a lot happening around you.",
       "available_commands": {
         "go north": 303,
-        "go south": 600
+        "go south":1500,
+        "go west": 1600
       },
       "items": []
     },
@@ -123,10 +121,7 @@
       "brief_description": "This is CR, an important landmark at UofT.",
       "long_description": "You are currently at CR. There's a lot happening around you.",
       "available_commands": {
-        "go north": 401,
-        "go south": 100,
-        "go west": 301,
-        "go east": 1201
+        "go west": 301
       },
       "items": []
     },
@@ -136,8 +131,6 @@
       "brief_description": "This is KR, an important landmark at UofT.",
       "long_description": "You are currently at KR. There's a lot happening around you.",
       "available_commands": {
-        "go north": 1100,
-        "go south": 1600,
         "go west": 302,
         "go east": 1202
       },
@@ -175,8 +168,8 @@
       "brief_description": "This is AL, an important landmark at UofT.",
       "long_description": "You are currently at AL. There's a lot happening around you.",
       "available_commands": {
-        "go north": 1202,
-        "go east": 903
+        "go east": 903,
+        "go west": 1202
       },
       "items": []
     },
@@ -186,9 +179,8 @@
       "brief_description": "This is HC, an important landmark at UofT.",
       "long_description": "You are currently at HC. There's a lot happening around you.",
       "available_commands": {
-        "go north": 403,
         "go west": 1201,
-        "go south": 902
+        "go east": 902
       },
       "items": []
     },
@@ -295,12 +287,12 @@
       "available_commands": {
         "go north": 100,
         "go east": 904,
-        "go south": 600
+        "go south":1500
       },
       "items": []
     },
     {
-      "id": 600,
+      "id":1500,
       "name": "St George and College Crossroads",
       "brief_description": "This is SG&C, an important landmark at UofT.",
       "long_description": "You are currently at SG&C. There's a lot happening around you.",
@@ -316,7 +308,7 @@
       "brief_description": "This is C1, an important landmark at UofT.",
       "long_description": "You are currently at C1. There's a lot happening around you.",
       "available_commands": {
-        "go west": 600,
+        "go west":1500,
         "go east": 602
       },
       "items": []
@@ -359,7 +351,8 @@
       "brief_description": "This is T, an important landmark at UofT.",
       "long_description": "You are currently at T. There's a lot happening around you.",
       "available_commands": {
-        "go west": 603
+        "go north": 402,
+        "go south": 1201
       },
       "items": []
     }
