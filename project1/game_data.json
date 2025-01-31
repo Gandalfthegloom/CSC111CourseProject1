@@ -69,13 +69,25 @@
       "items": []
     },
     {
+      "id": 1800,
+      "name": "Sir Daniel Wilson Residence Path",
+      "brief_description": "This is H&QC, an important landmark at UofT.",
+      "long_description": "You are currently at H&QC. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 302,
+        "go east": 1201
+      },
+      "items": []
+    },
+    {
       "id": 301,
       "name": "St. George Street 1",
       "brief_description": "This is SG1, an important landmark at UofT.",
       "long_description": "You are currently at SG1. There's a lot happening around you.",
       "available_commands": {
         "go north": 500,
-        "go south": 302
+        "go south": 302,
+        "go east" : 1100
       },
       "items": []
     },
@@ -87,7 +99,7 @@
       "available_commands": {
         "go north": 301,
         "go south": 303,
-        "go east": 1100
+        "go east": 1800
       },
       "items": []
     },
@@ -129,7 +141,8 @@
       "id": 100,
       "name": "Dorm Room (Knox Residence)",
       "brief_description": "This is KR, an important landmark at UofT.",
-      "long_description": "You are currently at KR. There's a lot happening around you.",
+      "long_description": "bababooey",
+      "extra_description": "You notice your bag lying on the floor.",
       "available_commands": {
         "go west": 302,
         "go east": 1202
@@ -159,6 +172,17 @@
         "go south": 1300,
         "go west": 100,
         "go east": 1400
+      },
+      "items": []
+    },
+    {
+      "id": 1203,
+      "name": "King's College Road",
+      "brief_description": "This is FC2, an important landmark at UofT.",
+      "long_description": "You are currently at FC2. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 1202,
+        "go south": 602
       },
       "items": []
     },
@@ -361,7 +385,12 @@
     {
       "name": "wallet",
       "description": "Contains your TCard.",
-      "start_position": 1
+      "start_position": 100
+    },
+    {
+      "name": "bag",
+      "description": "Just a bag :D",
+      "start_position": 100
     },
     {
       "name": "first note",

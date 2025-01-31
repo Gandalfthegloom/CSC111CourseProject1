@@ -19,7 +19,7 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 @dataclass
 class Location:
@@ -31,11 +31,16 @@ class Location:
     long_description: str
     available_commands: Dict[str, int]  # Dictionary mapping directions to location IDs
     items: List[str]  # List of item names present in this location
+    extra_description: Optional[str] = None  # New field for additional details
     visited: bool = False  # Tracks if player has been here before
 
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""
         return self.long_description if not self.visited else self.brief_description
+    
+    def look_around(self) -> str:
+        """Return additional details if available, otherwise return a generic response."""
+        return self.extra_description if self.extra_description else "You find nothing of note."
 
 
 @dataclass

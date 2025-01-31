@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     game_log = EventList()  # This is REQUIRED as one of the baseline requirements
     game = AdventureGame('game_data.json', 100)  # load data, setting initial location ID to 1
-    menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
+    menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]  # Regular menu options available at each location
     choice = None
 
     # Note: You may modify the code below as needed; the following starter code is just a suggestion
@@ -163,12 +163,14 @@ if __name__ == "__main__":
 
 
         # Display possible actions at this location
-        print("What to do? Choose from: look, inventory, score, undo, log, quit, toggle debug")
+        print("What to do? Choose from: look, inventory, score, undo, log, quit, toggledebug")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
 
         # Validate choice
+        if AdventureGame.debug_mode:
+            print(f"[DEBUG] Debug mode is {'ON' if AdventureGame.debug_mode else 'OFF'}.")
         choice = input("\nEnter action: ").lower().strip()
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
@@ -179,7 +181,8 @@ if __name__ == "__main__":
         print("You decided to:", choice)
 
         if choice == "look":
-            print(location.long_description)
+            location = game.get_location()
+            print(location.look_around())
         elif choice == "inventory":
             inventory_items = [item.name for item in game._items if item.start_position == -1]
             print("Inventory:", ", ".join(inventory_items) if inventory_items else "(empty)")
@@ -193,7 +196,7 @@ if __name__ == "__main__":
             print("Quitting game...")
             game.ongoing = False
             # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
-        elif choice == "toggle debug":
+        elif choice == "toggledebug":
             AdventureGame.debug_mode = not AdventureGame.debug_mode
             print(f"Debug mode {'enabled' if AdventureGame.debug_mode else 'disabled'}.")
             continue  # Skip the rest of the loop to prevent an extra event being logged
