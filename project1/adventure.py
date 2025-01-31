@@ -202,7 +202,21 @@ if __name__ == "__main__":
         elif choice == "score":
             print("Score functionality not yet implemented.")
         elif choice == "undo":
-            game_log.remove_last_event()
+            last_event = game_log.remove_last_event()
+
+            if last_event is None:
+                print("Nothing to undo!")
+            else:
+                if last_event.prev:
+                    game.current_location_id = last_event.prev.id_num
+                    print(f"Undo successful. You are now back at {game.get_location().name}.")
+
+                # Check if the last action involved picking up an item
+                for item in game._items:
+                    if item.start_position == -1 and item.name in last_event.description:
+                        item.start_position = game.current_location_id  # Put item back
+                        print(f"{item.name} was returned to its original place.")
+
         elif choice == "log":
             game_log.display_events()
         elif choice == "quit":
@@ -233,22 +247,6 @@ if __name__ == "__main__":
                     print("That was an invalid option; try again.")
 
             # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
-            if "pick up" in choice:
-                item_name = choice.replace("pick up ", "").strip().lower()
 
-                # ✅ Now, _items is a list of Item objects, so we can access start_position
-                item = next((i for i in game._items if
-                             i.name.lower() == item_name and i.start_position == game.current_location_id), None)
 
-                if item:
-                    item.start_position = -1  # Move item to inventory
-                    print(f"You picked up {item.name}!")
-                else:
-                    print("There's no such item here.")
 
-            elif "use" in choice:
-                print("Using items is not implemented yet.")
-            else:
-                # Handle movement
-                game.move(choice)
-            # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
