@@ -160,7 +160,7 @@ if __name__ == "__main__":
         new_event = Event(
             id_num=location.id_num,
             description=location.long_description if not location.visited else location.brief_description,
-            next_command=choice,
+            next_command=None,
             next=None,
             prev=None,
             item_affected=item_name,
@@ -192,11 +192,11 @@ if __name__ == "__main__":
         while choice not in location.available_commands and choice not in menu and not any(choice.startswith(f"pick up {item}") for item in valid_items):
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
-        game_log.add_event(new_event, choice)
 
 
         print("========")
         print("You decided to:", choice)
+        game_log.add_event(new_event, choice)
 
         if choice == "look":
             location = game.get_location()
