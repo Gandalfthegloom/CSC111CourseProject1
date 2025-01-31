@@ -66,6 +66,7 @@ class Item:
     start_position: int
     target_position: int
     target_points: int
+    current_position: Optional[int] = None  # New field for additional details
 
 
 # Note: Other entities you may want to add, depending on your game plan:

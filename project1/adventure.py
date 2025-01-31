@@ -98,7 +98,8 @@ class AdventureGame:
             name=item_data["name"],
             start_position=item_data["start_position"],
             target_position=item_data.get("target_position", -1),  # Default target location
-            target_points=item_data.get("target_points", 0)  # Default points
+            target_points=item_data.get("target_points", 0),  # Default points
+            current_position=item_data.get("current_position", "start_position")
         ) for item_data in data.get("items", [])]
 
         return locations, items
@@ -184,7 +185,7 @@ if __name__ == "__main__":
         if AdventureGame.debug_mode:
             print(f"[DEBUG] Debug mode is {'ON' if AdventureGame.debug_mode else 'OFF'}.")
             print(f"[DEBUG] Current location: {game.current_location_id}")
-            print(f"[DEBUG] Items at this location: {[item.name for item in game._items if item.start_position == game.current_location_id]}")
+            print(f"[DEBUG] Items at this location: {[item.name for item in game._items if item.current_position == game.current_location_id]}")
 
         # Validate choice
         choice = input("\nEnter action: ").lower().strip()
@@ -202,25 +203,31 @@ if __name__ == "__main__":
             location = game.get_location()
             print(location.look_around())
         elif choice == "inventory":
-            inventory_items = [item.name for item in game._items if item.start_position == -1]
+            inventory_items = [item.name for item in game._items if item.current_position == -1]
             print("Inventory:", ", ".join(inventory_items) if inventory_items else "(empty)")
         elif choice == "score":
             print("Score functionality not yet implemented.")
+        # In the 'undo' block:
         elif choice == "undo":
             last_event = game_log.remove_last_event()
-
+            last_event = game_log.remove_last_event()
             if last_event is None:
                 print("Nothing to undo!")
             else:
+                # Revert location change
                 if last_event.prev:
                     game.current_location_id = last_event.prev.id_num
                     print(f"Undo successful. You are now back at {game.get_location().name}.")
-
-                # Check if the last action involved picking up an item
-                for item in game._items:
-                    if item.start_position == -1 and item.name in last_event.description:
-                        item.start_position = game.current_location_id  # Put item back
-                        print(f"{item.name} was returned to its original place.")
+                else:
+                    print("Undo successful. Back to the start.")
+                
+                # Revert item changes
+                if last_event.item_affected is not None:
+                    item = next((i for i in game._items if i.name == last_event.item_affected), None)
+                    if item:
+                        item.current_position = last_event.item_prev_location
+                        location_name = game.get_location(last_event.item_prev_location).name if last_event.item_prev_location != -1 else "inventory"
+                        print(f"{item.name} was returned to {location_name}.")
 
         elif choice == "log":
             game_log.display_events()
@@ -234,16 +241,31 @@ if __name__ == "__main__":
             continue  # Skip the rest of the loop to prevent an extra event being logged
         else:
             # Handle non-menu actions
+            # In the main loop where "pick up" is handled:
             if choice.startswith("pick up "):
                 item_name = choice.replace("pick up ", "").strip().lower()
                 item = next((i for i in game._items if
-                             i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+                            i.name.lower() == item_name and i.start_position == game.current_location_id), None)
 
                 if item:
-                    item.start_position = -1  # Move item to inventory
+                    # Capture the item's previous state
+                    new_event.item_affected = item.name
+                    new_event.item_prev_location = item.start_position  # Previous location
+                    item.current_position = -1  # Move to inventory
                     print(f"You picked up {item.name}!")
                 else:
                     print("There's no such item here.")
+                    
+            elif choice.startswith("drop "):
+                item_name = choice.replace("drop ", "").strip().lower()
+                item = next((i for i in game._items if i.name.lower() == item_name and i.start_position == -1), None)
+                if item:
+                    new_event.item_affected = item.name
+                    new_event.item_prev_location = -1  # Previous location was inventory
+                    item.current_position = game.current_location_id  # Move to current location
+                    print(f"You dropped {item.name}.")
+                else:
+                    print("You don't have that item.")
 
             else:
                 # Handle movement and other commands as usual

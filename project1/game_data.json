@@ -140,7 +140,7 @@
     {
       "id": 100,
       "name": "Dorm Room (Knox Residence)",
-      "brief_description": "This is KR, an important landmark at UofT.",
+      "brief_description": "This is , an important landmark at UofT.",
       "long_description": "bababooey",
       "extra_description": "You notice your bag lying on the floor.",
       "available_commands": {
@@ -385,12 +385,14 @@
     {
       "name": "wallet",
       "description": "Contains your TCard.",
-      "start_position": 100
+      "start_position": 100,
+      "current_position": 100
     },
     {
       "name": "bag",
       "description": "Just a bag :D",
-      "start_position": 100
+      "start_position": 100,
+      "current_position": 100
     },
     {
       "name": "first note",
