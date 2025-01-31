@@ -160,7 +160,9 @@ if __name__ == "__main__":
             description=location.long_description if not location.visited else location.brief_description,
             next_command=choice,
             next=None,
-            prev=None
+            prev=None,
+            item_affected=item_name,
+            item_prev_location=item_prev_location
         )
         game_log.add_event(new_event, choice)
         location.visited = True  # Mark location as visited
@@ -211,11 +213,12 @@ if __name__ == "__main__":
                     game.current_location_id = last_event.prev.id_num
                     print(f"Undo successful. You are now back at {game.get_location().name}.")
 
-                # Check if the last action involved picking up an item
-                for item in game._items:
-                    if item.start_position == -1 and item.name in last_event.description:
-                        item.start_position = game.current_location_id  # Put item back
-                        print(f"{item.name} was returned to its original place.")
+                # Check if the last action involved picking up or dropping an item
+                if last_event.item_affected:
+                    for item in game._items:
+                        if item.name.lower() == last_event.item_affected:
+                            item.start_position = last_event.item_prev_location  # Restore item to its previous location
+                            print(f"Undo successful! {item.name} has been returned to its previous place.")
 
         elif choice == "log":
             game_log.display_events()
@@ -231,14 +234,46 @@ if __name__ == "__main__":
             # Handle non-menu actions
             if choice.startswith("pick up "):
                 item_name = choice.replace("pick up ", "").strip().lower()
-                item = next((i for i in game._items if
-                             i.name.lower() == item_name and i.start_position == game.current_location_id), None)
-
+                item = next((i for i in game._items if i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+                
                 if item:
+                    item_prev_location = game.current_location_id  # Store original location before moving item
                     item.start_position = -1  # Move item to inventory
                     print(f"You picked up {item.name}!")
-                else:
-                    print("There's no such item here.")
+
+                    # Log the event with item tracking
+                    new_event = Event(
+                        id_num=game.current_location_id,
+                        description=f"Picked up {item.name}.",
+                        next_command=choice,
+                        next=None,
+                        prev=None,
+                        item_affected=item.name,
+                        item_prev_location=item_prev_location
+                    )
+                    game_log.add_event(new_event, choice)
+
+            elif choice.startswith("drop "):
+                item_name = choice.replace("drop ", "").strip().lower()
+                item = next((i for i in game._items if i.name.lower() == item_name and item.start_position == -1), None)
+
+                if item:
+                    item_prev_location = -1  # Item was in inventory before being dropped
+                    item.start_position = game.current_location_id  # Drop item at current location
+                    print(f"You dropped {item.name}.")
+
+                    # Log the event with item tracking
+                    new_event = Event(
+                        id_num=game.current_location_id,
+                        description=f"Dropped {item.name}.",
+                        next_command=choice,
+                        next=None,
+                        prev=None,
+                        item_affected=item.name,
+                        item_prev_location=item_prev_location
+                    )
+                    game_log.add_event(new_event, choice)
+
             else:
                 # Handle movement and other commands as usual
                 if choice in location.available_commands:

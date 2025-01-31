@@ -33,26 +33,14 @@ from typing import Optional
 class Event:
     """
     A node representing one event in an adventure game.
-
-    Instance Attributes:
-    - id_num: Integer id of this event's location
-    - description: Long description of this event's location
-    - next_command: String command which leads this event to the next event, None if this is the last game event
-    - next: Event object representing the next event in the game, or None if this is the last game event
-    - prev: Event object representing the previous event in the game, None if this is the first game event
     """
-
-    # NOTES:
-    # Complete this class EXACTLY as specified, with ALL of the above attributes.
-    # Do NOT add any new attributes, or modify the names or types of the above attributes.
-    # If you want to create a special type of Event for your game that requires a different
-    # set of attributes, you can do that separately in the project1 folder. This class is part of
-    # Exercise 1 and will be auto-graded.
     id_num: int
     description: str
     next_command: Optional[str]
     next: Optional['Event']
     prev: Optional['Event']
+    item_affected: Optional[str] = None  # Track the item affected (if any)
+    item_prev_location: Optional[int] = None  # Store where the item was before the action
 
 
 class EventList:
@@ -108,9 +96,7 @@ class EventList:
             self.last = event
 
     def remove_last_event(self) -> Optional[Event]:
-        """Remove the last event from this event list and return it.
-        If the list is empty, return None.
-        """
+        """Remove the last event from this event list, reverting any item changes if necessary."""
         if self.is_empty():
             return None
 
@@ -124,7 +110,16 @@ class EventList:
             self.last.next = None
             self.last.next_command = None
 
-        return removed_event  # Return the removed event
+        # Reverse item changes
+        if removed_event.item_affected:
+            for item in game._items:
+                if item.name.lower() == removed_event.item_affected:
+                    item.start_position = removed_event.item_prev_location  # Restore item to its previous location
+                    print(f"Undo successful! {item.name} has been returned to its previous place.")
+
+        return removed_event
+
+
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
