@@ -191,7 +191,6 @@ if __name__ == "__main__":
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]
-            game.current_location_id = result
             # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
             if "pick up" in choice:
                 item_name = choice.replace("pick up ", "")
