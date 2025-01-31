@@ -110,13 +110,6 @@ class EventList:
             self.last.next = None
             self.last.next_command = None
 
-        # Reverse item changes
-        if removed_event.item_affected:
-            for item in game._items:
-                if item.name.lower() == removed_event.item_affected:
-                    item.start_position = removed_event.item_prev_location  # Restore item to its previous location
-                    print(f"Undo successful! {item.name} has been returned to its previous place.")
-
         return removed_event
 
 
