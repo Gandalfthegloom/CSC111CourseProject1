@@ -155,7 +155,7 @@
       "brief_description": "This is FC2, an important landmark at UofT.",
       "long_description": "You are currently at FC2. There's a lot happening around you.",
       "available_commands": {
-        "go north": 303,
+        "go north": 1201,
         "go south": 1300,
         "go west": 100,
         "go east": 1400

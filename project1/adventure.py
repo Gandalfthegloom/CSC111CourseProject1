@@ -45,6 +45,8 @@ class AdventureGame:
     #                       This represents all the locations in the game.
     #   - _items: a list of Item objects, representing all items in the game.
 
+
+    debug_mode = False  # Class-level attribute to toggle debug mode
     _locations: dict[int, Location]
     _items: list[Item]
     current_location_id: int  # Suggested attribute, can be removed
@@ -110,7 +112,9 @@ class AdventureGame:
         current_location = self.get_location()
         if direction in current_location.available_commands:
             new_location_id = current_location.available_commands[direction]
-            print(f"Moving from {self.current_location_id} ({current_location.name}) to {new_location_id} ({self.get_location(new_location_id).name})")  # Debugging
+            if AdventureGame.debug_mode:
+                print(f"[DEBUG] Moving from {self.current_location_id} ({current_location.name}) "
+                    f"to {new_location_id} ({self.get_location(new_location_id).name})")
             self.current_location_id = new_location_id
             return True
         else:
@@ -159,7 +163,7 @@ if __name__ == "__main__":
 
 
         # Display possible actions at this location
-        print("What to do? Choose from: look, inventory, score, undo, log, quit")
+        print("What to do? Choose from: look, inventory, score, undo, log, quit, toggle debug")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
@@ -169,6 +173,7 @@ if __name__ == "__main__":
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
+
 
         print("========")
         print("You decided to:", choice)
@@ -188,6 +193,10 @@ if __name__ == "__main__":
             print("Quitting game...")
             game.ongoing = False
             # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+        elif choice == "toggle debug":
+            AdventureGame.debug_mode = not AdventureGame.debug_mode
+            print(f"Debug mode {'enabled' if AdventureGame.debug_mode else 'disabled'}.")
+            continue  # Skip the rest of the loop to prevent an extra event being logged
         else:
             # Handle non-menu actions
             result = location.available_commands[choice]
