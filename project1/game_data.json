@@ -71,7 +71,7 @@
     {
       "id": 1800,
       "name": "Sir Daniel Wilson Residence Path",
-      "brief_description": "This is H&QC, an important landmark at UofT.",
+      "brief_description": "This is Sir Daniel Wilson Residence's path, an important landmark at UofT.",
       "long_description": "You are currently at H&QC. There's a lot happening around you.",
       "available_commands": {
         "go west": 302,
@@ -87,7 +87,7 @@
       "available_commands": {
         "go north": 500,
         "go south": 302,
-        "go east" : 1100
+        "go east" : 100
       },
       "items": []
     },
@@ -144,7 +144,7 @@
       "long_description": "bababooey",
       "extra_description": "You notice your bag lying on the floor.",
       "available_commands": {
-        "go west": 302,
+        "go west": 301,
         "go east": 1202
       },
       "items": []

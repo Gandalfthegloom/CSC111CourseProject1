@@ -90,10 +90,18 @@ class AdventureGame:
                 brief_description=loc_data['brief_description'],
                 long_description=loc_data['long_description'],
                 available_commands=loc_data['available_commands'],
-                items=loc_data['items']
+                items=loc_data['items'],
+                extra_description=loc_data.get('extra_description', None)
             )
 
-        return locations, data.get("items", [])  # Ensure items are properly returned
+        items = [Item(
+            name=item_data["name"],
+            start_position=item_data["start_position"],
+            target_position=item_data.get("target_position", -1),  # Default target location
+            target_points=item_data.get("target_points", 0)  # Default points
+        ) for item_data in data.get("items", [])]
+
+        return locations, items
 
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
@@ -168,11 +176,16 @@ if __name__ == "__main__":
         for action in location.available_commands:
             print("-", action)
 
-        # Validate choice
+        #DEBUGMODE
         if AdventureGame.debug_mode:
             print(f"[DEBUG] Debug mode is {'ON' if AdventureGame.debug_mode else 'OFF'}.")
+            print(f"[DEBUG] Current location: {game.current_location_id}")
+            print(f"[DEBUG] Items at this location: {[item.name for item in game._items if item.start_position == game.current_location_id]}")
+
+        # Validate choice
         choice = input("\nEnter action: ").lower().strip()
-        while choice not in location.available_commands and choice not in menu:
+        valid_items = [item.name.lower() for item in game._items if item.start_position == game.current_location_id]
+        while choice not in location.available_commands and choice not in menu and not any(choice.startswith(f"pick up {item}") for item in valid_items):
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
@@ -202,16 +215,37 @@ if __name__ == "__main__":
             continue  # Skip the rest of the loop to prevent an extra event being logged
         else:
             # Handle non-menu actions
-            result = location.available_commands[choice]
-            # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
-            if "pick up" in choice:
-                item_name = choice.replace("pick up ", "")
-                item = next((i for i in game._items if i.name == item_name and i.start_position == game.current_location_id), None)
+            if choice.startswith("pick up "):
+                item_name = choice.replace("pick up ", "").strip().lower()
+                item = next((i for i in game._items if
+                             i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+
                 if item:
                     item.start_position = -1  # Move item to inventory
                     print(f"You picked up {item.name}!")
                 else:
                     print("There's no such item here.")
+            else:
+                # Handle movement and other commands as usual
+                if choice in location.available_commands:
+                    game.move(choice)
+                else:
+                    print("That was an invalid option; try again.")
+
+            # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
+            if "pick up" in choice:
+                item_name = choice.replace("pick up ", "").strip().lower()
+
+                # ✅ Now, _items is a list of Item objects, so we can access start_position
+                item = next((i for i in game._items if
+                             i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+
+                if item:
+                    item.start_position = -1  # Move item to inventory
+                    print(f"You picked up {item.name}!")
+                else:
+                    print("There's no such item here.")
+
             elif "use" in choice:
                 print("Using items is not implemented yet.")
             else:
