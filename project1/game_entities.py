@@ -68,6 +68,21 @@ class Item:
     target_points: int
     current_position: Optional[int] = None  # New field for additional details
 
+# New StoryEvent class inheriting from Event
+from proj1_event_logger import Event
+
+@dataclass
+class StoryEvent(Event):
+    story_text: Optional[str] = None  # Narrative content
+    choices: Optional[List[str]] = None  # Interactive choices (if any)
+
+    def display_story(self) -> None:
+        print(self.story_text)
+        if self.choices:
+            print("Choices:")
+            for i, choice in enumerate(self.choices, 1):
+                print(f"{i}. {choice}")
+
 
 # Note: Other entities you may want to add, depending on your game plan:
 # - Puzzle class to represent special locations (could inherit from Location class if it seems suitable)

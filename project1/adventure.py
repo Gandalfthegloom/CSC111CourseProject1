@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 from typing import Optional
 
-from game_entities import Location, Item
+from game_entities import Location, Item, StoryEvent
 from proj1_event_logger import Event, EventList
 
 
@@ -70,7 +70,7 @@ class AdventureGame:
         # 2. Make sure the Item class is used to represent each item.
 
         # Suggested helper method (you can remove and load these differently if you wish to do so):
-        self._locations, self._items = self._load_game_data(game_data_file)
+        self._locations, self._items, self._stories = self._load_game_data(game_data_file)
 
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
@@ -102,7 +102,24 @@ class AdventureGame:
             current_position=item_data.get("current_position", "start_position")
         ) for item_data in data.get("items", [])]
 
-        return locations, items
+        stories = {story['id']: StoryEvent(
+            id_num=story['id'],
+            description=story['description'],
+            next_command=story.get('next_command'),
+            next=None,
+            prev=None,
+            story_text=story['story_text'],
+            choices=story.get('choices')
+        ) for story in data.get('stories', [])}
+
+        return locations, items, stories
+    
+    def trigger_story(self, location_id: int) -> None:
+        if location_id in self._stories:
+            story_event = self._stories[location_id]
+            story_event.display_story()
+        else:
+            print("No story at this location.")
 
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
@@ -154,8 +171,12 @@ if __name__ == "__main__":
 
         location = game.get_location()
 
+        # Story triggers.
+        if not location.visited:
+            game.trigger_story(game.current_location_id)
 
-        # Item features
+
+        # Item check for item-related features.
         item_name = None
         item_prev_location = None
         new_event = Event(

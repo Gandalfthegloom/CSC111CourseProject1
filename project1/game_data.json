@@ -424,6 +424,14 @@
       "description": "A golden-rimmed pocket watch, its hands moving strangely.",
       "start_position": 13
     }
+  ],
+  "stories": [
+    {
+      "id": 100,
+      "description": "A mysterious note catches your eye.",
+      "story_text": "Calm down, sleepyhead! You're going to need your wits today.",
+      "choices": ["Look around", "Go back to sleep"]
+    }
   ]
 }
 
