@@ -210,7 +210,7 @@ class AdventureGame:
 
         while True:
             choice = input("\nEnter action: ").lower().strip()
-            if choice in valid_commands:
+            if choice in valid_commands or choice.startswith('tp '):
                 return choice
             print("Invalid option. Try again.")
 
@@ -241,6 +241,11 @@ class AdventureGame:
             self._handle_item_pickup(choice, game, new_event)
         elif choice.startswith("drop "):
             self._handle_item_drop(choice, game, new_event)
+        elif choice.startswith("tp "):
+            self._handle_teleport_command(choice)
+            new_location = self.get_location()
+            new_event.id_num = new_location.id_num
+            new_event.description = new_location.long_description if not new_location.visited else new_location.brief_description
         else:
             self._handle_movement(choice, game)
 
@@ -335,6 +340,25 @@ class AdventureGame:
             game.move(choice)
         else:
             print("Invalid movement command.")
+    
+    def _handle_teleport_command(self, choice: str) -> None:
+        """Handle teleport command."""
+        parts = choice.split()
+        if len(parts) != 2:
+            print("Invalid teleport command. Usage: tp <location_id>")
+            return
+        try:
+            loc_id = int(parts[1])
+        except ValueError:
+            print("Invalid location ID. Must be an integer.")
+            return
+
+        try:
+            self.get_location(loc_id)
+            self.current_location_id = loc_id
+            print(f"Teleported to location {loc_id}.")
+        except KeyError:
+            print("Invalid location ID. No such location exists.")
 
 if __name__ == "__main__":
     game_log = EventList()
