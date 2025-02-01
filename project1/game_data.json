@@ -140,8 +140,8 @@
     {
       "id": 100,
       "name": "Dorm Room (Knox Residence)",
-      "brief_description": "This is , an important landmark at UofT.",
-      "long_description": "bababooey",
+      "brief_description": "This is your dorm room at Knox Residence. You can go out west to St. George Street or east to Front Campus.",
+      "long_description": "The small, dimly-lit room is a chaotic reflection of a student in the middle of midterm season. A single bed sits unmade in the corner, its rumpled sheets tangled like they've been wrestling with your dreams. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the soft hum St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
       "extra_description": "You notice your bag lying on the floor.",
       "available_commands": {
         "go west": 303,
@@ -395,7 +395,7 @@
       "id": 10001,
       "name": "Dorm Room (Alarm)",
       "available_commands": {
-        "Wake up": 10002,
+        "wake up": 10002,
         "go back to sleep": 90001
       },
       "story_text": "The room is eerily quite now. The alarm is off, but your heart is still racing. What will you do?",
@@ -405,7 +405,7 @@
       "id": 10002,
       "name": "Dorm Room (Waking up)",
       "available_commands": {
-        "Check alarm label": 10003
+        "check alarm label": 10003
       },
       "story_text": "You are groggy and disoriented, but you force yourself up. You mind is fuzzy, and you can't recall anything. You look around to see if anything will clue you in.",
       "choices": ["Check alarm label"]
@@ -414,7 +414,7 @@
       "id": 10003,
       "name": "Dorm Room (Alarm Label)",
       "available_commands": {
-        "Next": 10004
+        "next": 10004
       },
       "story_text": "You check your alarm label. Oh. Oh no. The Project!",
       "choices": ["Next"]
@@ -423,12 +423,12 @@
       "id": 10004,
       "name": "Dorm Room (Uh oh)",
       "available_commands": {
-        "Read note": 10005
+        "read note": 10005
       },
       "story_text": [
         "The realization hits you like a sledgehammer to the brain.",
-        "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye—a crumpled note on your desk.",
-        "You rub the sleep from your eyes, heart pounding like it’s running its own marathon. You snatch the note with trembling fingers."
+        "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye: a crumpled note on your desk.",
+        "You rub the sleep from your eyes, heart pounding like it’s running a marathon. You snatch the note with trembling fingers."
       ],
       "choices": ["Read note"]
     },
@@ -436,14 +436,78 @@
       "id": 10005,
       "name": "Dorm Room (First Mysterious Note)",
       "available_commands": {
-        "Read note": 10006
+        "flip out": 10006
       },
       "story_text": [
-        "The realization hits you like a sledgehammer to the brain.",
-        "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye—a crumpled note on your desk.",
-        "You rub the sleep from your eyes, heart pounding like it’s running its own marathon. You snatch the note with trembling fingers."
+        "[\"Calm down, sleepyhead! You're gonna need your wits today.\"]",
+        "The handwriting looks... familiar. But there's no time to dwell on that. You need to submit your project. You open your laptop. It's out cold.",
+        "You find another yellow sticky note on your laptop screen:",
+        "",
+        "[\"My condolences :D\"]",
+        "",
+        "\"You've got to be kidding me!\", you scream internally.",
+        "",
+        "\"Well, at least I've still got my trusty ol' mug!\" You open your drawer, to where your lucky mug was, is, and always will be.",
+        "Instead of a mug, you find yet another yellow note.",
+        "[\"Shouldn't have said that ;D\"]"
       ],
-      "choices": ["Read note"]
+      "choices": ["Flip out"]
+    },
+    {
+      "id": 10006,
+      "name": "Dorm Room (flipping out)",
+      "available_commands": {
+        "calm down": 10007
+      },
+      "story_text": [
+        "You flip out."
+      ],
+      "choices": ["calm down"]
+    },
+    {
+      "id": 10007,
+      "name": "Dorm Room (calming down)",
+      "available_commands": {
+        "walk out the door": 10008
+      },
+      "story_text": [
+        "You stand there, staring at the last sticky note in disbelief. Your project is MIA, your laptop is dead, and your lucky mug is gone.",
+        "The universe is conspiring against you, and it's working.",
+        "",
+        "\"Okay... okay. Breathe. Just find your stuff, Farrell. You've got this.\"",
+        "",
+        "Whoever's putting up all these notes around your room is about to experience a very, very unfortunate accident. But for now, you get ready to find your belongings."
+      ],
+      "choices": ["Walk out the door"]
+    },
+    {
+      "id": 10008,
+      "name": "Dorm Room (walk out)",
+      "available_commands": {
+        "wear pants": 10009
+      },
+      "story_text": [
+        "You open the door with a sense of determination - only to be met by a cold draft.",
+        "",
+        "Another note flutters from the doorframe:",
+        "[\"You should probably wear some pants, haha.\"]",
+        "",
+        "Embarassed, you shuffle back inside and grab a pair of jeans from your cupboard. That was close."
+      ],
+      "choices": ["Wear pants"]
+    },
+    {
+      "id": 10009,
+      "name": "Dorm Room (pants)",
+      "available_commands": {
+        "prepare to go out": 100
+      },
+      "story_text": [
+        "You feel something in your pants. In your pockets, to be precise. Another yellow note.",
+        "[\"Now might be a good time to get a quick cup of coffee *wink wink nudge nudge*\"]",
+        "Disregarding the fact that they actually wrote, in letters, 'wink wink nudge nudge', you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
+      ],
+      "choices": ["prepare to go out"]
     },
     {
       "id": 90001,

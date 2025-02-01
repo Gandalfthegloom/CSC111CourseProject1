@@ -20,6 +20,7 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Union
+import textwrap
 
 @dataclass
 class Location:
@@ -37,12 +38,12 @@ class Location:
 
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""
-        return self.long_description if not self.visited else self.brief_description
-
+        description = self.long_description if not self.visited else self.brief_description
+        return textwrap.fill(description, width=160)
     def look_around(self) -> str:
         """Return additional details if available, otherwise return a generic response."""
-        return self.extra_description if self.extra_description else "You find nothing of note."
-
+        extra = self.extra_description if self.extra_description else "You find nothing of note."
+        return textwrap.fill(extra, width=160)
 
 @dataclass
 class Item:

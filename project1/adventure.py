@@ -175,23 +175,32 @@ class AdventureGame:
         """Display available actions and commands to the player."""
         location = self.get_location()
         valid_items = [item.name.lower() for item in self._items
-                      if item.start_position == self.current_location_id]
+                       if item.current_position == self.current_location_id]
 
-        print("What to do? Choose from: look, inventory, score, undo, log, quit, toggledebug")
-        print("At this location, you can also:")
-        for action in location.available_commands:
-            print("-", action)
+        if isinstance(location, StoryEvent):
+            print("Actions:")
+            for action in location.available_commands:
+                print("-", action)
+        else:
+            print("What to do? Choose from: look, inventory, score, undo, log, quit, toggledebug")
+            print("At this location, you can also:")
+            for action in location.available_commands:
+                print("-", action)
 
-        if location.looked:  # Check if the player has looked around
-            valid_items = [item.name.lower() for item in self._items if item.start_position == self.current_location_id]
-            if valid_items:
-                print("You can pick up:", ", ".join(valid_items))
+            if location.looked:  # Check if the player has looked around
+                valid_items = [item.name.lower() for item in self._items
+                               if item.current_position == self.current_location_id]
+                if valid_items:
+                    print("You can pick up:", ", ".join(valid_items))
 
     def _get_player_choice(self, valid_items: list[str]) -> str:
         """Get and validate player input."""
         location = self.get_location()
-        while True:
-            choice = input("\nEnter action: ").lower().strip()
+        if isinstance(location, StoryEvent):
+            # Only allow choices specific to the StoryEvent
+            valid_commands = list(location.available_commands.keys())
+        else:
+            # Allow full menu and game commands in regular locations
             valid_commands = [
                 *location.available_commands.keys(),
                 *["look", "inventory", "score", "undo", "log", "quit", "toggledebug"],
@@ -199,6 +208,8 @@ class AdventureGame:
                 *[f"drop {item}" for item in self._get_inventory_items()]
             ]
 
+        while True:
+            choice = input("\nEnter action: ").lower().strip()
             if choice in valid_commands:
                 return choice
             print("Invalid option. Try again.")
