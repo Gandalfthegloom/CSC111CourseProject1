@@ -381,6 +381,38 @@
       "items": []
     }
   ],
+  "story_events": [
+    {
+      "id": 10000,
+      "name": "Dorm Room",
+      "brief_description": "You are in your dorm room, groggy and disoriented.",
+      "long_description": "You wake up in a panic. There's a note on your desk. What will you do?",
+      "available_commands": {
+        "look around": 10001,
+        "go back to sleep": 10002
+      },
+      "story_text": "Calm down, sleepyhead! You're going to need your wits today.",
+      "choices": ["Look around", "Go back to sleep"]
+    },
+    {
+      "id": 10001,
+      "name": "Dorm Room (Investigate)",
+      "brief_description": "You look around your messy dorm.",
+      "long_description": "You spot your bag and wallet. Time to start the day.",
+      "available_commands": {
+        "leave room": 303
+      },
+      "items": ["wallet", "bag"]
+    },
+    {
+      "id": 10002,
+      "name": "Game Over",
+      "brief_description": "You fell back asleep.",
+      "long_description": "You wake up at 5 PM, realizing you missed the deadline. The project is late, and so is your future.",
+      "available_commands": {},
+      "story_text": "You drift back into sleep... but the deadline doesn't wait. Game Over."
+    }
+  ],
   "items": [
     {
       "name": "wallet",
@@ -423,14 +455,6 @@
       "name": "time-turner",
       "description": "A golden-rimmed pocket watch, its hands moving strangely.",
       "start_position": 13
-    }
-  ],
-  "stories": [
-    {
-      "id": 100,
-      "description": "A mysterious note catches your eye.",
-      "story_text": "Calm down, sleepyhead! You're going to need your wits today.",
-      "choices": ["Look around", "Go back to sleep"]
     }
   ]
 }

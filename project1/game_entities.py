@@ -38,7 +38,7 @@ class Location:
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""
         return self.long_description if not self.visited else self.brief_description
-    
+
     def look_around(self) -> str:
         """Return additional details if available, otherwise return a generic response."""
         return self.extra_description if self.extra_description else "You find nothing of note."
@@ -72,17 +72,17 @@ class Item:
 # New StoryEvent class inheriting from Event
 from proj1_event_logger import Event
 
-@dataclass
-class StoryEvent(Event):
-    story_text: Optional[str] = None  # Narrative content
-    choices: Optional[List[str]] = None  # Interactive choices (if any)
 
-    def display_story(self) -> None:
-        print(self.story_text)
-        if self.choices:
-            print("Choices:")
-            for i, choice in enumerate(self.choices, 1):
-                print(f"{i}. {choice}")
+@dataclass
+class StoryEvent(Location):
+    """A story event that functions like a location, allowing for narrative-driven choices."""
+
+    story_text: Optional[str] = None  # Narrative content
+    choices: Optional[List[str]] = None  # List of available choices
+
+    def get_description(self) -> str:
+        """Display the story text instead of regular location descriptions."""
+        return self.story_text if self.story_text else super().get_description()
 
 
 # Note: Other entities you may want to add, depending on your game plan:

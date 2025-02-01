@@ -19,7 +19,7 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from __future__ import annotations
 import json
-from typing import Optional
+from typing import Dict, List, Optional
 
 from game_entities import Location, Item, StoryEvent
 from proj1_event_logger import Event, EventList
@@ -44,7 +44,6 @@ class AdventureGame:
     #   - _locations: a mapping from location id to Location object.
     #                       This represents all the locations in the game.
     #   - _items: a list of Item objects, representing all items in the game.
-
 
     debug_mode = False  # Class-level attribute to toggle debug mode
     _locations: dict[int, Location]
@@ -102,15 +101,19 @@ class AdventureGame:
             current_position=item_data.get("current_position", "start_position")
         ) for item_data in data.get("items", [])]
 
-        stories = {story['id']: StoryEvent(
-            id_num=story['id'],
-            description=story['description'],
-            next_command=story.get('next_command'),
-            next=None,
-            prev=None,
-            story_text=story['story_text'],
-            choices=story.get('choices')
-        ) for story in data.get('stories', [])}
+        # Load story events
+        stories = {
+            story_data['id']: StoryEvent(
+                id_num=story_data['id'],
+                name=story_data['name'],
+                brief_description=story_data['brief_description'],
+                long_description=story_data['long_description'],
+                available_commands=story_data['available_commands'],
+                items=story_data.get('items', []),
+                story_text=story_data.get('story_text',""),
+                choices=story_data.get('choices', [])
+            ) for story_data in data.get('story_events', [])
+        }
 
         return locations, items, stories
 
@@ -127,11 +130,15 @@ class AdventureGame:
         If no ID is provided, return the Location object associated with the current location.
         """
 
-        # TODO: Complete this method as specified
         if loc_id is None:
             loc_id = self.current_location_id
 
-        return self._locations[loc_id]
+        if loc_id in self._stories:
+            return self._stories[loc_id]
+        elif loc_id in self._locations:
+            return self._locations[loc_id]
+        else:
+            raise KeyError(f"Location ID {loc_id} not found in locations or story events.")
 
     def move(self, direction: str) -> bool:
         """Attempt to move the player in the given direction."""
@@ -148,15 +155,19 @@ class AdventureGame:
             return False
 
     def _handle_location_visit(self) -> None:
-        """Handle location visit logic including story triggers and descriptions."""
+        """Handle visiting a location or triggering a story event."""
         location = self.get_location()
 
-        # Story triggers on first visit
-        if not location.visited:
-            self.trigger_story(self.current_location_id)
+        # If it's a StoryEvent, display story content
+        if isinstance(location, StoryEvent):
+            print(location.get_description())
+            if location.name == "Game Over":
+                self.ongoing = False
+                print("Game Over. Better luck next time!")
+            return
 
-        # Print appropriate description
-        print(location.long_description if not location.visited else location.brief_description)
+        # For normal locations
+        print(location.get_description())
         location.visited = True
 
     def _display_available_actions(self) -> None:
@@ -315,7 +326,7 @@ class AdventureGame:
 
 if __name__ == "__main__":
     game_log = EventList()
-    game = AdventureGame('game_data.json', 100)
+    game = AdventureGame('game_data.json', 10000) #Insert starting ID here :D
     menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]
 
     while game.ongoing:
