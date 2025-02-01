@@ -19,7 +19,7 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 @dataclass
 class Location:
@@ -77,11 +77,13 @@ from proj1_event_logger import Event
 class StoryEvent(Location):
     """A story event that functions like a location, allowing for narrative-driven choices."""
 
-    story_text: Optional[str] = None  # Narrative content
+    story_text: Optional[Union[str, List[str]]] = None  # Allow story_text to be a list or a string
     choices: Optional[List[str]] = None  # List of available choices
 
     def get_description(self) -> str:
         """Display the story text instead of regular location descriptions."""
+        if isinstance(self.story_text, list):
+            return "\n".join(self.story_text)  # Join list elements into a multi-line string
         return self.story_text if self.story_text else super().get_description()
 
 

@@ -106,11 +106,11 @@ class AdventureGame:
             story_data['id']: StoryEvent(
                 id_num=story_data['id'],
                 name=story_data['name'],
-                brief_description=story_data['brief_description'],
-                long_description=story_data['long_description'],
+                brief_description=story_data.get('brief_description', ''),
+                long_description=story_data.get('long_description', ''),
                 available_commands=story_data['available_commands'],
                 items=story_data.get('items', []),
-                story_text=story_data.get('story_text',""),
+                story_text=story_data.get('story_text', ""),
                 choices=story_data.get('choices', [])
             ) for story_data in data.get('story_events', [])
         }
@@ -164,6 +164,7 @@ class AdventureGame:
             if location.name == "Game Over":
                 self.ongoing = False
                 print("Game Over. Better luck next time!")
+                exit()  # Add this line to quit the game immediately
             return
 
         # For normal locations
@@ -326,7 +327,7 @@ class AdventureGame:
 
 if __name__ == "__main__":
     game_log = EventList()
-    game = AdventureGame('game_data.json', 10000) #Insert starting ID here :D
+    game = AdventureGame('game_data.json', 1) #Insert starting ID here :D
     menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]
 
     while game.ongoing:

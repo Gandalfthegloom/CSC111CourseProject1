@@ -383,34 +383,74 @@
   ],
   "story_events": [
     {
-      "id": 10000,
-      "name": "Dorm Room",
-      "brief_description": "You are in your dorm room, groggy and disoriented.",
-      "long_description": "You wake up in a panic. There's a note on your desk. What will you do?",
+      "id": 1,
+      "name": "Dorm Room (Wake Up)",
       "available_commands": {
-        "look around": 10001,
-        "go back to sleep": 10002
+        "turn off alarm": 10001
       },
-      "story_text": "Calm down, sleepyhead! You're going to need your wits today.",
-      "choices": ["Look around", "Go back to sleep"]
+      "story_text": "You jolt awake to the sound of Reveille, your alarm blasting the sound of trumpets into your ears.",
+      "choices": ["Turn of alarm"]
     },
     {
       "id": 10001,
-      "name": "Dorm Room (Investigate)",
-      "brief_description": "You look around your messy dorm.",
-      "long_description": "You spot your bag and wallet. Time to start the day.",
+      "name": "Dorm Room (Alarm)",
       "available_commands": {
-        "leave room": 303
+        "Wake up": 10002,
+        "go back to sleep": 90001
       },
-      "items": ["wallet", "bag"]
+      "story_text": "The room is eerily quite now. The alarm is off, but your heart is still racing. What will you do?",
+      "choices": ["Wake up", "Go back to sleep"]
     },
     {
       "id": 10002,
+      "name": "Dorm Room (Waking up)",
+      "available_commands": {
+        "Check alarm label": 10003
+      },
+      "story_text": "You are groggy and disoriented, but you force yourself up. You mind is fuzzy, and you can't recall anything. You look around to see if anything will clue you in.",
+      "choices": ["Check alarm label"]
+    },
+    {
+      "id": 10003,
+      "name": "Dorm Room (Alarm Label)",
+      "available_commands": {
+        "Next": 10004
+      },
+      "story_text": "You check your alarm label. Oh. Oh no. The Project!",
+      "choices": ["Next"]
+    },
+    {
+      "id": 10004,
+      "name": "Dorm Room (Uh oh)",
+      "available_commands": {
+        "Read note": 10005
+      },
+      "story_text": [
+        "The realization hits you like a sledgehammer to the brain.",
+        "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye—a crumpled note on your desk.",
+        "You rub the sleep from your eyes, heart pounding like it’s running its own marathon. You snatch the note with trembling fingers."
+      ],
+      "choices": ["Read note"]
+    },
+    {
+      "id": 10005,
+      "name": "Dorm Room (First Mysterious Note)",
+      "available_commands": {
+        "Read note": 10006
+      },
+      "story_text": [
+        "The realization hits you like a sledgehammer to the brain.",
+        "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye—a crumpled note on your desk.",
+        "You rub the sleep from your eyes, heart pounding like it’s running its own marathon. You snatch the note with trembling fingers."
+      ],
+      "choices": ["Read note"]
+    },
+    {
+      "id": 90001,
       "name": "Game Over",
-      "brief_description": "You fell back asleep.",
-      "long_description": "You wake up at 5 PM, realizing you missed the deadline. The project is late, and so is your future.",
       "available_commands": {},
-      "story_text": "You drift back into sleep... but the deadline doesn't wait. Game Over."
+      "story_text": "You drift back into your slumber... but the deadline doesn't wait.",
+      "choices": []
     }
   ],
   "items": [
