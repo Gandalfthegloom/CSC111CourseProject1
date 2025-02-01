@@ -1,10 +1,22 @@
 {
   "locations": [
     {
+      "id": 100,
+      "name": "Dorm Room (Knox Residence)",
+      "brief_description": "This is your dorm room at Knox Residence. You can go out west to St. George Street or east to Front Campus.",
+      "long_description": "The small, dimly-lit room is a chaotic reflection of a student in the middle of midterm season. A single bed sits unmade in the corner, its rumpled sheets tangled like they've been wrestling with your dreams. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the soft hum St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
+      "extra_description": "A cluttered desk sits against the far wall, buried under stacks of lecture notes, practice exams, empty Red Bull cans, and a sticky note-covered calendar that mocks you with its deadlines. A crooked poster of the CN Tower hangs above it, curling at the edges from humidity. Your trusty backpack lies discarded by the door, half-zipped, as if even it gave up trying to stay organized. You see your wallet, laying flat and open on the table. And in the corner, where your beloved lucky mug should be, there's only a suspiciously familiar yellow note.",
+      "available_commands": {
+        "go west": 303,
+        "go east": 1202
+      },
+      "items": []
+    },
+    {
       "id": 200,
       "name": "Robarts Library",
-      "brief_description": "This is R, an important landmark at UofT.",
-      "long_description": "You are currently at R. There's a lot happening around you.",
+      "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads.",
+      "long_description": "You are currently at Robarts Library. There's a lot happening around you.",
       "available_commands": {
         "go east": 500
       },
@@ -13,8 +25,8 @@
     {
       "id": 500,
       "name": "Saint George and Hoskin Crossroads",
-      "brief_description": "This is SG&H, an important landmark at UofT.",
-      "long_description": "You are currently at SG&H. There's a lot happening around you.",
+      "brief_description": "This is Saint George and Hoskin Crossroads. You can go out west to Robarts Library, south to St. George Street 1, or east to Hoskin Street 1.",
+      "long_description": "You are currently at Saint George and Hoskin Crossroads. There's a lot happening around you.",
       "available_commands": {
         "go west": 200,
         "go south": 301,
@@ -25,8 +37,8 @@
     {
       "id": 401,
       "name": "Hoskin Street 1",
-      "brief_description": "This is H1, an important landmark at UofT.",
-      "long_description": "You are currently at H1. There's a lot happening around you.",
+      "brief_description": "This is Hoskin Street 1. You can go out west to Saint George and Hoskin Crossroads or east to Hoskin Street 2.",
+      "long_description": "You are currently at Hoskin Street 1. There's a lot happening around you.",
       "available_commands": {
         "go west": 500,
         "go east": 402
@@ -36,8 +48,8 @@
     {
       "id": 402,
       "name": "Hoskin Street 2",
-      "brief_description": "This is H2, an important landmark at UofT.",
-      "long_description": "You are currently at H2. There's a lot happening around you.",
+      "brief_description": "This is Hoskin Street 2. You can go out west to Hoskin Street 1, south to Tower Road, or east to Hoskin Street 3.",
+      "long_description": "You are currently at Hoskin Street 2. There's a lot happening around you.",
       "available_commands": {
         "go west": 401,
         "go south": 1700,
@@ -48,8 +60,8 @@
     {
       "id": 403,
       "name": "Hoskin Street 3",
-      "brief_description": "This is H3, an important landmark at UofT.",
-      "long_description": "You are currently at H3. There's a lot happening around you.",
+      "brief_description": "This is Hoskin Street 3. You can go out west to Hoskin Street 2 or east to Hoskin and Queen's Crescent Crossroads.",
+      "long_description": "You are currently at Hoskin Street 3. There's a lot happening around you.",
       "available_commands": {
         "go west": 402,
         "go east": 800
@@ -59,8 +71,8 @@
     {
       "id": 800,
       "name": "Hoskin and Queen's Crescent Crossroads",
-      "brief_description": "This is H&QC, an important landmark at UofT.",
-      "long_description": "You are currently at H&QC. There's a lot happening around you.",
+      "brief_description": "This is Hoskin and Queen's Crescent Crossroads. You can go out west to Hoskin Street 3, south to Queen's Park Crescent 1, or east to Queen's Park 1.",
+      "long_description": "You are currently at Hoskin and Queen's Crescent Crossroads. There's a lot happening around you.",
       "available_commands": {
         "go west": 403,
         "go south": 901,
@@ -71,8 +83,8 @@
     {
       "id": 1800,
       "name": "Sir Daniel Wilson Residence Path",
-      "brief_description": "This is Sir Daniel Wilson Residence's path, an important landmark at UofT.",
-      "long_description": "You are currently at H&QC. There's a lot happening around you.",
+      "brief_description": "This is Sir Daniel Wilson Residence's path. You can go out west to St. George Street 2 or east to Front Campus 1.",
+      "long_description": "You are currently at Sir Daniel Wilson Residence Path. There's a lot happening around you.",
       "available_commands": {
         "go west": 302,
         "go east": 1201
@@ -82,8 +94,8 @@
     {
       "id": 301,
       "name": "St. George Street 1",
-      "brief_description": "This is SG1, an important landmark at UofT.",
-      "long_description": "You are currently at SG1. There's a lot happening around you.",
+      "brief_description": "This is St. George Street 1. You can go out north to Saint George and Hoskin Crossroads, south to St. George Street 2, or east to Cafe Reznikoff.",
+      "long_description": "You are currently at St. George Street 1. There's a lot happening around you.",
       "available_commands": {
         "go north": 500,
         "go south": 302,
@@ -94,8 +106,8 @@
     {
       "id": 302,
       "name": "St. George Street 2",
-      "brief_description": "This is SG2, an important landmark at UofT.",
-      "long_description": "You are currently at SG2. There's a lot happening around you.",
+      "brief_description": "This is St. George Street 2. You can go out north to St. George Street 1, south to St. George Street 3, or east to Sir Daniel Wilson Residence Path.",
+      "long_description": "You are currently at St. George Street 2. There's a lot happening around you.",
       "available_commands": {
         "go north": 301,
         "go south": 303,
@@ -106,8 +118,8 @@
     {
       "id": 303,
       "name": "St. George Street 3",
-      "brief_description": "This is SG3, an important landmark at UofT.",
-      "long_description": "You are currently at SG3. There's a lot happening around you.",
+      "brief_description": "This is St. George Street 3. You can go out north to St. George Street 2, south to St. George Street 4, or east to Dorm Room (Knox Residence).",
+      "long_description": "You are currently at St. George Street 3. There's a lot happening around you.",
       "available_commands": {
         "go north": 302,
         "go south": 304,
@@ -118,8 +130,8 @@
     {
       "id": 304,
       "name": "St. George Street 4",
-      "brief_description": "This is SG4, an important landmark at UofT.",
-      "long_description": "You are currently at SG4. There's a lot happening around you.",
+      "brief_description": "This is St. George Street 4. You can go out north to St. George Street 3, south to St George and College Crossroads, or west to Bahen.",
+      "long_description": "You are currently at St. George Street 4. There's a lot happening around you.",
       "available_commands": {
         "go north": 303,
         "go south":1500,
@@ -130,30 +142,18 @@
     {
       "id": 1100,
       "name": "Cafe Reznikoff",
-      "brief_description": "This is CR, an important landmark at UofT.",
-      "long_description": "You are currently at CR. There's a lot happening around you.",
+      "brief_description": "This is Cafe Reznikoff. You can go out west to St. George Street 1.",
+      "long_description": "You are currently at Cafe Reznikoff. There's a lot happening around you.",
       "available_commands": {
         "go west": 301
       },
       "items": []
     },
     {
-      "id": 100,
-      "name": "Dorm Room (Knox Residence)",
-      "brief_description": "This is your dorm room at Knox Residence. You can go out west to St. George Street or east to Front Campus.",
-      "long_description": "The small, dimly-lit room is a chaotic reflection of a student in the middle of midterm season. A single bed sits unmade in the corner, its rumpled sheets tangled like they've been wrestling with your dreams. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the soft hum St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
-      "extra_description": "You notice your bag lying on the floor.",
-      "available_commands": {
-        "go west": 303,
-        "go east": 1202
-      },
-      "items": []
-    },
-    {
       "id": 1201,
       "name": "Front Campus 1",
-      "brief_description": "This is FC1, an important landmark at UofT.",
-      "long_description": "You are currently at FC1. There's a lot happening around you.",
+      "brief_description": "This is Front Campus 1. You can go out north to Hoskin Street 2, south to Front Campus 2, west to Cafe Reznikoff, or east to Hart House Circle.",
+      "long_description": "You are currently at Front Campus 1. There's a lot happening around you.",
       "available_commands": {
         "go north": 402,
         "go south": 1202,
@@ -165,8 +165,8 @@
     {
       "id": 1202,
       "name": "Front Campus 2",
-      "brief_description": "This is FC2, an important landmark at UofT.",
-      "long_description": "You are currently at FC2. There's a lot happening around you.",
+      "brief_description": "This is Front Campus 2. You can go out north to Front Campus 1, south to Anatomy Lane, west to Dorm Room (Knox Residence), or east to Hart House Circle.",
+      "long_description": "You are currently at Front Campus 2. There's a lot happening around you.",
       "available_commands": {
         "go north": 1201,
         "go south": 1300,
@@ -178,8 +178,8 @@
     {
       "id": 1203,
       "name": "King's College Road",
-      "brief_description": "This is FC2, an important landmark at UofT.",
-      "long_description": "You are currently at FC2. There's a lot happening around you.",
+      "brief_description": "This is King's College Road. You can go out north to Front Campus 2 or south to College Street 2.",
+      "long_description": "You are currently at King's College Road. There's a lot happening around you.",
       "available_commands": {
         "go north": 1202,
         "go south": 602
@@ -189,8 +189,8 @@
     {
       "id": 1300,
       "name": "Anatomy Lane",
-      "brief_description": "This is AL, an important landmark at UofT.",
-      "long_description": "You are currently at AL. There's a lot happening around you.",
+      "brief_description": "This is Anatomy Lane. You can go out east to Queen's Park Crescent 3 or west to Front Campus 2.",
+      "long_description": "You are currently at Anatomy Lane. There's a lot happening around you.",
       "available_commands": {
         "go east": 903,
         "go west": 1202
@@ -200,8 +200,8 @@
     {
       "id": 1400,
       "name": "Hart House Circle",
-      "brief_description": "This is HC, an important landmark at UofT.",
-      "long_description": "You are currently at HC. There's a lot happening around you.",
+      "brief_description": "This is Hart House Circle. You can go out west to Front Campus 1 or east to Queen's Park Crescent 2.",
+      "long_description": "You are currently at Hart House Circle. There's a lot happening around you.",
       "available_commands": {
         "go west": 1201,
         "go east": 902
@@ -211,8 +211,8 @@
     {
       "id": 901,
       "name": "Queen's Park Crescent 1",
-      "brief_description": "This is QC1, an important landmark at UofT.",
-      "long_description": "You are currently at QC1. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park Crescent 1. You can go out north to Hoskin and Queen's Crescent Crossroads, south to Queen's Park Crescent 2, or east to Queen's Park 2.",
+      "long_description": "You are currently at Queen's Park Crescent 1. There's a lot happening around you.",
       "available_commands": {
         "go north": 800,
         "go south": 902,
@@ -223,8 +223,8 @@
     {
       "id": 902,
       "name": "Queen's Park Crescent 2",
-      "brief_description": "This is QC2, an important landmark at UofT.",
-      "long_description": "You are currently at QC2. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park Crescent 2. You can go out north to Queen's Park Crescent 1, south to Queen's Park Crescent 3, west to Hart House Circle, or east to Queen's Park 3.",
+      "long_description": "You are currently at Queen's Park Crescent 2. There's a lot happening around you.",
       "available_commands": {
         "go north": 901,
         "go south": 903,
@@ -236,8 +236,8 @@
     {
       "id": 903,
       "name": "Queen's Park Crescent 3",
-      "brief_description": "This is QC3, an important landmark at UofT.",
-      "long_description": "You are currently at QC3. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent 4, west to Anatomy Lane, or east to Queen's Park 4.",
+      "long_description": "You are currently at Queen's Park Crescent 3. There's a lot happening around you.",
       "available_commands": {
         "go north": 902,
         "go south": 904,
@@ -249,8 +249,8 @@
     {
       "id": 904,
       "name": "Queen's Park Crescent 4",
-      "brief_description": "This is QC4, an important landmark at UofT.",
-      "long_description": "You are currently at QC4. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park Crescent 4. You can go out north to Queen's Park Crescent 3 or west to Bahen.",
+      "long_description": "You are currently at Queen's Park Crescent 4. There's a lot happening around you.",
       "available_commands": {
         "go north": 903,
         "go west": 1600
@@ -260,8 +260,8 @@
     {
       "id": 1001,
       "name": "Queen's Park 1",
-      "brief_description": "This is Q1, an important landmark at UofT.",
-      "long_description": "You are currently at Q1. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park 1. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park 2.",
+      "long_description": "You are currently at Queen's Park 1. There's a lot happening around you.",
       "available_commands": {
         "go west": 800,
         "go south": 1002
@@ -271,8 +271,8 @@
     {
       "id": 1002,
       "name": "Queen's Park 2",
-      "brief_description": "This is Q2, an important landmark at UofT.",
-      "long_description": "You are currently at Q2. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park 2. You can go out north to Queen's Park 1, south to Queen's Park 3, or west to Queen's Park Crescent 1.",
+      "long_description": "You are currently at Queen's Park 2. There's a lot happening around you.",
       "available_commands": {
         "go north": 1001,
         "go south": 1003,
@@ -283,8 +283,8 @@
     {
       "id": 1003,
       "name": "Queen's Park 3",
-      "brief_description": "This is Q3, an important landmark at UofT.",
-      "long_description": "You are currently at Q3. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park 3. You can go out north to Queen's Park 2, south to Queen's Park 4, or west to Queen's Park Crescent 2.",
+      "long_description": "You are currently at Queen's Park 3. There's a lot happening around you.",
       "available_commands": {
         "go north": 1002,
         "go south": 1004,
@@ -295,8 +295,8 @@
     {
       "id": 1004,
       "name": "Queen's Park 4",
-      "brief_description": "This is Q4, an important landmark at UofT.",
-      "long_description": "You are currently at Q4. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park 4. You can go out north to Queen's Park 3 or west to Queen's Park Crescent 3.",
+      "long_description": "You are currently at Queen's Park 4. There's a lot happening around you.",
       "available_commands": {
         "go north": 1003,
         "go west": 903
@@ -306,8 +306,8 @@
     {
       "id": 1600,
       "name": "Bahen",
-      "brief_description": "This is B, an important landmark at UofT.",
-      "long_description": "You are currently at B. There's a lot happening around you.",
+      "brief_description": "This is Bahen. You can go out north to Dorm Room (Knox Residence), east to Queen's Park Crescent 4, or south to St George and College Crossroads.",
+      "long_description": "You are currently at Bahen. There's a lot happening around you.",
       "available_commands": {
         "go north": 100,
         "go east": 904,
@@ -318,8 +318,8 @@
     {
       "id":1500,
       "name": "St George and College Crossroads",
-      "brief_description": "This is SG&C, an important landmark at UofT.",
-      "long_description": "You are currently at SG&C. There's a lot happening around you.",
+      "brief_description": "This is St George and College Crossroads. You can go out north to St. George Street 4 or east to College Street 1.",
+      "long_description": "You are currently at St George and College Crossroads. There's a lot happening around you.",
       "available_commands": {
         "go north": 304,
         "go east": 601
@@ -329,8 +329,8 @@
     {
       "id": 601,
       "name": "College Street 1",
-      "brief_description": "This is C1, an important landmark at UofT.",
-      "long_description": "You are currently at C1. There's a lot happening around you.",
+      "brief_description": "This is College Street 1. You can go out west to St George and College Crossroads or east to College Street 2.",
+      "long_description": "You are currently at College Street 1. There's a lot happening around you.",
       "available_commands": {
         "go west":1500,
         "go east": 602
@@ -340,8 +340,8 @@
     {
       "id": 602,
       "name": "College Street 2",
-      "brief_description": "This is C2, an important landmark at UofT.",
-      "long_description": "You are currently at C2. There's a lot happening around you.",
+      "brief_description": "This is College Street 2. You can go out west to College Street 1 or east to College Street 3.",
+      "long_description": "You are currently at College Street 2. There's a lot happening around you.",
       "available_commands": {
         "go west": 601,
         "go east": 603
@@ -351,8 +351,8 @@
     {
       "id": 603,
       "name": "College Street 3",
-      "brief_description": "This is C3, an important landmark at UofT.",
-      "long_description": "You are currently at C3. There's a lot happening around you.",
+      "brief_description": "This is College Street 3. You can go out west to College Street 2 or east to College and Queen's Crescent Crossroads.",
+      "long_description": "You are currently at College Street 3. There's a lot happening around you.",
       "available_commands": {
         "go west": 602,
         "go east": 700
@@ -361,9 +361,9 @@
     },
     {
       "id": 700,
-      "name": "College and Queen's Park Crescent Crossroads",
-      "brief_description": "This is C&QC, an important landmark at UofT.",
-      "long_description": "You are currently at C&QC. There's a lot happening around you.",
+      "name": "College and Queen's Crescent Crossroads",
+      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
+      "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
       "available_commands": {
         "go west": 603
       },
@@ -372,8 +372,8 @@
     {
       "id": 1700,
       "name": "Tower Road",
-      "brief_description": "This is T, an important landmark at UofT.",
-      "long_description": "You are currently at T. There's a lot happening around you.",
+      "brief_description": "This is Tower Road. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
+      "long_description": "You are currently at Tower Road. There's a lot happening around you.",
       "available_commands": {
         "go north": 402,
         "go south": 1201
