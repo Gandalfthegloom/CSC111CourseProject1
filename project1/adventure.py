@@ -113,7 +113,7 @@ class AdventureGame:
         ) for story in data.get('stories', [])}
 
         return locations, items, stories
-    
+
     def trigger_story(self, location_id: int) -> None:
         if location_id in self._stories:
             story_event = self._stories[location_id]
@@ -147,155 +147,201 @@ class AdventureGame:
             print("You can't go that way.")
             return False
 
+    def _handle_location_visit(self) -> None:
+        """Handle location visit logic including story triggers and descriptions."""
+        location = self.get_location()
 
-if __name__ == "__main__":
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
-
-    game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 100)  # load data, setting initial location ID to 1
-    menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]  # Regular menu options available at each location
-    choice = None
-
-    # Note: You may modify the code below as needed; the following starter code is just a suggestion
-    while game.ongoing:
-        # Note: If the loop body is getting too long, you should split the body up into helper functions
-        # for better organization. Part of your marks will be based on how well-organized your code is.
-
-        location = game.get_location()
-
-        # Story triggers.
+        # Story triggers on first visit
         if not location.visited:
-            game.trigger_story(game.current_location_id)
+            self.trigger_story(self.current_location_id)
 
-
-        # Item check for item-related features.
-        item_name = None
-        item_prev_location = None
-        new_event = Event(
-            id_num=location.id_num,
-            description=location.long_description if not location.visited else location.brief_description,
-            next_command=None,
-            next=None,
-            prev=None,
-            item_affected=item_name,
-            item_prev_location=item_prev_location
-        )
-
-        location.visited = True  # Mark location as visited
-
-        # TODO: Depending on whether or not it's been visited before,
-        #  print either full description (first time visit) or brief description (every subsequent visit) of location
+        # Print appropriate description
         print(location.long_description if not location.visited else location.brief_description)
+        location.visited = True
 
+    def _display_available_actions(self) -> None:
+        """Display available actions and commands to the player."""
+        location = self.get_location()
+        valid_items = [item.name.lower() for item in self._items
+                      if item.start_position == self.current_location_id]
 
-        # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit, toggledebug")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
 
-        #DEBUGMODE
-        if AdventureGame.debug_mode:
-            print(f"[DEBUG] Debug mode is {'ON' if AdventureGame.debug_mode else 'OFF'}.")
-            print(f"[DEBUG] Current location: {game.current_location_id}")
-            print(f"[DEBUG] Items at this location: {[item.name for item in game._items if item.current_position == game.current_location_id]}")
+        if location.looked:  # Check if the player has looked around
+            valid_items = [item.name.lower() for item in self._items if item.start_position == self.current_location_id]
+            if valid_items:
+                print("You can pick up:", ", ".join(valid_items))
 
-        # Validate choice
-        choice = input("\nEnter action: ").lower().strip()
-        valid_items = [item.name.lower() for item in game._items if item.start_position == game.current_location_id]
-        while choice not in location.available_commands and choice not in menu and not any(choice.startswith(f"pick up {item}") for item in valid_items):
-            print("That was an invalid option; try again.")
+    def _get_player_choice(self, valid_items: list[str]) -> str:
+        """Get and validate player input."""
+        location = self.get_location()
+        while True:
             choice = input("\nEnter action: ").lower().strip()
+            valid_commands = [
+                *location.available_commands.keys(),
+                *["look", "inventory", "score", "undo", "log", "quit", "toggledebug"],
+                *[f"pick up {item}" for item in valid_items],
+                *[f"drop {item}" for item in self._get_inventory_items()]
+            ]
 
+            if choice in valid_commands:
+                return choice
+            print("Invalid option. Try again.")
 
-        print("========")
-        print("You decided to:", choice)
-        game_log.add_event(new_event, choice)
-
+    def _process_menu_command(self, choice: str, game: AdventureGame, game_log: EventList) -> None:
+        """Handle menu commands that don't change location."""
         if choice == "look":
-            location = game.get_location()
-            print(location.look_around())
+            self._handle_look_command(game)
         elif choice == "inventory":
-            inventory_items = [item.name for item in game._items if item.current_position == -1]
-            print("Inventory:", ", ".join(inventory_items) if inventory_items else "(empty)")
+            self._handle_inventory_command()
         elif choice == "score":
-            print("Score functionality not yet implemented.")
-        # In the 'undo' block:
+            self._handle_score_command()
         elif choice == "undo":
-            last_event = game_log.remove_last_event()
-            last_event = game_log.remove_last_event()
-            if last_event is None:
-                print("Nothing to undo!")
-            else:
-                # Revert location change
-                if last_event.prev:
-                    game.current_location_id = last_event.prev.id_num
-                    print(f"Undo successful. You are now back at {game.get_location().name}.")
-                else:
-                    print("Undo successful. Back to the start.")
-                
-                # Revert item changes
-                if last_event.item_affected is not None:
-                    item = next((i for i in game._items if i.name == last_event.item_affected), None)
-                    if item:
-                        item.current_position = last_event.item_prev_location
-                        location_name = game.get_location(last_event.item_prev_location).name if last_event.item_prev_location != -1 else "inventory"
-                        print(f"{item.name} was returned to {location_name}.")
-
+            self._handle_undo_command(game, game_log)
         elif choice == "log":
             game_log.display_events()
         elif choice == "quit":
-            print("Quitting game...")
             game.ongoing = False
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+            print("Quitting game...")
         elif choice == "toggledebug":
             AdventureGame.debug_mode = not AdventureGame.debug_mode
             print(f"Debug mode {'enabled' if AdventureGame.debug_mode else 'disabled'}.")
-            continue  # Skip the rest of the loop to prevent an extra event being logged
+
+    def _process_game_command(self, choice: str, game: AdventureGame, game_log: EventList) -> None:
+        """Handle game commands that affect game state."""
+        new_event = self._create_new_event(game)
+
+        if choice.startswith("pick up "):
+            self._handle_item_pickup(choice, game, new_event)
+        elif choice.startswith("drop "):
+            self._handle_item_drop(choice, game, new_event)
         else:
-            # Handle non-menu actions
-            # In the main loop where "pick up" is handled:
-            if choice.startswith("pick up "):
-                item_name = choice.replace("pick up ", "").strip().lower()
-                item = next((i for i in game._items if
-                            i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+            self._handle_movement(choice, game)
 
-                if item:
-                    # Capture the item's previous state
-                    new_event.item_affected = item.name
-                    new_event.item_prev_location = item.start_position  # Previous location
-                    item.current_position = -1  # Move to inventory
-                    print(f"You picked up {item.name}!")
-                else:
-                    print("There's no such item here.")
-                    
-            elif choice.startswith("drop "):
-                item_name = choice.replace("drop ", "").strip().lower()
-                item = next((i for i in game._items if i.name.lower() == item_name and i.start_position == -1), None)
-                if item:
-                    new_event.item_affected = item.name
-                    new_event.item_prev_location = -1  # Previous location was inventory
-                    item.current_position = game.current_location_id  # Move to current location
-                    print(f"You dropped {item.name}.")
-                else:
-                    print("You don't have that item.")
+        game_log.add_event(new_event, choice)
 
-            else:
-                # Handle movement and other commands as usual
-                if choice in location.available_commands:
-                    game.move(choice)
-                else:
-                    print("That was an invalid option; try again.")
+        if AdventureGame.debug_mode:
+            print(f"[DEBUG] Event logged: Location={new_event.id_num}, Command={choice}")
+            game_log.display_events()
 
-            # TODO: Add in code to deal with actions which do not change the location (e.g., taking or using an item)
+    # Additional helper functions
+    def _get_inventory_items(self) -> list[str]:
+        """Return list of item names in inventory."""
+        return [item.name for item in self._items if item.current_position == -1]
 
+    def _handle_look_command(self, game: AdventureGame) -> None:
+        location = game.get_location()
+        print(location.look_around())
+        location.looked = True  # Mark that the player has looked around (in this location)
 
+    def _handle_inventory_command(self) -> None:
+        """Display inventory contents."""
+        inventory = self._get_inventory_items()
+        print("Inventory:", ", ".join(inventory) if inventory else "(empty)")
 
+    def _handle_score_command(self) -> None:
+        """Display current score."""
+        # Implement actual scoring logic here
+        print("Score functionality not yet implemented.")
+
+    def _handle_undo_command(self, game: AdventureGame, game_log: EventList) -> None:
+        """Handle undo command."""
+        last_event = game_log.remove_last_event()
+        if last_event is None:
+            print("Nothing to undo!")
+            return
+
+        if last_event.prev:
+            game.current_location_id = last_event.prev.id_num
+            print(f"Undo successful. Back to {game.get_location().name}.")
+
+        if last_event.item_affected:
+            item = next((i for i in self._items if i.name == last_event.item_affected), None)
+            if item:
+                item.current_position = last_event.item_prev_location
+                location_name = "inventory" if last_event.item_prev_location == -1 \
+                    else game.get_location(last_event.item_prev_location).name
+                print(f"{item.name} returned to {location_name}.")
+
+    def _create_new_event(self, game: AdventureGame) -> Event:
+        """Create new event for logging."""
+        location = game.get_location()
+        return Event(
+            id_num=location.id_num,
+            description=location.long_description if not location.visited else location.brief_description,
+            next_command=None,
+            next=None,
+            prev=None,
+            item_affected=None,
+            item_prev_location=None
+        )
+
+    def _handle_item_pickup(self, choice: str, game: AdventureGame, event: Event) -> None:
+        """Handle item pickup logic."""
+        item_name = choice.replace("pick up ", "").strip().lower()
+        item = next((i for i in self._items if
+                    i.name.lower() == item_name and i.start_position == game.current_location_id), None)
+
+        if item:
+            event.item_affected = item.name
+            event.item_prev_location = item.start_position
+            item.current_position = -1
+            print(f"You picked up {item.name}!")
+        else:
+            print("There's no such item here.")
+
+    def _handle_item_drop(self, choice: str, game: AdventureGame, event: Event) -> None:
+        """Handle item drop logic."""
+        item_name = choice.replace("drop ", "").strip().lower()
+        item = next((i for i in self._items if i.name.lower() == item_name and i.current_position == -1), None)
+
+        if item:
+            event.item_affected = item.name
+            event.item_prev_location = -1
+            item.current_position = game.current_location_id
+            print(f"You dropped {item.name}.")
+        else:
+            print("You don't have that item.")
+
+    def _handle_movement(self, choice: str, game: AdventureGame) -> None:
+        """Handle movement between locations."""
+        if choice in game.get_location().available_commands:
+            game.move(choice)
+        else:
+            print("Invalid movement command.")
+
+if __name__ == "__main__":
+    game_log = EventList()
+    game = AdventureGame('game_data.json', 100)
+    menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]
+
+    while game.ongoing:
+        # Handle location visit logic
+        game._handle_location_visit()
+
+        # Get valid items for current location
+        valid_items = [item.name.lower() for item in game._items
+                      if item.current_position == game.current_location_id]
+
+        # Debug information
+        if AdventureGame.debug_mode:
+            print(f"[DEBUG] Current location: {game.current_location_id}")
+            print(f"[DEBUG] Items here: {[item.name for item in game._items 
+                                      if item.current_position == game.current_location_id]}")
+
+        # Display actions
+        game._display_available_actions()
+
+        # Get player input
+        choice = game._get_player_choice(valid_items)
+        print("========")
+        print("You decided to:", choice)
+
+        # Process command
+        if choice in menu:
+            game._process_menu_command(choice, game, game_log)
+        else:
+            game._process_game_command(choice, game, game_log)

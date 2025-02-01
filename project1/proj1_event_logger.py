@@ -85,14 +85,15 @@ class EventList:
         """
         # Hint: You should update the previous node's <next_command> as needed
 
+        event.next_command = command
+
         if self.is_empty():
             self.first = event
             self.last = event
             event.prev = None
         else:
-            self.last.next_command = command
-            self.last.next = event
             event.prev = self.last
+            self.last.next = event
             self.last = event
 
     def remove_last_event(self) -> Optional[Event]:
@@ -111,8 +112,6 @@ class EventList:
             self.last.next_command = None
 
         return removed_event
-
-
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""

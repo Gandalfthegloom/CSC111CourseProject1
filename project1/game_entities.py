@@ -33,6 +33,7 @@ class Location:
     items: List[str]  # List of item names present in this location
     extra_description: Optional[str] = None  # New field for additional details
     visited: bool = False  # Tracks if player has been here before
+    looked: bool = False # Tracks if player has looked here before
 
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""

@@ -41,7 +41,7 @@ class AdventureGameSimulation:
         self._events.add_event(Event(
             id_num=initial_location.id_num,
             description=initial_location.long_description,
-            next_command=None,
+            next_command='start',  # Change from None to 'start'
             next=None,
             prev=None
         ), command=None)

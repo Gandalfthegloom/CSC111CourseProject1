@@ -87,7 +87,7 @@
       "available_commands": {
         "go north": 500,
         "go south": 302,
-        "go east" : 100
+        "go east" : 1100
       },
       "items": []
     },
@@ -144,7 +144,7 @@
       "long_description": "bababooey",
       "extra_description": "You notice your bag lying on the floor.",
       "available_commands": {
-        "go west": 301,
+        "go west": 303,
         "go east": 1202
       },
       "items": []
