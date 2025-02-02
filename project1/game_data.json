@@ -305,6 +305,73 @@
       "items": []
     },
     {
+      "id":1500,
+      "name": "St George and College Crossroads",
+      "brief_description": "This is St George and College Crossroads. You can go out north to St. George Street 4 or east to College Street 1.",
+      "long_description": "You are currently at St George and College Crossroads. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 304,
+        "go east": 601
+      },
+      "items": []
+    },
+    {
+      "id": 601,
+      "name": "College Street 1",
+      "brief_description": "This is College Street 1. You can go out west to St George and College Crossroads or east to College Street 2.",
+      "long_description": "You are currently at College Street 1. There's a lot happening around you.",
+      "available_commands": {
+        "go west":1500,
+        "go east": 602
+      },
+      "items": []
+    },
+    {
+      "id": 602,
+      "name": "College Street 2",
+      "brief_description": "This is College Street 2. You can go out west to College Street 1 or east to College Street 3.",
+      "long_description": "You are currently at College Street 2. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 601,
+        "go east": 603
+      },
+      "items": []
+    },
+    {
+      "id": 603,
+      "name": "College Street 3",
+      "brief_description": "This is College Street 3. You can go out west to College Street 2 or east to College and Queen's Crescent Crossroads.",
+      "long_description": "You are currently at College Street 3. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 602,
+        "go east": 700
+      },
+      "items": []
+    },
+    {
+      "id": 700,
+      "name": "College and Queen's Crescent Crossroads",
+      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
+      "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 603
+      },
+      "items": []
+    },
+    {
+      "id": 1700,
+      "name": "Tower Road",
+      "brief_description": "This is Tower Road. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
+      "long_description": "You are currently at Tower Road. There's a lot happening around you.",
+      "available_commands": {
+        "go north": 402,
+        "go south": 1201
+      },
+      "items": []
+    }
+  ],
+  "bahen_locations": [
+    {
       "id": 1600,
       "name": "Bahen Entrance",
       "brief_description": "This is the Bahen Centre for Information Technology. You can go east to St. George Street 4, north to the Auditorium, or west to go upstairs.",
@@ -315,8 +382,7 @@
         "go north": 1602,
         "go west": 1601
       },
-      "items": [],
-      "first_time_event_id": 160001
+      "items": []
     },
     {
       "id": 1601,
@@ -398,76 +464,14 @@
       "id": 1608,
       "name": "Room 2294",
       "brief_description": "The fabled Room 2294...",
-      "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "long_description": "p",
       "available_commands": {
         "go east": 1601
       },
-      "items": []
-    },
-    {
-      "id":1500,
-      "name": "St George and College Crossroads",
-      "brief_description": "This is St George and College Crossroads. You can go out north to St. George Street 4 or east to College Street 1.",
-      "long_description": "You are currently at St George and College Crossroads. There's a lot happening around you.",
-      "available_commands": {
-        "go north": 304,
-        "go east": 601
-      },
-      "items": []
-    },
-    {
-      "id": 601,
-      "name": "College Street 1",
-      "brief_description": "This is College Street 1. You can go out west to St George and College Crossroads or east to College Street 2.",
-      "long_description": "You are currently at College Street 1. There's a lot happening around you.",
-      "available_commands": {
-        "go west":1500,
-        "go east": 602
-      },
-      "items": []
-    },
-    {
-      "id": 602,
-      "name": "College Street 2",
-      "brief_description": "This is College Street 2. You can go out west to College Street 1 or east to College Street 3.",
-      "long_description": "You are currently at College Street 2. There's a lot happening around you.",
-      "available_commands": {
-        "go west": 601,
-        "go east": 603
-      },
-      "items": []
-    },
-    {
-      "id": 603,
-      "name": "College Street 3",
-      "brief_description": "This is College Street 3. You can go out west to College Street 2 or east to College and Queen's Crescent Crossroads.",
-      "long_description": "You are currently at College Street 3. There's a lot happening around you.",
-      "available_commands": {
-        "go west": 602,
-        "go east": 700
-      },
-      "items": []
-    },
-    {
-      "id": 700,
-      "name": "College and Queen's Crescent Crossroads",
-      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
-      "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
-      "available_commands": {
-        "go west": 603
-      },
-      "items": []
-    },
-    {
-      "id": 1700,
-      "name": "Tower Road",
-      "brief_description": "This is Tower Road. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
-      "long_description": "You are currently at Tower Road. There's a lot happening around you.",
-      "available_commands": {
-        "go north": 402,
-        "go south": 1201
-      },
-      "items": []
+      "items": [],
+      "is_locked": true,
+      "unlock_condition": "lambda: 'tcard' in inventory",
+      "first_time_event_id": 160001
     }
   ],
   "story_events": [

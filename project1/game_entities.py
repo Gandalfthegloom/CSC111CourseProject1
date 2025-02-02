@@ -90,10 +90,71 @@ class StoryEvent(Location):
         return self.story_text if self.story_text else super().get_description()
 
 
-# Note: Other entities you may want to add, depending on your game plan:
-# - Puzzle class to represent special locations (could inherit from Location class if it seems suitable)
-# - Player class
-# etc.
+@dataclass
+class BahenRoom(Location):
+    """
+    A specialized Location class for Bahen Building, incorporating puzzle mechanics and locked rooms.
+
+    Attributes:
+        - is_locked: Indicates if the room is locked.
+        - puzzle: A callable representing the puzzle logic.
+        - puzzle_solved: Tracks if the puzzle in this room has been solved.
+        - unlock_condition: A callable that determines if the room can be unlocked.
+    """
+
+    is_locked: bool = False
+    puzzle: Optional[Callable[[], bool]] = None
+    puzzle_solved: bool = False
+    unlock_condition: Optional[Callable[[], bool]] = None  # Function to check if the room can be unlocked
+
+    def enter(self) -> str:
+        """Attempt to enter the room. If locked, provide appropriate message."""
+        if self.is_locked and not self.puzzle_solved:
+            return "The door is locked. You need to solve a puzzle or find a key to enter."
+        return super().get_description()
+
+    def attempt_unlock(self) -> str:
+        """Try to unlock the room based on the unlock condition or puzzle."""
+        if self.unlock_condition and self.unlock_condition():
+            self.is_locked = False
+            return "You've unlocked the door!"
+        elif self.puzzle:
+            if self.solve_puzzle():
+                self.is_locked = False
+                return "Puzzle solved! The door is now unlocked."
+            else:
+                return "The puzzle remains unsolved. Keep trying!"
+        return "You can't unlock this room yet."
+
+    def solve_puzzle(self) -> bool:
+        """Attempt to solve the puzzle if one exists."""
+        if self.puzzle and not self.puzzle_solved:
+            self.puzzle_solved = self.puzzle()
+            return self.puzzle_solved
+        return False
+
+    def look_around(self) -> str:
+        """Provide additional details or hints if the player looks around."""
+        if not self.puzzle_solved and self.extra_description:
+            return f"You see something unusual here: {self.extra_description}"
+        return super().look_around()
+
+# Example Puzzle Functions
+def caesar_cipher_puzzle() -> bool:
+    """Simulates solving a Caesar cipher puzzle."""
+    user_input = input("Enter the 5-letter code to unlock the safe: ").strip().upper()
+    return user_input == "JULIUS"
+
+def mirror_riddle_puzzle() -> bool:
+    """Simulates solving the mirror reflection riddle."""
+    user_input = input("What do you do after reading the reversed note? ").strip().lower()
+    return user_input == "check bag"
+
+def shadow_projection_puzzle() -> bool:
+    """Simulates solving the projection shadow puzzle."""
+    user_input = input("What location do the unshadowed letters spell out? ").strip().lower()
+    return user_input == "bathroom"
+
 
 if __name__ == "__main__":
     pass
