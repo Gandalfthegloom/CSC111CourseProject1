@@ -5,7 +5,7 @@
       "name": "Dorm Room (Knox Residence)",
       "brief_description": "This is your dorm room at Knox Residence. You can go out west to St. George Street or east to Front Campus.",
       "long_description": "The small, dimly-lit room is a chaotic reflection of a student in the middle of midterm season. A single bed sits unmade in the corner, its rumpled sheets tangled like they've been wrestling with your dreams. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the soft hum St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
-      "extra_description": "A cluttered desk sits against the far wall, buried under stacks of lecture notes, practice exams, empty Red Bull cans, and a sticky note-covered calendar that mocks you with its deadlines. A crooked poster of the CN Tower hangs above it, curling at the edges from humidity. Your trusty backpack lies discarded by the door, half-zipped, as if even it gave up trying to stay organized. You see your wallet, laying flat and open on the table. And in the corner, where your beloved lucky mug should be, there's only a suspiciously familiar yellow note.",
+      "extra_description": "A cluttered desk sits against the far wall, buried under stacks of lecture notes, practice exams, empty Red Bull cans, and a sticky note-covered calendar that mocks you with its deadlines. A crooked poster of the CN Tower hangs above it, curling at the edges from humidity. Your trusty backpack lies discarded by the door, half-zipped, as if even it gave up trying to stay organized. You see your wallet, laying flat and open on the table.",
       "available_commands": {
         "go west": 303,
         "go east": 1202
@@ -147,7 +147,8 @@
       "available_commands": {
         "go west": 301
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 20001
     },
     {
       "id": 1201,
@@ -468,7 +469,7 @@
       "id": 10007,
       "name": "Dorm Room (calming down)",
       "available_commands": {
-        "walk out the door": 10008
+        "walk out": 10008
       },
       "story_text": [
         "You stand there, staring at the last sticky note in disbelief. Your project is MIA, your laptop is dead, and your lucky mug is gone.",
@@ -478,7 +479,7 @@
         "",
         "Whoever's putting up all these notes around your room is about to experience a very, very unfortunate accident. But for now, you get ready to find your belongings."
       ],
-      "choices": ["Walk out the door"]
+      "choices": ["Walk out"]
     },
     {
       "id": 10008,
@@ -508,6 +509,19 @@
         "Disregarding the fact that they actually wrote, in letters, 'wink wink nudge nudge', you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
       ],
       "choices": ["prepare to go out"]
+    },
+    {
+      "id": 20001,
+      "name": "Cafe Reznikoff (First Visit)",
+      "available_commands": {
+        "read note": 11001
+      },
+      "story_text": [
+        "The rich aroma of freshly brewed coffee greets you as you step into Cafe Reznikoff.",
+        "As you approach the counter, you notice a yellow sticky note tucked under a coffee cup.",
+        "\"Another one? Who keeps leaving these notes?\""
+      ],
+      "choices": ["Read note"]
     },
     {
       "id": 90001,

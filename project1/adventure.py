@@ -90,7 +90,8 @@ class AdventureGame:
                 long_description=loc_data['long_description'],
                 available_commands=loc_data['available_commands'],
                 items=loc_data['items'],
-                extra_description=loc_data.get('extra_description', None)
+                extra_description=loc_data.get('extra_description', None),
+                first_time_event_id=loc_data.get('first_time_event_id', None)
             )
 
         items = [Item(
@@ -116,14 +117,6 @@ class AdventureGame:
         }
 
         return locations, items, stories
-
-    def trigger_story(self, location_id: int) -> None:
-        if location_id in self._stories:
-            story_event = self._stories[location_id]
-            story_event.display_story()
-        else:
-            print("No story at this location.")
-
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
         """Return Location object associated with the provided location ID.
@@ -164,10 +157,18 @@ class AdventureGame:
             if location.name == "Game Over":
                 self.ongoing = False
                 print("Game Over. Better luck next time!")
-                exit()  # Add this line to quit the game immediately
+                exit()
             return
 
-        # For normal locations
+        # Handle first-time story event trigger for regular locations
+        if not location.visited and location.first_time_event_id:
+            # Move player to the story event location
+            self.current_location_id = location.first_time_event_id
+            location.visited = True  # Mark original location as visited
+            self._handle_location_visit()
+            return  # Exit to reprocess the new location
+
+        # Normal location visit handling
         print(location.get_description())
         location.visited = True
 
@@ -340,7 +341,7 @@ class AdventureGame:
             game.move(choice)
         else:
             print("Invalid movement command.")
-    
+
     def _handle_teleport_command(self, choice: str) -> None:
         """Handle teleport command."""
         parts = choice.split()

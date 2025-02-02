@@ -35,6 +35,7 @@ class Location:
     extra_description: Optional[str] = None  # New field for additional details
     visited: bool = False  # Tracks if player has been here before
     looked: bool = False # Tracks if player has looked here before
+    first_time_event_id: Optional[int] = None
 
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""
