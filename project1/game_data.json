@@ -306,13 +306,101 @@
     },
     {
       "id": 1600,
-      "name": "Bahen",
-      "brief_description": "This is Bahen. You can go out north to Dorm Room (Knox Residence), east to Queen's Park Crescent 4, or south to St George and College Crossroads.",
-      "long_description": "You are currently at Bahen. There's a lot happening around you.",
+      "name": "Bahen Entrance",
+      "brief_description": "This is the Bahen Centre for Information Technology. You can go east to St. George Street 4, north to the Auditorium, or west to go upstairs.",
+      "long_description": "As you step into the Bahen Centre for Information Technology, you can immediately feel the change in atmosphere. The air is filled with the muffled hum of conversations and the clack of keyboards from nearby study rooms. The hallway is lined with bulletin boards, some filled with CS job postings, event flyers, and cryptic memes.",
+      "extra_description": "As you look around, you find a note on the bulletin board, this one not quite in the all-too familiar handwriting of the yellow notes. It says, Lost & Found: Laptop charger. Computer Lab 2294.",
       "available_commands": {
-        "go north": 100,
         "go east": 904,
-        "go south":1500
+        "go north": 1602,
+        "go west": 1601
+      },
+      "items": [],
+      "first_time_event_id": 160001
+    },
+    {
+      "id": 1601,
+      "name": "Bahen 2nd Floor Staircase",
+      "brief_description": "This is the 2nd floor staircase of Bahen. You can go North to the Engineering section, west to go upstairs, east to go downstairs, and south to the CS Section.",
+      "long_description": "This is the 2nd floor staircase of Bahen. You can go North to the Engineering section, west to go upstairs, east to go downstairs, and south to the CS Section.",
+      "available_commands": {
+        "go north": 1603,
+        "go east": 1600,
+        "go south": 1604,
+        "go west": 1605
+      },
+      "items": []
+    },
+    {
+      "id": 1602,
+      "name": "Adel Sedra Auditorium",
+      "brief_description": "This is the Adel Sedra Auditorium. You can go south to go back into the main hall.",
+      "long_description": "This is the Adel Sedra Auditorium. You can go south to go back into the main hall.",
+      "available_commands": {
+        "go south":1600
+      },
+      "items": []
+    },
+    {
+      "id": 1603,
+      "name": "Engineering Section",
+      "brief_description": "This is the Engineering Section. You can go south to go back to the 2nd floor staircase.",
+      "long_description": "This is the Engineering Section. You can go south to go back to the 2nd floor staircase.",
+      "available_commands": {
+        "go south": 1601
+      },
+      "items": []
+    },
+    {
+      "id": 1604,
+      "name": "2nd Floor CS Wing",
+      "brief_description": "This is the CS wing. You can go east to the bathrooms, south to CSSU, west to Room 2294, or north to go back to the staircase.",
+      "long_description": "This is the CS wing. You can go east to the bathrooms, south to CSSU, west to Room 2294, or north to go back to the staircase.",
+      "available_commands": {
+        "go north": 1601,
+        "go west": 1608,
+        "go south":1607,
+        "go east": 1606
+      },
+      "items": []
+    },
+    {
+      "id": 1605,
+      "name": "3rd Floor Bahen",
+      "brief_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "available_commands": {
+        "go east": 1601
+      },
+      "items": []
+    },
+    {
+      "id": 1606,
+      "name": "Bathroom",
+      "brief_description": "This is the bathroom. What are you doing here?",
+      "long_description": "This is the bathroom. What are you doing here?",
+      "available_commands": {
+        "go west": 1604
+      },
+      "items": []
+    },
+    {
+      "id": 1607,
+      "name": "CSSU",
+      "brief_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "available_commands": {
+        "go east": 1601
+      },
+      "items": []
+    },
+    {
+      "id": 1608,
+      "name": "Room 2294",
+      "brief_description": "The fabled Room 2294...",
+      "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "available_commands": {
+        "go east": 1601
       },
       "items": []
     },
@@ -520,7 +608,9 @@
         "order coffee": 110002
       },
       "story_text": [
-        "You follow the cryptic clue from the last yellow note, your mind racing as you weave through the campus streets. The cold air of Toronto's winter nips at your face, but there's no time to slow down. You push open the door to Cafe Reznikoff, the familiar aroma of coffee and baked goods wrapping around you like a warm blanket. For a moment, the panic eases."
+        "You follow the cryptic clue from the last yellow note, your mind racing as you weave through the campus streets.",
+        "The cold air of Toronto's winter nips at your face, but there's no time to slow down.",
+        "You push open the door to Cafe Reznikoff, the familiar aroma of coffee and baked goods wrapping around you like a warm blanket. For a moment, the panic eases."
       ],
       "choices": ["Order coffee"]
     },
@@ -541,7 +631,7 @@
       "id": 110003,
       "name": "Cafe Reznikoff (flipping out)",
       "available_commands": {
-        "grab napkin": 110004
+        "flip napkin": 110004
       },
       "story_text": [
         "You grab a handful of napkins from the dispenser, and proceed to clean up the mess. As you try to wipe the coffee down, something catches your eye.",
@@ -557,7 +647,7 @@
       "id": 110004,
       "name": "Cafe Reznikoff (back of the napkin)",
       "available_commands": {
-        "grab napkin": 1100
+        "prepare to go out": 1100
       },
       "story_text": [
         "[\"Anyway, since you're clearly in need of help, here's something to get you started:",
@@ -574,7 +664,19 @@
         "You commit the clue to memory, and it finally dawns on you: Someone, or something, wants him to find these items.",
         "The only question is... why?"
       ],
-      "choices": ["get up"]
+      "choices": ["prepare to go out"],
+      "new_objective": "Find your missing items before 4 PM."
+    },
+    {
+      "id": 160001,
+      "name": "Bahen (No TCard)",
+      "available_commands": {
+        "grab napkin": 110003
+      },
+      "story_text": [
+        ""
+      ],
+      "choices": ["grab napkins"]
     },
     {
       "id": 90001,
