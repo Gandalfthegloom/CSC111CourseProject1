@@ -107,7 +107,9 @@ class AdventureGame:
             start_position=item_data["start_position"],
             target_position=item_data.get("target_position", -1),  # Default target location
             target_points=item_data.get("target_points", 0),  # Default points
-            current_position=item_data.get("current_position", "start_position")
+            current_position=item_data.get("current_position", "start_position"),
+            use_location = item_data.get("use_location", None),
+            triggers_event_id = item_data.get("triggers_event_id", None)
         ) for item_data in data.get("items", [])]
 
         # Load story events
@@ -150,14 +152,13 @@ class AdventureGame:
 
             # Move to the new location
             self.current_location_id = new_location_id
-            
+
             #Check if location is locked.
             if new_location.is_locked:
                 if self._evaluate_unlock_condition(new_location.unlock_condition):
                     new_location.is_locked = False
                     print(f"You've unlocked {new_location.name}!")
                 else:
-                    print(f"{new_location.name} is locked. You need to fulfill a condition to enter.")
                     return False
 
             # Only increment time if the new location is a regular Location (not a StoryEvent)
@@ -173,7 +174,7 @@ class AdventureGame:
         else:
             print("You can't go that way.")
             return False
-    
+
     def _evaluate_unlock_condition(self, condition: Optional[str]) -> bool:
         """Evaluate if the unlock condition is met."""
         if not condition:
@@ -231,6 +232,12 @@ class AdventureGame:
             print("Actions:")
             for action in location.available_commands:
                 print("-", action)
+
+        elif location.is_locked:
+            print(f"\n{location.name} is locked. You need to fulfill a condition to proceed.")
+            print("At this location, you can only:")
+            for action in location.available_commands:
+                print("-", action)
         else:
             print("What to do? Choose from: look, inventory, score, undo, log, quit, time, objective, toggledebug")
             print("At this location, you can also:")
@@ -246,21 +253,25 @@ class AdventureGame:
     def _get_player_choice(self, valid_items: list[str]) -> str:
         """Get and validate player input."""
         location = self.get_location()
+        menu = ["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"]
+
         if isinstance(location, StoryEvent):
             # Only allow choices specific to the StoryEvent
             valid_commands = list(location.available_commands.keys())
+
+        # Only allow non-movement commands when locked
+        elif location.is_locked:
+            valid_commands = list(location.available_commands.keys())
         else:
-            # Allow full menu and game commands in regular locations
-            valid_commands = [
-                *location.available_commands.keys(),
-                *["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"],
-                *[f"pick up {item}" for item in valid_items],
-                *[f"drop {item}" for item in self._get_inventory_items()]
-            ]
+            # Allow full access to commands when the room is unlocked
+            valid_commands = menu + list(location.available_commands.keys()) + \
+                            [f"pick up {item}" for item in valid_items] + \
+                            [f"drop {item}" for item in self._get_inventory_items()] + \
+                            [f"use {item}" for item in self._get_inventory_items()]
 
         while True:
             choice = input("\nEnter action: ").lower().strip()
-            if choice in valid_commands or choice.startswith('tp '):
+            if choice in valid_commands or choice.startswith('tp ') or choice.startswith('use '):
                 return choice
             print("Invalid option. Try again.")
 
@@ -291,7 +302,9 @@ class AdventureGame:
         """Handle game commands that affect game state."""
         new_event = self._create_new_event(game)
 
-        if choice.startswith("pick up "):
+        if choice.startswith("use "):
+            self._handle_use_item(choice, game, new_event)
+        elif choice.startswith("pick up "):
             self._handle_item_pickup(choice, game, new_event)
         elif choice.startswith("drop "):
             self._handle_item_drop(choice, game, new_event)
@@ -387,6 +400,22 @@ class AdventureGame:
             print(f"You dropped {item.name}.")
         else:
             print("You don't have that item.")
+
+    def _handle_use_item(self, choice: str, game: AdventureGame, event: Event) -> None:
+        item_name = choice.replace("use ", "").strip().lower()
+        item = next((i for i in self._items if i.name.lower() == item_name and i.current_position == -1), None)
+
+        if item:
+            current_location_id = self.current_location_id
+            if item.use_location == current_location_id:
+                print(f"You used the {item.name}.")
+
+                if item.triggers_event_id:
+                    self.current_location_id = item.triggers_event_id
+            else:
+                print(f"You can't use {item.name} here.")
+        else:
+            print("You don't have that item in your inventory.")
 
     def _handle_teleport_command(self, choice: str) -> None:
         """Handle teleport command."""

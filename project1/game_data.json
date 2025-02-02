@@ -372,59 +372,60 @@
     {
       "id": 1600,
       "name": "Bahen Entrance",
-      "brief_description": "This is the Bahen Centre for Information Technology. You can go east to St. George Street 4, north to the Auditorium, or west to go upstairs.",
-      "long_description": "As you step into the Bahen Centre for Information Technology, you can immediately feel the change in atmosphere. The air is filled with the muffled hum of conversations and the clack of keyboards from nearby study rooms. The hallway is lined with bulletin boards, some filled with CS job postings, event flyers, and cryptic memes.",
+      "brief_description": "This is the Bahen Centre for Information Technology. You can go east to St. George Street 4, north to the Auditorium, or go upstairs.",
+      "long_description": "This is the Entrance to Bahen. The place is buzzing with activity. You can go east to St. George Street 4, north to the Auditorium, or west to go upstairs.",
       "extra_description": "As you look around, you find a note on the bulletin board, this one not quite in the all-too familiar handwriting of the yellow notes. It says, Lost & Found: Laptop charger. Computer Lab 2294.",
       "available_commands": {
-        "go east": 904,
+        "go out": 904,
         "go north": 1602,
-        "go west": 1601
+        "go upstairs": 1601
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 160001
     },
     {
       "id": 1601,
       "name": "Bahen 2nd Floor Staircase",
-      "brief_description": "This is the 2nd floor staircase of Bahen. You can go North to the Engineering section, west to go upstairs, east to go downstairs, and south to the CS Section.",
-      "long_description": "This is the 2nd floor staircase of Bahen. You can go North to the Engineering section, west to go upstairs, east to go downstairs, and south to the CS Section.",
+      "brief_description": "This is the 2nd floor staircase of Bahen. You can go right to the Engineering section, go upstairs, go downstairs, or left to the CS Section.",
+      "long_description": "This is the 2nd floor staircase of Bahen. You can go right to the Engineering section, go upstairs, go downstairs, or left to the CS Section.",
       "available_commands": {
-        "go north": 1603,
-        "go east": 1600,
-        "go south": 1604,
-        "go west": 1605
+        "go right": 1603,
+        "go downstairs": 1600,
+        "go left": 1604,
+        "go upstairs": 1605
       },
       "items": []
     },
     {
       "id": 1602,
       "name": "Adel Sedra Auditorium",
-      "brief_description": "This is the Adel Sedra Auditorium. You can go south to go back into the main hall.",
-      "long_description": "This is the Adel Sedra Auditorium. You can go south to go back into the main hall.",
+      "brief_description": "This is the Adel Sedra Auditorium. You can go out into the main hall.",
+      "long_description": "This is the Adel Sedra Auditorium. You can go out into the main hall.",
       "available_commands": {
-        "go south":1600
+        "go out":1600
       },
       "items": []
     },
     {
       "id": 1603,
       "name": "Engineering Section",
-      "brief_description": "This is the Engineering Section. You can go south to go back to the 2nd floor staircase.",
-      "long_description": "This is the Engineering Section. You can go south to go back to the 2nd floor staircase.",
+      "brief_description": "This is the Engineering Section. You can go back to the 2nd floor staircase.",
+      "long_description": "This is the Engineering Section. You can go back to the 2nd floor staircase.",
       "available_commands": {
-        "go south": 1601
+        "go back": 1601
       },
       "items": []
     },
     {
       "id": 1604,
       "name": "2nd Floor CS Wing",
-      "brief_description": "This is the CS wing. You can go east to the bathrooms, south to CSSU, west to Room 2294, or north to go back to the staircase.",
-      "long_description": "This is the CS wing. You can go east to the bathrooms, south to CSSU, west to Room 2294, or north to go back to the staircase.",
+      "brief_description": "This is the CS wing. You can go left to the bathrooms, forward to CSSU, right to Room 2294, or go back to the staircase.",
+      "long_description": "This is the CS wing. You can go left to the bathrooms, forward to CSSU, right to Room 2294, or go back to the staircase.",
       "available_commands": {
-        "go north": 1601,
-        "go west": 1608,
-        "go south":1607,
-        "go east": 1606
+        "go back": 1601,
+        "go right": 1608,
+        "go forward":1607,
+        "go left": 1606
       },
       "items": []
     },
@@ -434,7 +435,7 @@
       "brief_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
       "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
       "available_commands": {
-        "go east": 1601
+        "go back": 1601
       },
       "items": []
     },
@@ -462,13 +463,14 @@
       "id": 1608,
       "name": "Room 2294",
       "brief_description": "The fabled Room 2294...",
-      "long_description": "p",
+      "long_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
       "available_commands": {
         "go east": 1601
       },
       "items": ["laptop charger"],
       "is_locked": true,
-      "unlock_condition": "'wallet' in inventory"
+      "unlock_condition": "'tcard' in inventory",
+      "first_time_event_id": 160002
     }
   ],
   "story_events": [
@@ -479,7 +481,7 @@
         "turn off alarm": 10001
       },
       "story_text": "You jolt awake to the sound of Reveille, your alarm blasting the sound of trumpets into your ears.",
-      "choices": ["Turn of alarm"]
+      "choices": ["Turn off alarm"]
     },
     {
       "id": 10001,
@@ -595,7 +597,7 @@
       "story_text": [
         "You feel something in your pants. In your pockets, to be precise. Another yellow note.",
         "", 
-        "[\"Now might be a good time to get a quick cup of coffee *wink wink nudge nudge*\"]",
+        "[\"Now might be a good time to get a quick cup of coffee *wink*\"]",
         "",
         "Disregarding the questionable nature of these notes, you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
       ],
@@ -670,14 +672,51 @@
     },
     {
       "id": 160001,
-      "name": "Bahen (No TCard)",
+      "name": "Bahen (Arrival)",
       "available_commands": {
-        "grab napkin": 110003
+        "next": 1600
       },
       "story_text": [
-        ""
+        "As you step into the Bahen Centre for Information Technology, you can immediately feel the change in atmosphere.",
+        "The air is filled with the muffled hum of conversations and the clack of keyboards from nearby study rooms.",
+        "The hallway is lined with bulletin boards, some filled with CS job postings, event flyers, and cryptic memes.",
+        "You have a sneaky suspicion you left your charger here on a coding sessions you did."
       ],
-      "choices": ["leave"]
+      "choices": ["next"]
+    },
+    {
+      "id": 160002,
+      "name": "ROOM 2294 (First Time, no Tcard)",
+      "available_commands": {
+        "ok": 1608
+      },
+      "story_text": [
+        "You arrive at Room 2294 in the Bahen Centre, where your laptop charger is supposedly waiting in the lost-and-found box.",
+        "The door stands before you, ominously locked with a TCard scanner blinking expectantly.",
+        "\"Oops, need a TCard for that.\"",
+        "You reach for your wallet. (did you grab it in your room earlier? If so, you can \"use wallet\")"
+      ],
+      "choices": ["next"]
+    },
+    {
+      "id": 160003,
+      "name": "ROOM 2294 (Wallet Use)",
+      "available_commands": {
+        "head to the CSSU": 1608
+      },
+      "story_text": [
+        "You reach into your pocket for your wallet, confident you'll swipe your TCard and breeze right in. But instead of the familiar plastic card, your fingers brush against something else.",
+        "You pull out a small, crumpled note and a key. Your heart sinks as you unfold the paper.",
+        "",
+        "[\"You really thought it was gonna be that easy?",
+        "Yar har har! The key opens more than just doors... but not this one! Good luck, genius.",
+        "Hint: Head to the CSSU.\"]",
+        "",
+        "Your stomach drops. Whoever's leaving these notes is clearly messing with you, and they're enjoying it.",
+        "The key doesn't fit the door to Room 2294, and now you're left wondering where your TCard is.",
+        "You stuff the note back in your pocket, grip the mysterious key, and get ready to follow the next clue - because this is turning into more than just a simple fetch quest."
+      ],
+      "choices": ["Head to the CSSU"]
     },
     {
       "id": 90001,
@@ -690,9 +729,11 @@
   "items": [
     {
       "name": "wallet",
-      "description": "Contains your TCard.",
+      "description": "Just an inconspicuous wallet...",
       "start_position": 100,
-      "current_position": 100
+      "current_position": 100,
+      "use_location": 1608,
+      "triggers_event_id": 160003
     },
     {
       "name": "bag",

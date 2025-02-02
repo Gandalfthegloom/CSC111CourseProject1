@@ -71,7 +71,9 @@ class Item:
     start_position: int
     target_position: int
     target_points: int
-    current_position: Optional[int] = None  # New field for additional details
+    current_position: Optional[int] = None  # Inventory tracking
+    use_location: Optional[int] = None  # Location ID where this item can be used
+    triggers_event_id: Optional[int] = None  # ID of the StoryEvent triggered when used
 
 # New StoryEvent class inheriting from Event
 from proj1_event_logger import Event
