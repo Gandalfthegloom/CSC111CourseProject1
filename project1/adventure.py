@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 from typing import Dict, List, Optional
 
-from game_entities import Location, Item, StoryEvent
+from game_entities import Location, Item, StoryEvent, Puzzle, LockedLocation
 from proj1_event_logger import Event, EventList
 
 
@@ -69,7 +69,7 @@ class AdventureGame:
         # 2. Make sure the Item class is used to represent each item.
 
         # Suggested helper method (you can remove and load these differently if you wish to do so):
-        self._locations, self._items, self._stories = self._load_game_data(game_data_file)
+        self._locations, self._items, self._stories, self._puzzle = self._load_game_data(game_data_file)
 
         # Initialize to 3:00 PM (15*60 minutes)
         self.current_time = 15 * 60
@@ -98,7 +98,22 @@ class AdventureGame:
                 items=loc_data['items'],
                 extra_description=loc_data.get('extra_description', None),
                 first_time_event_id=loc_data.get('first_time_event_id', None),
-                is_locked=loc_data.get('is_locked', False),
+            )
+
+        for loc_data in data.get('locked_locations', []):
+            unlocked_desc = loc_data.get('unlocked_description', loc_data.get('long_description', ''))
+            locations[loc_data['id']] = LockedLocation(
+                id_num=loc_data['id'],
+                name=loc_data['name'],
+                brief_description=loc_data.get('locked_description', ''),
+                long_description=unlocked_desc,
+                available_commands=loc_data['available_commands'],
+                items=loc_data['items'],
+                extra_description=loc_data.get('extra_description', None),
+                first_time_event_id=loc_data.get('first_time_event_id', None),
+                locked_description=loc_data.get('locked_description', ''),
+                unlocked_description=unlocked_desc,
+                is_locked=loc_data.get('is_locked', True),
                 unlock_condition=loc_data.get('unlock_condition', None)
             )
 
@@ -107,7 +122,7 @@ class AdventureGame:
             start_position=item_data["start_position"],
             target_position=item_data.get("target_position", -1),  # Default target location
             target_points=item_data.get("target_points", 0),  # Default points
-            current_position=item_data.get("current_position", "start_position"),
+            current_position=item_data.get("current_position", item_data["start_position"]),
             use_location = item_data.get("use_location", None),
             triggers_event_id = item_data.get("triggers_event_id", None)
         ) for item_data in data.get("items", [])]
@@ -127,7 +142,23 @@ class AdventureGame:
             ) for story_data in data.get('story_events', [])
         }
 
-        return locations, items, stories
+        # Load puzzles
+        puzzles = {
+            puzzle_data['id']: Puzzle(
+                id_num=puzzle_data['id'],
+                name=puzzle_data['name'],
+                brief_description='',
+                long_description='',
+                available_commands=puzzle_data['available_commands'],
+                items=puzzle_data.get('items', []),
+                puzzle_text=puzzle_data['puzzle_text'],
+                answers=puzzle_data.get('answers', []),
+                choices=puzzle_data.get('choices', []),
+            ) for puzzle_data in data.get('puzzle', [])
+        }
+
+
+        return locations, items, stories, puzzles
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
         """Return Location object associated with the provided location ID.
@@ -141,6 +172,8 @@ class AdventureGame:
             return self._stories[loc_id]
         elif loc_id in self._locations:
             return self._locations[loc_id]
+        elif loc_id in self._puzzle:
+            return self._puzzle[loc_id]
         else:
             raise KeyError(f"Location ID {loc_id} not found in locations or story events.")
 
@@ -148,18 +181,27 @@ class AdventureGame:
         current_location = self.get_location()
         if direction in current_location.available_commands:
             new_location_id = current_location.available_commands[direction]
+
+            # Check if current location is a Puzzle and handle password input
+            if isinstance(current_location, Puzzle):
+                password_attempt = input("Enter the password: ").strip().lower()
+                if password_attempt not in current_location.answers:
+                    print("Incorrect password. Try again.")
+                    return False
+
             new_location = self.get_location(new_location_id)  # Get destination
 
-            # Move to the new location
-            self.current_location_id = new_location_id
-
-            #Check if location is locked.
-            if new_location.is_locked:
+            # Check if new location is locked
+            if isinstance(new_location, LockedLocation) and new_location.is_locked:
                 if self._evaluate_unlock_condition(new_location.unlock_condition):
                     new_location.is_locked = False
                     print(f"You've unlocked {new_location.name}!")
                 else:
-                    return False
+                    print(f"{new_location.name} is locked. {new_location.unlock_condition} required.")
+                    return False  # Prevent moving
+
+            # Move to the new location
+            self.current_location_id = new_location_id
 
             # Only increment time if the new location is a regular Location (not a StoryEvent)
             if not isinstance(new_location, StoryEvent):
@@ -199,9 +241,21 @@ class AdventureGame:
         """Handle visiting a location or triggering a story event."""
         location = self.get_location()
 
+        # Handle first-time story events for locked locations
+        if isinstance(location, LockedLocation) and location.is_locked:
+            # Locked locations should use their locked_description
+            print(location.get_description())
+            return
+
         # If it's a StoryEvent, display story content
         if isinstance(location, StoryEvent):
             print(location.get_description())
+            # Give items from the story event
+            for item_name in location.items:
+                item = next((i for i in self._items if i.name == item_name), None)
+                if item:
+                    item.current_position = -1  # Add to inventory
+                    print(f"You received {item.name}!")
             if isinstance(location.new_objective, str):
                 self.current_objective = location.new_objective
             if location.name == "Game Over":
@@ -209,6 +263,23 @@ class AdventureGame:
                 print("Game Over. Better luck next time!")
                 exit()
             return
+
+        # Handle first-time story event trigger for regular locations
+        if not location.visited and location.first_time_event_id:
+            # Move player to the story event location
+            prev_location_id = self.current_location_id
+            self.current_location_id = location.first_time_event_id
+
+            # Mark original location as visited BEFORE handling new location
+            original_location = self.get_location(prev_location_id)
+            original_location.visited = True
+
+            self._handle_location_visit()  # Process the story event
+            return  # Exit to avoid reprocessing original location
+
+        # Normal location visit handling
+        print(location.get_description())
+        location.visited = True  # Ensure visited is marked even if no first-time event
 
         # Handle first-time story event trigger for regular locations
         if not location.visited and location.first_time_event_id:
@@ -232,10 +303,9 @@ class AdventureGame:
             print("Actions:")
             for action in location.available_commands:
                 print("-", action)
-
-        elif location.is_locked:
+        elif isinstance(location, LockedLocation) and location.is_locked:
             print(f"\n{location.name} is locked. You need to fulfill a condition to proceed.")
-            print("At this location, you can only:")
+            print("Available actions:")
             for action in location.available_commands:
                 print("-", action)
         else:
@@ -243,10 +313,7 @@ class AdventureGame:
             print("At this location, you can also:")
             for action in location.available_commands:
                 print("-", action)
-
-            if location.looked:  # Check if the player has looked around
-                valid_items = [item.name.lower() for item in self._items
-                               if item.current_position == self.current_location_id]
+            if location.looked:
                 if valid_items:
                     print("You can pick up:", ", ".join(valid_items))
 

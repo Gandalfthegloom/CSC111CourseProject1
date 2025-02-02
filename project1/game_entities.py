@@ -43,6 +43,7 @@ class Location:
         """Return the appropriate description based on whether this location has been visited."""
         description = self.long_description if not self.visited else self.brief_description
         return textwrap.fill(description, width=160)
+
     def look_around(self) -> str:
         """Return additional details if available, otherwise return a generic response."""
         extra = self.extra_description if self.extra_description else "You find nothing of note."
@@ -75,9 +76,28 @@ class Item:
     use_location: Optional[int] = None  # Location ID where this item can be used
     triggers_event_id: Optional[int] = None  # ID of the StoryEvent triggered when used
 
-# New StoryEvent class inheriting from Event
-from proj1_event_logger import Event
+@dataclass
+class Puzzle(Location):
+    """A puzzle location where the player must enter a password to proceed."""
+    puzzle_text: Optional[Union[str, List[str]]] = None
+    choices: Optional[List[str]] = None
+    answers: Optional[List[str]] = None
 
+    def get_description(self) -> str:
+        """Return the puzzle text as the description."""
+        return "\n".join(self.puzzle_text)
+
+@dataclass
+class LockedLocation(Location):
+    """A locked location where the player must obtain certain condition items to proceed."""
+    locked_description: Optional[str] = None
+    unlocked_description: Optional[str] = None
+    choices: Optional[List[str]] = None
+    answers: Optional[List[str]] = None
+
+    def get_description(self) -> str:
+        """Return the puzzle text as the description."""
+        return "\n".join(self.puzzle_text)
 
 @dataclass
 class StoryEvent(Location):

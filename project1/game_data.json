@@ -397,16 +397,6 @@
       "items": []
     },
     {
-      "id": 1602,
-      "name": "Adel Sedra Auditorium",
-      "brief_description": "This is the Adel Sedra Auditorium. You can go out into the main hall.",
-      "long_description": "This is the Adel Sedra Auditorium. You can go out into the main hall.",
-      "available_commands": {
-        "go out":1600
-      },
-      "items": []
-    },
-    {
       "id": 1603,
       "name": "Engineering Section",
       "brief_description": "This is the Engineering Section. You can go back to the 2nd floor staircase.",
@@ -452,26 +442,14 @@
     {
       "id": 1607,
       "name": "CSSU",
-      "brief_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
-      "long_description": "This is the third floor of Bahen. Looks kinda desolate ngl...",
+      "brief_description": "This is the CSSU. You can go out to the CS wing.",
+      "long_description": "This is the CSSU. It's a relatively small room that feels homely. You see several vending machines and snack drawers near the entrance.",
+      "extra_description": "You find nothing of note. Maybe you should use the key ",
       "available_commands": {
-        "go east": 1601
+        "go out": 1601
       },
       "items": []
     },
-    {
-      "id": 1608,
-      "name": "Room 2294",
-      "brief_description": "The fabled Room 2294...",
-      "long_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
-      "available_commands": {
-        "go east": 1601
-      },
-      "items": ["laptop charger"],
-      "is_locked": true,
-      "unlock_condition": "'tcard' in inventory",
-      "first_time_event_id": 160002
-    }
   ],
   "story_events": [
     {
@@ -596,7 +574,7 @@
       },
       "story_text": [
         "You feel something in your pants. In your pockets, to be precise. Another yellow note.",
-        "", 
+        "",
         "[\"Now might be a good time to get a quick cup of coffee *wink*\"]",
         "",
         "Disregarding the questionable nature of these notes, you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
@@ -625,7 +603,7 @@
       },
       "story_text": [
         "You order your usual; because somehow, even in this chaos, caffeine feels like the only thing holding you together. As the barista hands you the cup, you notice something strange: your name is written perfectly, but underneath it, in smaller letters, there's a faint smudge, like someone started to write something but thought better of it.",
-        "You shake it off, finding a corner seat by the window. The first sip of coffee is a small victory, but as you lean back, your elbow knocks the cup. It wobbles, then tips, sending a wave of coffee across the table.", 
+        "You shake it off, finding a corner seat by the window. The first sip of coffee is a small victory, but as you lean back, your elbow knocks the cup. It wobbles, then tips, sending a wave of coffee across the table.",
         "\"No, no, no!\", you groan."
       ],
       "choices": ["grab napkins"]
@@ -657,9 +635,9 @@
         "",
         "In halls of code where minds ignite,",
         "A lifeline lost to power your might. ",
-        "Where turkeys roost with books in tow,",  
-        "Your missing work hides deep below.",  
-        "Amidst the trees where monarchs ride",  
+        "Where turkeys roost with books in tow,",
+        "Your missing work hides deep below.",
+        "Amidst the trees where monarchs ride",
         "A lucky charm waits safe inside.",
         "",
         "Good Luck!\"]",
@@ -702,7 +680,7 @@
       "id": 160003,
       "name": "ROOM 2294 (Wallet Use)",
       "available_commands": {
-        "head to the CSSU": 1608
+        "turn back": 1608
       },
       "story_text": [
         "You reach into your pocket for your wallet, confident you'll swipe your TCard and breeze right in. But instead of the familiar plastic card, your fingers brush against something else.",
@@ -716,7 +694,340 @@
         "The key doesn't fit the door to Room 2294, and now you're left wondering where your TCard is.",
         "You stuff the note back in your pocket, grip the mysterious key, and get ready to follow the next clue - because this is turning into more than just a simple fetch quest."
       ],
-      "choices": ["Head to the CSSU"]
+      "choices": ["turn back"],
+      "new_objective": "Search for clues at the CSSU.",
+      "items": ["mysterious key"]
+    },
+    {
+      "id": 160005,
+      "name": "CSSU Vault open",
+      "available_commands": {
+        "leave": 1604
+      },
+      "story_text": [
+        "You enter password, shifted by three, [sdvvzrug] into the alphabetical lock.",
+        "",
+        "*click*",
+        "",
+        "The safe swings open, revealing another key inside, and, you guessed it, yet another note.",
+        "[\"Not bad, now head to the auditorium\"]"
+      ],
+      "choices": ["leave"],
+      "new_objective": "Search for clues at the auditorium.",
+      "items": ["mysterious-er key"]
+    },
+    {
+      "id": 160006,
+      "name": "Auditorium Puzzle Intro",
+      "available_commands": {
+        "investigate": 160007
+      },
+      "story_text": [
+        "You open the carved wooden box you found at the lectern. You hold your breath in anticipation, as you find...",
+        "\"Another box?\" you ask. The box is small, but fancy, featuring intricate ornaments carved on the oak wood. It is locked by another padlock, this time featuring a 5-digit combination.",
+        "You also find what seems to be a fragment of a playbill, the kind you find in theaters. It says:",
+        "[\"You ever hear the tragedy of Bubbly the Wise?",
+        "The Silent Sonata – A masterpiece performed in the order of elements: Earth, Wind, Fire, Water, Heart. Let their voices guide you.\"]",
+        "",
+        "\"Rather edgy, innit?\" you say out loud. You pick up the small box and find another note underneath it.",
+        "[\"Not as edgy as you lol. Check the seats.\"]",
+        "",
+        "\"Oh shut up!\" Your irritation aside, you move to investigate the rows of chairs."
+      ],
+      "choices": ["investigate"],
+      "items": []
+    },
+    {
+      "id": 160007,
+      "name": "Auditorium Puzzle main loc",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "The Auditorium has nine rows. Which one will you investigate?"
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160008,
+      "name": "Auditorium Puzzle 1st row",
+      "available_commands": {
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find an drawing of a heart on the table."
+      ],
+      "choices": [
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160009,
+      "name": "Auditorium Puzzle 2nd row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find nothing on this row."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160010,
+      "name": "Auditorium Puzzle 3rd row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find a faded drawing of a feather"
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160011,
+      "name": "Auditorium Puzzle 4th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter passkey": 160017
+      },
+      "story_text": [
+        "You find nothing on this row."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160012,
+      "name": "Auditorium Puzzle 5th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find nothing on this row."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160013,
+      "name": "Auditorium Puzzle 6th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find a drawing of a fiery furnace carved on the table."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160014,
+      "name": "Auditorium Puzzle 7th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 8th row": 160015,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find a drawing of a mountain, cracked in the middle on the table."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 8th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160015,
+      "name": "Auditorium Puzzle 8th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 9th row": 160016,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find nothing on this row."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 9th row",
+        "enter password"],
+      "items": []
+    },
+    {
+      "id": 160016,
+      "name": "Auditorium Puzzle 9th row",
+      "available_commands": {
+        "investigate 1st row": 160008,
+        "investigate 2nd row": 160009,
+        "investigate 3rd row": 1600010,
+        "investigate 4th row": 160011,
+        "investigate 5th row": 160012,
+        "investigate 6th row": 160013,
+        "investigate 7th row": 160014,
+        "investigate 8th row": 160015,
+        "enter password": 160017
+      },
+      "story_text": [
+        "You find a spilled water bottle on one of the chairs."
+      ],
+      "choices": [
+        "investigate 1st row",
+        "investigate 2nd row",
+        "investigate 3rd row",
+        "investigate 4th row",
+        "investigate 5th row",
+        "investigate 6th row",
+        "investigate 7th row",
+        "investigate 8th row",
+        "enter password"],
+      "items": []
     },
     {
       "id": 90001,
@@ -724,6 +1035,68 @@
       "available_commands": {},
       "story_text": "You drift back into your slumber... but the deadline doesn't wait.",
       "choices": []
+    }
+  ],
+  "locked_locations": [
+    {
+      "id": 1602,
+      "name": "Adel Sedra Auditorium",
+      "locked_description": "This is the Adel Sedra Auditorium. The door is currently locked. You can go out into the main hall.",
+      "long_description": "This is the Adel Sedra Auditorium. It's a big, open space, almost like a movie theatre, except that it's lined with tables. You can go out into the main hall.",
+      "extra_description": "You try to look around the room for some clues. As you approach the stage, you find a locked box with a keyslot on top of the lectern. Perhaps you should use a key here.",
+      "available_commands": {
+        "go out":1600
+      },
+      "items": [],
+      "is_locked": true,
+      "unlock_condition": "'mysterious-er key' in inventory"
+    },
+    {
+      "id": 1608,
+      "name": "Room 2294",
+      "locked_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
+      "unlocked_description": "Room 2294, the promised land. A rather unassuming promised land at that. It's a lab filled with lines of tables and computers. You see the lost-and-found box in the corner.",
+      "extra_description": "You find your charger in the lost-and-found box",
+      "available_commands": {
+        "go east": 1604
+      },
+      "items": ["laptop charger"],
+      "is_locked": true,
+      "unlock_condition": "'tcard' in inventory",
+      "first_time_event_id": 160002
+    }
+
+  ],
+  "puzzle": [
+    {
+      "id": 160004,
+      "name": "CSSU Puzzle",
+      "available_commands":{
+        "password": 160005
+      },
+      "puzzle_text": [
+        "You look for places you can use the key, and you see a cupboard below the kitchennette.",
+        "You give the key a try, and to your surprise, it fits.",
+        "The cupboard opens up, and inside lies a safe, with a yellow note sticking off the side.",
+        "",
+        "[\"A ruler once, a salad now,",
+        "Shifted words unlock the vow.",
+        "I came, I saw, I conquered: three,",
+        "Is the key to set you free.",
+        "Enter password to open.\"]"
+      ],
+      "answers": ["sdvvzrug"]
+    },
+    {
+      "id": 160017,
+      "name": "Auditorium Puzzle",
+      "available_commands":{
+        "passkey": 100
+      },
+      "puzzle_text": [
+        "You try entering the 5-digit passkey"
+      ],
+      "answers": ["73691"]
     }
   ],
   "items": [
@@ -742,9 +1115,20 @@
       "current_position": 100
     },
     {
-      "name": "first note",
-      "description": "A handwritten note, strangely familiar.",
-      "start_position": 1
+      "name": "mysterious key",
+      "description": "A key that opens something at CSSU...",
+      "start_position": 160003,
+      "current_position": 160003,
+      "use_location": 1607,
+      "triggers_event_id": 160004
+    },
+    {
+      "name": "mysterious-er key",
+      "description": "A key that opens the door to the Auditorium.",
+      "start_position": 160004,
+      "current_position": 160004,
+      "use_location": 1602,
+      "triggers_event_id": 160006
     },
     {
       "name": "laptop charger",
