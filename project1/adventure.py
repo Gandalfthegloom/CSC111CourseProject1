@@ -71,6 +71,12 @@ class AdventureGame:
         # Suggested helper method (you can remove and load these differently if you wish to do so):
         self._locations, self._items, self._stories = self._load_game_data(game_data_file)
 
+        # Initialize to 3:00 PM (15*60 minutes)
+        self.current_time = 15 * 60
+
+        # Set player objective
+        self.current_objective = "Find your missing project items before 4 PM."
+
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
@@ -112,7 +118,8 @@ class AdventureGame:
                 available_commands=story_data['available_commands'],
                 items=story_data.get('items', []),
                 story_text=story_data.get('story_text', ""),
-                choices=story_data.get('choices', [])
+                choices=story_data.get('choices', []),
+                new_objective=story_data.get('new_objective', None)
             ) for story_data in data.get('story_events', [])
         }
 
@@ -134,18 +141,34 @@ class AdventureGame:
             raise KeyError(f"Location ID {loc_id} not found in locations or story events.")
 
     def move(self, direction: str) -> bool:
-        """Attempt to move the player in the given direction."""
         current_location = self.get_location()
         if direction in current_location.available_commands:
             new_location_id = current_location.available_commands[direction]
-            if AdventureGame.debug_mode:
-                print(f"[DEBUG] Moving from {self.current_location_id} ({current_location.name}) "
-                    f"to {new_location_id} ({self.get_location(new_location_id).name})")
+            new_location = self.get_location(new_location_id)  # Get destination
+
+            # Move to the new location
             self.current_location_id = new_location_id
+
+            # Only increment time if the new location is a regular Location (not a StoryEvent)
+            if not isinstance(new_location, StoryEvent):
+                self.current_time += 2
+
+            # Check for time-based game over
+            if self.current_time >= 16 * 60:  # 16*60 = 960 (4:00 PM)
+                print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
+                self.ongoing = False
+
             return True
         else:
             print("You can't go that way.")
             return False
+
+    def _handle_movement(self, choice: str, game: AdventureGame) -> None:
+        """Handle movement between locations."""
+        if choice in game.get_location().available_commands:
+            game.move(choice)
+        else:
+            print("Invalid movement command.")
 
     def _handle_location_visit(self) -> None:
         """Handle visiting a location or triggering a story event."""
@@ -154,6 +177,8 @@ class AdventureGame:
         # If it's a StoryEvent, display story content
         if isinstance(location, StoryEvent):
             print(location.get_description())
+            if isinstance(location.new_objective, str):
+                self.current_objective = location.new_objective
             if location.name == "Game Over":
                 self.ongoing = False
                 print("Game Over. Better luck next time!")
@@ -183,7 +208,7 @@ class AdventureGame:
             for action in location.available_commands:
                 print("-", action)
         else:
-            print("What to do? Choose from: look, inventory, score, undo, log, quit, toggledebug")
+            print("What to do? Choose from: look, inventory, score, undo, log, quit, time, objective, toggledebug")
             print("At this location, you can also:")
             for action in location.available_commands:
                 print("-", action)
@@ -204,7 +229,7 @@ class AdventureGame:
             # Allow full menu and game commands in regular locations
             valid_commands = [
                 *location.available_commands.keys(),
-                *["look", "inventory", "score", "undo", "log", "quit", "toggledebug"],
+                *["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"],
                 *[f"pick up {item}" for item in valid_items],
                 *[f"drop {item}" for item in self._get_inventory_items()]
             ]
@@ -230,6 +255,10 @@ class AdventureGame:
         elif choice == "quit":
             game.ongoing = False
             print("Quitting game...")
+        elif choice == "time":
+            self._handle_time_command()  # Add this line
+        elif choice == "objective":
+            print(f"Current Objective: {self.current_objective}")
         elif choice == "toggledebug":
             AdventureGame.debug_mode = not AdventureGame.debug_mode
             print(f"Debug mode {'enabled' if AdventureGame.debug_mode else 'disabled'}.")
@@ -335,13 +364,6 @@ class AdventureGame:
         else:
             print("You don't have that item.")
 
-    def _handle_movement(self, choice: str, game: AdventureGame) -> None:
-        """Handle movement between locations."""
-        if choice in game.get_location().available_commands:
-            game.move(choice)
-        else:
-            print("Invalid movement command.")
-
     def _handle_teleport_command(self, choice: str) -> None:
         """Handle teleport command."""
         parts = choice.split()
@@ -361,10 +383,16 @@ class AdventureGame:
         except KeyError:
             print("Invalid location ID. No such location exists.")
 
+    def _handle_time_command(self) -> None:
+        """Display the current in-game time."""
+        hours = self.current_time // 60
+        minutes = self.current_time % 60
+        print(f"Current time: {hours:02}:{minutes:02}")
+
 if __name__ == "__main__":
     game_log = EventList()
     game = AdventureGame('game_data.json', 1) #Insert starting ID here :D
-    menu = ["look", "inventory", "score", "undo", "log", "quit", "toggledebug"]
+    menu = ["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"]
 
     while game.ongoing:
         # Handle location visit logic

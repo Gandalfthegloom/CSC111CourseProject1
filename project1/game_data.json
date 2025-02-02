@@ -148,7 +148,7 @@
         "go west": 301
       },
       "items": [],
-      "first_time_event_id": 20001
+      "first_time_event_id": 110001
     },
     {
       "id": 1201,
@@ -429,7 +429,7 @@
       "story_text": [
         "The realization hits you like a sledgehammer to the brain.",
         "Your eyes dart to the clock. The deadline is at 4 PM. Panic wells up inside you, but something else catches your eye: a crumpled note on your desk.",
-        "You rub the sleep from your eyes, heart pounding like it’s running a marathon. You snatch the note with trembling fingers."
+        "You rub the sleep from your eyes, heart pounding like it's running a marathon. You snatch the note with trembling fingers."
       ],
       "choices": ["Read note"]
     },
@@ -505,23 +505,76 @@
       },
       "story_text": [
         "You feel something in your pants. In your pockets, to be precise. Another yellow note.",
+        "", 
         "[\"Now might be a good time to get a quick cup of coffee *wink wink nudge nudge*\"]",
-        "Disregarding the fact that they actually wrote, in letters, 'wink wink nudge nudge', you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
+        "",
+        "Disregarding the questionable nature of these notes, you decide that it's a good idea. You might find some clues in Cafe Reznikoff."
       ],
-      "choices": ["prepare to go out"]
+      "choices": ["prepare to go out"],
+      "new_objective": "Search for clues in Cafe Reznikoff."
     },
     {
-      "id": 20001,
+      "id": 110001,
       "name": "Cafe Reznikoff (First Visit)",
       "available_commands": {
-        "read note": 11001
+        "order coffee": 110002
       },
       "story_text": [
-        "The rich aroma of freshly brewed coffee greets you as you step into Cafe Reznikoff.",
-        "As you approach the counter, you notice a yellow sticky note tucked under a coffee cup.",
-        "\"Another one? Who keeps leaving these notes?\""
+        "You follow the cryptic clue from the last yellow note, your mind racing as you weave through the campus streets. The cold air of Toronto's winter nips at your face, but there's no time to slow down. You push open the door to Cafe Reznikoff, the familiar aroma of coffee and baked goods wrapping around you like a warm blanket. For a moment, the panic eases."
       ],
-      "choices": ["Read note"]
+      "choices": ["Order coffee"]
+    },
+    {
+      "id": 110002,
+      "name": "Cafe Reznikoff (Coffee Spill)",
+      "available_commands": {
+        "grab napkin": 110003
+      },
+      "story_text": [
+        "You order your usual; because somehow, even in this chaos, caffeine feels like the only thing holding you together. As the barista hands you the cup, you notice something strange: your name is written perfectly, but underneath it, in smaller letters, there's a faint smudge, like someone started to write something but thought better of it.",
+        "You shake it off, finding a corner seat by the window. The first sip of coffee is a small victory, but as you lean back, your elbow knocks the cup. It wobbles, then tips, sending a wave of coffee across the table.", 
+        "\"No, no, no!\", you groan."
+      ],
+      "choices": ["grab napkins"]
+    },
+    {
+      "id": 110003,
+      "name": "Cafe Reznikoff (flipping out)",
+      "available_commands": {
+        "grab napkin": 110004
+      },
+      "story_text": [
+        "You grab a handful of napkins from the dispenser, and proceed to clean up the mess. As you try to wipe the coffee down, something catches your eye.",
+        "One of the napkins, it seems, is not like the others. On it, in the same unmistakable handwriting as the yellow notes, are the words:",
+        "",
+        "[\"Wow. ONE JOB. You had ONE JOB. Good thing you're not an engineering student smh\"]",
+        "",
+        "You blink. Your coffee-soaked, sleep-deprived brain can barely process the sarcasm. But there seems to be more on the back of the napkin."
+      ],
+      "choices": ["flip napkin"]
+    },
+    {
+      "id": 110004,
+      "name": "Cafe Reznikoff (back of the napkin)",
+      "available_commands": {
+        "grab napkin": 1100
+      },
+      "story_text": [
+        "[\"Anyway, since you're clearly in need of help, here's something to get you started:",
+        "",
+        "In halls of code where minds ignite,",
+        "A lifeline lost to power your might. ",
+        "Where turkeys roost with books in tow,",  
+        "Your missing work hides deep below.",  
+        "Amidst the trees where monarchs ride",  
+        "A lucky charm waits safe inside.",
+        "",
+        "Good Luck!\"]",
+        "",
+        "You commit the clue to memory, and it finally dawns on you: Someone, or something, wants him to find these items.",
+        "The only question is... why?"
+      ],
+      "choices": ["get up"]
     },
     {
       "id": 90001,
