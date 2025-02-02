@@ -97,7 +97,9 @@ class AdventureGame:
                 available_commands=loc_data['available_commands'],
                 items=loc_data['items'],
                 extra_description=loc_data.get('extra_description', None),
-                first_time_event_id=loc_data.get('first_time_event_id', None)
+                first_time_event_id=loc_data.get('first_time_event_id', None),
+                is_locked=loc_data.get('is_locked', False),
+                unlock_condition=loc_data.get('unlock_condition', None)
             )
 
         items = [Item(
@@ -148,6 +150,15 @@ class AdventureGame:
 
             # Move to the new location
             self.current_location_id = new_location_id
+            
+            #Check if location is locked.
+            if new_location.is_locked:
+                if self._evaluate_unlock_condition(new_location.unlock_condition):
+                    new_location.is_locked = False
+                    print(f"You've unlocked {new_location.name}!")
+                else:
+                    print(f"{new_location.name} is locked. You need to fulfill a condition to enter.")
+                    return False
 
             # Only increment time if the new location is a regular Location (not a StoryEvent)
             if not isinstance(new_location, StoryEvent):
@@ -161,6 +172,19 @@ class AdventureGame:
             return True
         else:
             print("You can't go that way.")
+            return False
+    
+    def _evaluate_unlock_condition(self, condition: Optional[str]) -> bool:
+        """Evaluate if the unlock condition is met."""
+        if not condition:
+            return False
+
+        inventory = [item.name.lower() for item in self._items if item.current_position == -1]
+        try:
+            # Use eval carefully to avoid security risks
+            return eval(condition, {}, {"inventory": inventory})
+        except Exception as e:
+            print(f"Error evaluating unlock condition: {e}")
             return False
 
     def _handle_movement(self, choice: str, game: AdventureGame) -> None:

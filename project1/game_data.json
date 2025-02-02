@@ -368,9 +368,7 @@
         "go south": 1201
       },
       "items": []
-    }
-  ],
-  "bahen_locations": [
+    },
     {
       "id": 1600,
       "name": "Bahen Entrance",
@@ -468,10 +466,9 @@
       "available_commands": {
         "go east": 1601
       },
-      "items": [],
+      "items": ["laptop charger"],
       "is_locked": true,
-      "unlock_condition": "lambda: 'tcard' in inventory",
-      "first_time_event_id": 160001
+      "unlock_condition": "'wallet' in inventory"
     }
   ],
   "story_events": [
@@ -680,7 +677,7 @@
       "story_text": [
         ""
       ],
-      "choices": ["grab napkins"]
+      "choices": ["leave"]
     },
     {
       "id": 90001,
@@ -711,7 +708,7 @@
     {
       "name": "laptop charger",
       "description": "Your essential laptop charger.",
-      "start_position": 7
+      "start_position": 1608
     },
     {
       "name": "library note",
