@@ -70,8 +70,9 @@ class AdventureGame:
         # 1. Make sure the Location class is used to represent each location.
         # 2. Make sure the Item class is used to represent each item.
 
-        # Suggested helper method (you can remove and load these differently if you wish to do so):
-        self._locations, self._items, self._stories, self._puzzle = self._load_game_data(game_data_file)
+        locations, items, stories, puzzles = self._load_game_data(game_data_file)
+        self._items = items
+        self._locations_all = {**locations, **stories, **puzzles}
 
         # Initialize to 3:00 PM (15*60 minutes)
         self.current_time = 15 * 60
@@ -146,8 +147,6 @@ class AdventureGame:
                 answers=puzzle_data.get('answers', []),
             ) for puzzle_data in data.get('puzzle', [])
         }
-
-
         return locations, items, stories, puzzles
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
@@ -156,16 +155,15 @@ class AdventureGame:
         """
         if loc_id is None:
             loc_id = self.current_location_id
-        if loc_id in self._stories:
-            return self._stories[loc_id]
-        elif loc_id in self._locations:
-            return self._locations[loc_id]
-        elif loc_id in self._puzzle:
-            return self._puzzle[loc_id]
+        if loc_id in self._locations_all:
+            return self._locations_all[loc_id]
         else:
-            raise KeyError(f"Location ID {loc_id} not found in locations or story events.")
+            raise KeyError(f"Location ID {loc_id} not found in locations")
 
     def move(self, direction: str) -> bool:
+        """
+        Handles in-game movement
+        """
         current_location = self.get_location()
 
         if direction not in current_location.available_commands:
@@ -317,8 +315,11 @@ class AdventureGame:
 
         while True:
             choice = input("\nEnter action: ").lower().strip()
-            if (choice in valid_commands or choice.startswith('tp ') or
-                    choice.startswith('use ') or choice.startswith('drop ') or choice.startswith('examine ')):
+            if (choice in valid_commands
+                    or choice.startswith('tp ')
+                    or choice.startswith('use ')
+                    or choice.startswith('drop ')
+                    or choice.startswith('examine ')):
                 return choice
             print("Invalid option. Try again.")
 
@@ -331,7 +332,7 @@ class AdventureGame:
         elif choice == "score":
             self._handle_score_command()
         elif choice == "undo":
-            self._handle_undo_command(game, game_log)
+            self._handle_undo_command(game_log)
         elif choice == "log":
             game_log.display_events()
         elif choice == "quit":
@@ -347,10 +348,10 @@ class AdventureGame:
 
     def _process_game_command(self, choice: str, game: AdventureGame, game_log: EventList) -> None:
         """Handle game commands that affect game state."""
-        new_event = self._create_new_event(game)
+        new_event = self._create_new_event()
 
         if choice.startswith("use "):
-            self._handle_use_item(choice, game, new_event)
+            self._handle_use_item(choice)
         elif choice.startswith("pick up "):
             self._handle_item_pickup(choice, game, new_event)
         elif choice.startswith("drop "):
@@ -409,39 +410,57 @@ class AdventureGame:
         # Implement actual scoring logic here
         print(f"Your score is {self.score} points.")
 
-    def _handle_undo_command(self, game: AdventureGame, game_log: EventList) -> None:
-        """Handle undo command."""
-        score_ref = {'score': self.score}
-        last_event = game_log.remove_last_event(score_ref)
-        self.score = score_ref['score']
-
+    def _handle_undo_command(self, game_log: EventList) -> None:
+        """Undo the last action by reverting the game to a previous state."""
+        last_event = game_log.remove_last_event()
         if last_event is None:
             print("Nothing to undo!")
             return
 
-        if last_event.prev:
-            game.current_location_id = last_event.prev.id_num
-            print(f"Undo successful. Back to {game.get_location().name}.")
+        # Retrieve the saved state.
+        snapshot = last_event.state_snapshot
 
-        if last_event.item_affected:
-            item = next((i for i in self._items if i.name == last_event.item_affected), None)
-            if item:
-                item.current_position = last_event.item_prev_location
-                location_name = "inventory" if last_event.item_prev_location == -1 \
-                    else game.get_location(last_event.item_prev_location).name
-                print(f"{item.name} returned to {location_name}.")
+        # Restore main variables
+        self.score = snapshot["score"]
+        self.current_time = snapshot["current_time"]
+        self.current_location_id = snapshot["current_location_id"]
+        self.current_objective = snapshot["current_objective"]
+        self.ongoing = snapshot["ongoing"]
 
-    def _create_new_event(self, game: AdventureGame) -> Event:
+    # Restore state for items, locations, stories, puzzles!!!
+        for item in self._items:
+            if item.name in snapshot["items"]:
+                item.current_position = snapshot["items"][item.name]
+
+        for loc_id, states in snapshot["locations_all"].items():
+            if loc_id in self._locations_all:
+                self._locations_all[loc_id].visited = states["visited"]
+                self._locations_all[loc_id].looked = states["looked"]
+
+        print(f"Undo successful. Reverted to previous state at {self.get_location().name}.")
+
+    def _create_new_event(self) -> Event:
         """Create new event for logging."""
-        location = game.get_location()
+        state_snapshot = {
+            "score": self.score,
+            "current_time": self.current_time,
+            "current_location_id": self.current_location_id,
+            "current_objective": self.current_objective,
+            "ongoing": self.ongoing,
+            "items": {item.name: item.current_position for item in self._items},
+            "locations_all": {loc_id: {"visited": loc.visited, "looked": loc.looked}
+                              for loc_id, loc in self._locations_all.items()},
+
+        }
+
+        location = self.get_location()
         return Event(
             id_num=location.id_num,
-            description=location.long_description if not location.visited else location.brief_description,
+            description=(location.long_description if not location.visited else location.brief_description),
             next_command=None,
             next=None,
             prev=None,
-            item_affected=None,
-            item_prev_location=None
+            state_snapshot=state_snapshot
         )
 
     def _handle_item_pickup(self, choice: str, game: AdventureGame, event: Event) -> None:
@@ -473,7 +492,7 @@ class AdventureGame:
         else:
             print("You don't have that item.")
 
-    def _handle_use_item(self, choice: str, game: AdventureGame, event: Event) -> None:
+    def _handle_use_item(self, choice: str) -> None:
         item_name = choice.replace("use ", "").strip().lower()
         item = next((i for i in self._items if i.name.lower() == item_name and i.current_position == -1), None)
 
@@ -554,6 +573,17 @@ class AdventureGame:
             print("There's no password to enter here.")
 
 if __name__ == "__main__":
+
+    # When you are ready to check your work with python_ta, uncomment the following lines.
+    # (Delete the "#" and space before each line.)
+    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
+
+
     game_log = EventList()
     game = AdventureGame('game_data.json', 1) #Insert starting ID here :D
     menu = ["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"]
@@ -568,7 +598,7 @@ if __name__ == "__main__":
         # Debug information
         if AdventureGame.debug_mode:
             print(f"[DEBUG] Current location: {game.current_location_id}")
-            print(f"[DEBUG] Items here: {[item.name for item in game._items 
+            print(f"[DEBUG] Items here: {[item.name for item in game._items
                                       if item.current_position == game.current_location_id]}")
 
         # Display actions

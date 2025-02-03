@@ -23,7 +23,7 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Any
 
 
 # TODO: Copy/paste your ex1_event_logger code below, and modify it if needed to fit your game
@@ -39,9 +39,7 @@ class Event:
     next_command: Optional[str]
     next: Optional['Event']
     prev: Optional['Event']
-    item_affected: Optional[str] = None  # Track the item affected (if any)
-    item_prev_location: Optional[int] = None  # Store where the item was before the action
-    score_change: int = 0
+    state_snapshot: dict[str, Any]
 
 
 class EventList:
@@ -97,24 +95,20 @@ class EventList:
             self.last.next = event
             self.last = event
 
-    def remove_last_event(self, score_ref: dict) -> Optional[Event]:
+    def remove_last_event(self) -> Optional[Event]:
         """Remove the last event from this event list, reverting any item changes if necessary."""
         if self.is_empty():
             return None
 
         removed_event = self.last
 
-        if self.first == self.last:  # If there's only one event
+        if self.first == self.last:  # Only one event exists
             self.first = None
             self.last = None
         else:
             self.last = self.last.prev
             self.last.next = None
             self.last.next_command = None
-
-        if removed_event.score_change:
-            score_ref['score'] -= removed_event.score_change  # Mutation hell yeah
-            print(f"Score reverted by {removed_event.score_change}. New score: {score_ref['score']}")
 
         return removed_event
 

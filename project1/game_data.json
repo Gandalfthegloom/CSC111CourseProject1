@@ -130,18 +130,6 @@
       "items": []
     },
     {
-      "id": 800,
-      "name": "Hoskin and Queen's Crescent Crossroads",
-      "brief_description": "This is Hoskin and Queen's Crescent Crossroads. You can go out west to Hoskin Street 3, south to Queen's Park Crescent 1, or east to Queen's Park 1.",
-      "long_description": "You are currently at Hoskin and Queen's Crescent Crossroads. There's a lot happening around you.",
-      "available_commands": {
-        "go west": 403,
-        "go south": 901,
-        "go east": 1001
-      },
-      "items": []
-    },
-    {
       "id": 1800,
       "name": "Sir Daniel Wilson Residence Path",
       "brief_description": "This is Sir Daniel Wilson Residence's path. You can go out west to St. George Street 2 or east to Front Campus 1.",
@@ -273,7 +261,7 @@
     {
       "id": 901,
       "name": "Queen's Park Crescent 1",
-      "brief_description": "This is Queen's Park Crescent 1. You can go out north to Hoskin and Queen's Crescent Crossroads, south to Queen's Park Crescent 2, or east to Queen's Park 2.",
+      "brief_description": "This is Queen's Park Crescent 1. You can go out north to Hoskin and Queen's Crescent Crossroads, south to Queen's Park Crescent 2, or east to Queen's Park Centre.",
       "long_description": "You are currently at Queen's Park Crescent 1. There's a lot happening around you.",
       "available_commands": {
         "go north": 800,
@@ -285,56 +273,48 @@
     {
       "id": 902,
       "name": "Queen's Park Crescent 2",
-      "brief_description": "This is Queen's Park Crescent 2. You can go out north to Queen's Park Crescent 1, south to Queen's Park Crescent 3, west to Hart House Circle, or east to Queen's Park 3.",
-      "long_description": "You are currently at Queen's Park Crescent 2. There's a lot happening around you.",
+      "brief_description": "This is Queen's Park Crescent 2. You can go out north to Queen's Park Crescent 1, south to Queen's Park Crescent 3, west to Hart House Circle, or east to Ontario governor'S Office.",
+      "long_description": "This is Queen's Park Crescent 2. You can go out north to Queen's Park Crescent 1, south to Queen's Park Crescent 3, west to Hart House Circle, or east to Ontario governor'S Office.",
+      "extra_description": "You look around, and you find the man you spoke to earlier. \"Have you seen Winnie?\" You tell him you'll update him when you find a clue.",
       "available_commands": {
         "go north": 901,
         "go south": 903,
         "go west": 1400,
         "go east": 1003
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 10002
     },
     {
       "id": 903,
       "name": "Queen's Park Crescent 3",
-      "brief_description": "This is Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent 4, west to Anatomy Lane, or east to Queen's Park 4.",
+      "brief_description": "This is Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent & College Crossroads, west to Anatomy Lane, or east to Queen's Park South.",
       "long_description": "You are currently at Queen's Park Crescent 3. There's a lot happening around you.",
       "available_commands": {
         "go north": 902,
         "go south": 904,
-        "go west": 1300,
+        "go west": 700,
         "go east": 1004
       },
       "items": []
     },
     {
-      "id": 904,
-      "name": "Queen's Park Crescent 4",
-      "brief_description": "This is Queen's Park Crescent 4. You can go out north to Queen's Park Crescent 3 or west to Bahen.",
-      "long_description": "You are currently at Queen's Park Crescent 4. There's a lot happening around you.",
-      "available_commands": {
-        "go north": 903,
-        "go west": 1600
-      },
-      "items": []
-    },
-    {
       "id": 1001,
-      "name": "Queen's Park 1",
-      "brief_description": "This is Queen's Park 1. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park 2.",
-      "long_description": "You are currently at Queen's Park 1. There's a lot happening around you.",
+      "name": "Queen's Park North",
+      "brief_description": "This is Queen's Park North. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
+      "long_description": "This is Queen's Park North. You can see the statue of King Edward VII looking over the park. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
       "available_commands": {
         "go west": 800,
         "go south": 1002
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 100001
     },
     {
       "id": 1002,
-      "name": "Queen's Park 2",
-      "brief_description": "This is Queen's Park 2. You can go out north to Queen's Park 1, south to Queen's Park 3, or west to Queen's Park Crescent 1.",
-      "long_description": "You are currently at Queen's Park 2. There's a lot happening around you.",
+      "name": "Queen's Park Centre",
+      "brief_description": "This is Queen's Park Centre. You can go out north to Queen's Park North, south to Ontario Governor'S Office, or west to Queen's Park Crescent 1.",
+      "long_description": "You are currently at Queen's Park Centre. There's a lot happening around you.",
       "available_commands": {
         "go north": 1001,
         "go south": 1003,
@@ -344,9 +324,9 @@
     },
     {
       "id": 1003,
-      "name": "Queen's Park 3",
-      "brief_description": "This is Queen's Park 3. You can go out north to Queen's Park 2, south to Queen's Park 4, or west to Queen's Park Crescent 2.",
-      "long_description": "You are currently at Queen's Park 3. There's a lot happening around you.",
+      "name": "Ontario Governor'S Office",
+      "brief_description": "This is Ontario Governor'S Office. You can go out north to Queen's Park Centre, south to Queen's Park South, or west to Queen's Park Crescent 2.",
+      "long_description": "You are currently at Ontario governor'S Office. There's a lot happening around you.",
       "available_commands": {
         "go north": 1002,
         "go south": 1004,
@@ -356,12 +336,35 @@
     },
     {
       "id": 1004,
-      "name": "Queen's Park 4",
-      "brief_description": "This is Queen's Park 4. You can go out north to Queen's Park 3 or west to Queen's Park Crescent 3.",
-      "long_description": "You are currently at Queen's Park 4. There's a lot happening around you.",
+      "name": "Queen's Park South",
+      "brief_description": "This is Queen's Park South. You can go out north to Ontario Governor'S Office or west to Queen's Park Crescent 3.",
+      "long_description": "This is Queen's Park South, a scenic park right on the lawn of Ontario's legislative building. You can see the veteran's memorial, a smooth black marble monument, and a dog sleeping on top of the cold stone. You can go out north to Ontario Governor'S Office or west to Queen's Park Crescent 3.",
+      "extra_description": "You see a poodle sleeping on the cool black marble of the Veteran's Memorial.",
       "available_commands": {
         "go north": 1003,
         "go west": 903
+      },
+      "items": []
+    },
+    {
+      "id": 700,
+      "name": "College and Queen's Crescent Crossroads",
+      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
+      "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 603
+      },
+      "items": []
+    },
+    {
+      "id": 800,
+      "name": "Hoskin and Queen's Crescent Crossroads",
+      "brief_description": "This is Hoskin and Queen's Crescent Crossroads. You can go out west to Hoskin Street 3, south to Queen's Park Crescent 1, or east to Queen's Park North.",
+      "long_description": "You are currently at Hoskin and Queen's Crescent Crossroads. There's a lot happening around you.",
+      "available_commands": {
+        "go west": 403,
+        "go south": 901,
+        "go east": 1001
       },
       "items": []
     },
@@ -410,16 +413,6 @@
       "items": []
     },
     {
-      "id": 700,
-      "name": "College and Queen's Crescent Crossroads",
-      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
-      "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
-      "available_commands": {
-        "go west": 603
-      },
-      "items": []
-    },
-    {
       "id": 1700,
       "name": "Tower Road",
       "brief_description": "This is Tower Road. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
@@ -437,7 +430,7 @@
       "long_description": "This is the Entrance to Bahen. The place is buzzing with activity. You can go east to St. George Street 4, north to the Auditorium, or west to go upstairs.",
       "extra_description": "As you look around, you find a note on the bulletin board, this one not quite in the all-too familiar handwriting of the yellow notes. It says, Lost & Found: Laptop charger. Computer Lab 2294.",
       "available_commands": {
-        "go out": 904,
+        "go out": 304,
         "go north": 1602,
         "go upstairs": 1601
       },
@@ -1153,7 +1146,7 @@
       "id": 20001,
       "name": "Robarts Library (First Visit)",
       "available_commands": {
-        "look around": 20002
+        "look around": 200
       },
       "story_text": [
         "You approach Robarts Library, a towering brutalist monolith that looms over the campus like a concrete deity. A turkey-shaped deity, that is.",
@@ -1172,7 +1165,7 @@
     },
     {
       "id": 20002,
-      "name": "Robarts Library (Google Search)",
+      "name": "Robarts Library (Library Pamphlet)",
       "available_commands": {
         "next": 20003
       },
@@ -1201,7 +1194,7 @@
     },
     {
       "id": 20003,
-      "name": "Robarts Library (First Pamphlet)",
+      "name": "Robarts Library (Library Pamphlet next)",
       "available_commands": {
         "look around": 201
       },
@@ -1216,7 +1209,7 @@
       "id": 20004,
       "name": "Robarts Library (USB)",
       "available_commands": {
-        "look around": 201
+        "exit": 200
       },
       "story_text": [
         "You sift through the endless rows of dusty tomes until you narrow down your search enough for something to catch your eye.",
@@ -1229,9 +1222,75 @@
         "",
         "A familiar-looking blue-rimmed metal USB falls out of the book. You sigh in relief. That's one more step towards submission."
       ],
-      "choices": ["look around"],
-      "items": ["usb"],
+      "choices": ["exit"],
+      "items": ["usb drive"],
       "new_objective": "Find your missing items before 4 PM. Tip: You can use \"examine mysterious note to view the clue\""
+    },
+    {
+      "id": 100001,
+      "name": "Queen's Park North (First Arrival)",
+      "available_commands": {
+        "exit": 200
+      },
+      "story_text": [
+        "You steps into Queen's Park, the winter wind biting at your ears.",
+        "The stoic King Edward VIII equestrian statue stands in the centre, its cold gaze looking over the park.",
+        "As you approach, you spot a yellow note fluttering against the statue's base.",
+        "",
+        "Beneath the monarch's watchful gaze",
+        "Your luck awaits through earth's embrace.",
+        "But hands alone won't break this ground",
+        "Seek three to make the shovel sound."
+      ],
+      "choices": ["exit"],
+      "items": ["park note"],
+      "new_objective": "Search Queen's Park and Queen's Park Crescent for clues."
+    },
+    {
+      "id": 100002,
+      "name": "Queen's Park Crescent 2 (Dog Event)",
+      "available_commands": {
+        "continue walking": 902
+      },
+      "story_text": [
+        "Your search brings you to Queen's Park Crescent 2, right next to the scenic Hart House Circle",
+        "You see a man, walking towards you looking distraught.",
+        "",
+        "\"Hey there! Have you seen a poodle running around somewhere around here?\", he asks. You say that you don't quite recall.",
+        "",
+        "\"Alright, can I ask you a favor? Here's Winnie's dog whistle. If you blow it, he'll know that you're my friend. Please come find me if you see him.\""
+      ],
+      "choices": ["continue walking"],
+      "items": ["dog whistle"]
+    },
+    {
+      "id": 100003,
+      "name": "Queen's Park South (Found Winnie!)",
+      "available_commands": {
+        "continue walking": 1004
+      },
+      "story_text": [
+        "You spot Winnie and you blow the whistle. The dog comes running towards you, tail wagging in excitement."
+      ],
+      "choices": ["continue walking"],
+      "items": ["winnie the poodle"]
+    },
+    {
+      "id": 100004,
+      "name": "Queen's Park Crescent 2 (Dog Owner)",
+      "available_commands": {
+        "continue walking": 902
+      },
+      "story_text": [
+        "\"Winnie! Thank goodness you're alright!\"",
+        "",
+        "You hand over the dog to its owner.",
+        "",
+        "\"Thanks a ton! I found this old handle while walking Max this morning. Figured it might be useful for something, but I think you’ll make better use of it. Good luck!\"",
+        "\"Uhhh thanks?\", you reply."
+      ],
+      "choices": ["continue walking"],
+      "items": ["wooden handle"]
     },
     {
       "id": 90001,
@@ -1398,7 +1457,7 @@
       "start_position": 1608
     },
     {
-      "name": "book note",
+      "name": "call number note",
       "description": "[Call Number: QA 76.73.P98] hint: it's a snake!",
       "start_position": 20001
     },
@@ -1408,14 +1467,33 @@
       "start_position": 160018
     },
     {
-      "name": "library note",
-      "description": "A note with a cryptic call number.",
-      "start_position": 8
+      "name": "usb drive",
+      "description": "Contains your project.",
+      "start_position": 20004
     },
     {
-      "name": "USB drive",
-      "description": "Contains your project.",
-      "start_position": 9
+      "name": "dog whistle",
+      "description": "Winnie the Poodle's favourite whistle. If you see him, use it!",
+      "start_position": 10002,
+      "current_position": 10002,
+      "use_location": 1004,
+      "triggers_event_id": 100003
+    },
+    {
+      "name": "winnie the poodle",
+      "description": "Who's a gooooood boooooooy!!!",
+      "start_position": 1004,
+      "current_position": 1004,
+      "use_location": 902,
+      "triggers_event_id": 100004
+    },
+    {
+      "name": "wooden handle",
+      "description": "Looks like the shaft of some digging tool?",
+      "start_position": 100004,
+      "current_position": 100004,
+      "use_location": 1001,
+      "triggers_event_id": 100004
     },
     {
       "name": "lucky mug",
