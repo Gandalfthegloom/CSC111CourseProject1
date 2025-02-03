@@ -21,6 +21,8 @@ from __future__ import annotations
 import json
 from typing import Dict, List, Optional
 
+from scripts.regsetup import description
+
 from game_entities import Location, Item, StoryEvent, Puzzle
 from proj1_event_logger import Event, EventList
 
@@ -74,6 +76,9 @@ class AdventureGame:
         # Initialize to 3:00 PM (15*60 minutes)
         self.current_time = 15 * 60
 
+        # Initialize score to 0
+        self.score = 0
+
         # Set player objective
         self.current_objective = "Find your missing project items before 4 PM."
 
@@ -106,10 +111,11 @@ class AdventureGame:
             name=item_data["name"],
             start_position=item_data["start_position"],
             target_position=item_data.get("target_position", -1),  # Default target location
+            description=item_data.get("description", ""),
             target_points=item_data.get("target_points", 0),  # Default points
             current_position=item_data.get("current_position", item_data["start_position"]),
-            use_location = item_data.get("use_location", None),
-            triggers_event_id = item_data.get("triggers_event_id", None)
+            use_location=item_data.get("use_location", None),
+            triggers_event_id=item_data.get("triggers_event_id", None)
         ) for item_data in data.get("items", [])]
 
         # Load story events
@@ -255,12 +261,13 @@ class AdventureGame:
             return
 
         # Handle first-time story event trigger for regular locations
-        if not location.visited and location.first_time_event_id:
-            # Move player to the story event location
-            self.current_location_id = location.first_time_event_id
-            location.visited = True  # Mark original location as visited
-            self._handle_location_visit()
-            return  # Exit to reprocess the new location
+        if not location.visited:
+            self.score += 5
+            if location.first_time_event_id:
+                self.current_location_id = location.first_time_event_id
+                location.visited = True
+                self._handle_location_visit()
+                return
 
         # Normal location visit handling
         print(location.get_description())
@@ -314,7 +321,8 @@ class AdventureGame:
 
         while True:
             choice = input("\nEnter action: ").lower().strip()
-            if choice in valid_commands or choice.startswith('tp ') or choice.startswith('use '):
+            if (choice in valid_commands or choice.startswith('tp ') or
+                    choice.startswith('use ') or choice.startswith('drop ') or choice.startswith('examine ')):
                 return choice
             print("Invalid option. Try again.")
 
@@ -351,11 +359,16 @@ class AdventureGame:
             self._handle_item_pickup(choice, game, new_event)
         elif choice.startswith("drop "):
             self._handle_item_drop(choice, game, new_event)
+        elif choice.startswith("examine "):
+            self._handle_examine_item(choice, game, new_event)
         elif choice.startswith("tp "):
             self._handle_teleport_command(choice)
             new_location = self.get_location()
             new_event.id_num = new_location.id_num
-            new_event.description = new_location.long_description if not new_location.visited else new_location.brief_description
+            if not new_location.visited:
+                new_event.description = new_location.long_description
+            else:
+                new_event.description = new_location.brief_description
         elif choice == "password":
             self._handle_password_input(game)
         else:
@@ -385,7 +398,7 @@ class AdventureGame:
     def _handle_score_command(self) -> None:
         """Display current score."""
         # Implement actual scoring logic here
-        print("Score functionality not yet implemented.")
+        print(f"Your score is {self.score} points.")
 
     def _handle_undo_command(self, game: AdventureGame, game_log: EventList) -> None:
         """Handle undo command."""
@@ -429,7 +442,8 @@ class AdventureGame:
             event.item_affected = item.name
             event.item_prev_location = item.start_position
             item.current_position = -1
-            print(f"You picked up {item.name}!")
+            self.score += 10
+            print(f"You picked up {item.name}! (+10 points)")
         else:
             print("There's no such item here.")
 
@@ -461,6 +475,11 @@ class AdventureGame:
                 print(f"You can't use {item.name} here.")
         else:
             print("You don't have that item in your inventory.")
+
+    def _handle_examine_item(self, choice: str, game: AdventureGame, event: Event) -> None:
+        item_name = choice.replace("examine ", "").strip().lower()
+        item = next((i for i in self._items if i.name.lower() == item_name and i.current_position == -1), None)
+        print(f"{item.description}.")
 
     def _handle_teleport_command(self, choice: str) -> None:
         """Handle teleport command."""

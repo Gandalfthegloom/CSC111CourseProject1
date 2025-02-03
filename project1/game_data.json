@@ -16,11 +16,12 @@
       "id": 200,
       "name": "Robarts Library",
       "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads.",
-      "long_description": "You are currently at Robarts Library. There's a lot happening around you.",
+      "long_description": "You stand before an immense concrete citadel. A towering, brutalist fortress carved from the very essence of stone and geometry. Yes, stone and geometry forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads.",
       "available_commands": {
         "go east": 500
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 10000
     },
     {
       "id": 500,
@@ -1086,7 +1087,7 @@
       ],
       "choices": ["next"],
       "items": ["tcard"],
-      "new_objective": "\"In halls of code where minds ignite,\",\n        \"A lifeline lost to power your might. \",\n        \"Where turkeys roost with books in tow,\",\n        \"Your missing work hides deep below.\",\n        \"Amidst the trees where monarchs ride\",\n        \"A lucky charm waits safe inside.\","
+      "new_objective": "Find your missing items before 4 PM. Tip: You can use \"examine mysterious note to view the clue\""
     },
     {
       "id": 90001,
@@ -1147,6 +1148,12 @@
       "triggers_event_id": 160019
     },
     {
+      "name": "mysterious note",
+      "description": "\"In halls of code where minds ignite,\",\n        \"A lifeline lost to power your might. \",\n        \"Where turkeys roost with books in tow,\",\n        \"Your missing work hides deep below.\",\n        \"Amidst the trees where monarchs ride\",\n        \"A lucky charm waits safe inside.\"",
+      "start_position": 110004,
+      "current_position": 110004,
+    },
+    {
       "name": "mysterious key",
       "description": "A key that opens something at CSSU...",
       "start_position": 160003,
@@ -1170,7 +1177,7 @@
     {
       "name": "tcard",
       "description": "Your lovely TCard.",
-      "start_position": 100
+      "start_position": 160018
     },
     {
       "name": "library note",
