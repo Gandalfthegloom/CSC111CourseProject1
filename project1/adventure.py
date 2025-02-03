@@ -164,10 +164,26 @@ class AdventureGame:
     def move(self, direction: str) -> bool:
         current_location = self.get_location()
 
-        #Handle puzzle location movement
-        if direction in current_location.available_commands:
+        if direction not in current_location.available_commands:
+            print("You can't go that way.")
+            return False
+
+        new_location_id = current_location.available_commands[direction]
+        new_location = self.get_location(new_location_id)
+
+        # Check if the new location is locked
+        if new_location.is_locked:
+            if self._evaluate_unlock_condition(new_location.unlock_condition):
+                new_location.is_locked = False
+                print(f"You've unlocked {new_location.name}!")
+            else:
+                print(
+                    f"{new_location.name} is locked. {'You need to fulfill the unlock condition.'}")
+                return False
+
+        # Handle Puzzle-specific movement (e.g., password)
+        if isinstance(current_location, Puzzle) and direction != "password":
             if isinstance(current_location, Puzzle) and direction != "password":
-                # Allow other available commands to lead to their respective locations
                 new_location_id = current_location.available_commands[direction]
                 self.current_location_id = new_location_id
                 print(f"You move to {self.get_location().name}.")
@@ -182,32 +198,21 @@ class AdventureGame:
                 print(f"You move to {self.get_location().name}.")
                 return True
 
-            new_location = self.get_location(new_location_id)  # Get destination
+        # Proceed with moving to the new location
+        self.current_location_id = new_location_id
+        print(f"You move to {new_location.name}.")
 
-            # Move to the new location
-            self.current_location_id = new_location_id
+        # Update game time for regular locations
+        if not isinstance(new_location, StoryEvent):
+            self.current_time += 2
 
-            #Check if location is locked.
-            if new_location.is_locked:
-                if self._evaluate_unlock_condition(new_location.unlock_condition):
-                    new_location.is_locked = False
-                    print(f"You've unlocked {new_location.name}!")
-                else:
-                    return False
+        # Check for game over due to time
+        if self.current_time >= 16 * 60:
+            print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
+            self.ongoing = False
 
-            # Only increment time if the new location is a regular Location (not a StoryEvent)
-            if not isinstance(new_location, StoryEvent):
-                self.current_time += 2
+        return True
 
-            # Check for time-based game over
-            if self.current_time >= 16 * 60:  # 16*60 = 960 (4:00 PM)
-                print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
-                self.ongoing = False
-
-            return True
-        else:
-            print("You can't go that way.")
-            return False
 
     def _evaluate_unlock_condition(self, condition: Optional[str]) -> bool:
         """Evaluate if the unlock condition is met."""

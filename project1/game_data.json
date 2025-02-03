@@ -1084,7 +1084,8 @@
         "Right there, in the front compartment of your bag, lies your TCard."
       ],
       "choices": ["next"],
-      "items": ["tcard"]
+      "items": ["tcard"],
+      "new_objective": "\"Find your missing items before 4 PM.\""
     },
     {
       "id": 90001,
