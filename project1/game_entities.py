@@ -114,6 +114,7 @@ class StoryEvent(Location):
     story_text: Optional[Union[str, List[str]]] = None  # Allow story_text to be a list or a string
     choices: Optional[List[str]] = None  # List of available choices
     new_objective: Optional[str] = None # For objective command
+    trigger_condition: Optional[str] = None
 
     def get_description(self) -> str:
         """Display the story text instead of regular location descriptions."""

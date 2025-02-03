@@ -74,8 +74,8 @@ class AdventureGame:
         self._items = items
         self._locations_all = {**locations, **stories, **puzzles}
 
-        # Initialize to 3:00 PM (15*60 minutes)
-        self.current_time = 15 * 60
+        # Initialize to 2:00 PM (15*60 minutes)
+        self.current_time = 14 * 60
 
         # Initialize score to 0
         self.score = 0
@@ -99,7 +99,7 @@ class AdventureGame:
                 id_num=loc_data['id'],
                 name=loc_data['name'],
                 brief_description=loc_data.get('brief_description', ""),
-                long_description=loc_data.get('brief_description', ""),
+                long_description=loc_data.get('long_description', ""),
                 available_commands=loc_data['available_commands'],
                 items=loc_data['items'],
                 extra_description=loc_data.get('extra_description', None),
@@ -130,7 +130,8 @@ class AdventureGame:
                 items=story_data.get('items', []),
                 story_text=story_data.get('story_text', ""),
                 choices=story_data.get('choices', []),
-                new_objective=story_data.get('new_objective', None)
+                new_objective=story_data.get('new_objective', None),
+                trigger_condition=story_data.get('trigger_condition', None)
             ) for story_data in data.get('story_events', [])
         }
 
@@ -200,11 +201,14 @@ class AdventureGame:
             # Check for game over due to time
             if self.current_time >= 16 * 60:
                 print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
+                print(f"Score: {self.score}")
+                self._handle_time_command()
                 self.ongoing = False
 
             new_location_id = current_location.available_commands[direction]
             self.current_location_id = new_location_id
-            print(f"You move to {self.get_location().name}.")
+            if not isinstance(current_location, StoryEvent):
+                print(f"You move to {self.get_location().name}.")
             return True
 
     def _evaluate_unlock_condition(self, condition: Optional[str]) -> bool:
@@ -244,13 +248,22 @@ class AdventureGame:
             if location.name == "Game Over":
                 self.ongoing = False
                 print("Game Over. Better luck next time!")
+                print(f"Score: {self.score}")
+                self._handle_time_command()
+                exit()
+            if location.name == "Victory":
+                self.score += 100
+                self.ongoing = False
+                print("You pass the torch onwards. Or maybe bacwards?")
+                print(f"Score: {self.score}")
+                self._handle_time_command()
                 exit()
             return
 
         # For regular locations, check if it has not been visited.
         if hasattr(location, 'visited'):
             if not location.visited:
-                # First, check for a first-time event trigger.
+                # Check for a first-time event trigger.
                 if location.first_time_event_id:
                     self.current_location_id = location.first_time_event_id
                     self._handle_location_visit()
@@ -572,16 +585,28 @@ class AdventureGame:
         else:
             print("There's no password to enter here.")
 
+    def _check_trigger_conditions(self) -> None:
+        """Check all story events for trigger conditions and activate if met."""
+        inventory = [item.name for item in self._items if item.current_position == -1]  # Get items in inventory
+
+        for event in self._locations_all.values():
+            if isinstance(event, StoryEvent) and event.trigger_condition:
+                if eval(event.trigger_condition, {}, {"inventory": inventory}):
+                    print(f"\n--- Event Triggered: {event.name} ---")
+                    print(event.get_description())
+                    self.current_location_id = event.id_num  # Move player to event location
+                    break  # Stop checking after the first triggered event
+
 if __name__ == "__main__":
 
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 120,
-        'disable': ['R1705', 'E9998', 'E9999']
-    })
+    # import python_ta
+    # python_ta.check_all(config={
+    #     'max-line-length': 120,
+    #     'disable': ['R1705', 'E9998', 'E9999']
+    # })
 
 
     game_log = EventList()
@@ -614,5 +639,7 @@ if __name__ == "__main__":
             game._process_menu_command(choice, game, game_log)
         else:
             game._process_game_command(choice, game, game_log)
+
+        game._check_trigger_conditions()
 
         game._handle_location_visit()

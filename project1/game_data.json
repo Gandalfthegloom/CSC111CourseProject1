@@ -4,7 +4,7 @@
       "id": 100,
       "name": "Dorm Room (Knox Residence)",
       "brief_description": "This is your dorm room at Knox Residence. You can go out west to St. George Street or east to Front Campus.",
-      "long_description": "The small, dimly-lit room is a chaotic reflection of a student in the middle of midterm season. A single bed sits unmade in the corner, its rumpled sheets tangled like they've been wrestling with your dreams. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the soft hum St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
+      "long_description": "The small, dimly-lit room is typical of a student in the middle of midterm season. A single bed sits unmade in the corner, its sheets rumpled and tangled. The faint scent of old coffee and stale instant noodles hangs in the air, blending with the buzz of St. George Street, which lies right outside of your window. You can go out west to St. George Street or east to Front Campus.",
       "extra_description": "A cluttered desk sits against the far wall, buried under stacks of lecture notes, practice exams, empty Red Bull cans, and a sticky note-covered calendar that mocks you with its deadlines. A crooked poster of the CN Tower hangs above it, curling at the edges from humidity. Your trusty backpack lies discarded by the door, half-zipped, as if even it gave up trying to stay organized. You see your wallet, laying flat and open on the table.",
       "available_commands": {
         "go west": 303,
@@ -16,7 +16,7 @@
       "id": 200,
       "name": "Robarts Library 1st floor",
       "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads, west to Robarts Commons, or elevator to the 9th-13th floors",
-      "long_description": "You stand before an immense concrete citadel. A towering, brutalist fortress carved from the very essence of stone and geometry. Yes, stone and geometry forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads or west to Robarts Commons.",
+      "long_description": "You stand before an immense concrete fortress. A towering, brutalist structure carved from the very essence of stone and geometry. Yes, stone and geometry, forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads or west to Robarts Commons.",
       "extra_description": "You look around the first floor of the library. After some snooping around, you find a pamphlet.",
       "available_commands": {
         "go east": 500,
@@ -156,7 +156,7 @@
       "id": 302,
       "name": "St. George Street 2",
       "brief_description": "This is St. George Street 2. You can go out north to St. George Street 1, south to St. George Street 3, or east to Sir Daniel Wilson Residence Path.",
-      "long_description": "You are currently at St. George Street 2. There's a lot happening around you.",
+      "long_description": "You are currently at St. George Street 2. You can go out north to St. George Street 1, south to St. George Street 3, or east to Sir Daniel Wilson Residence Path.",
       "available_commands": {
         "go north": 301,
         "go south": 303,
@@ -168,7 +168,7 @@
       "id": 303,
       "name": "St. George Street 3",
       "brief_description": "This is St. George Street 3. You can go out north to St. George Street 2, south to St. George Street 4, or east to Dorm Room (Knox Residence).",
-      "long_description": "You are currently at St. George Street 3. There's a lot happening around you.",
+      "long_description": "You are currently at St. George Street 3. You can go out north to St. George Street 2, south to St. George Street 4, or east to Dorm Room (Knox Residence).",
       "available_commands": {
         "go north": 302,
         "go south": 304,
@@ -202,12 +202,12 @@
     {
       "id": 1201,
       "name": "Front Campus 1",
-      "brief_description": "This is Front Campus 1. You can go out north to Hoskin Street 2, south to Front Campus 2, west to Cafe Reznikoff, or east to Hart House Circle.",
+      "brief_description": "This is Front Campus 1. You can go out north to Tower Road, south to Front Campus 2, west to Sir Daniel Wilson's path, or east to Hart House Circle.",
       "long_description": "You are currently at Front Campus 1. There's a lot happening around you.",
       "available_commands": {
-        "go north": 402,
+        "go north": 1700,
         "go south": 1202,
-        "go west": 1100,
+        "go west": 1800,
         "go east": 1400
       },
       "items": []
@@ -215,13 +215,13 @@
     {
       "id": 1202,
       "name": "Front Campus 2",
-      "brief_description": "This is Front Campus 2. You can go out north to Front Campus 1, south to Anatomy Lane, west to Dorm Room (Knox Residence), or east to Hart House Circle.",
+      "brief_description": "This is Front Campus 2. You can go out north to Front Campus 1, south to King's College Road, west to Dorm Room (Knox Residence), or east to Anatomy Lane.",
       "long_description": "You are currently at Front Campus 2. There's a lot happening around you.",
       "available_commands": {
         "go north": 1201,
-        "go south": 1300,
+        "go south": 1203,
         "go west": 100,
-        "go east": 1400
+        "go east": 1300
       },
       "items": []
     },
@@ -283,13 +283,13 @@
         "go east": 1003
       },
       "items": [],
-      "first_time_event_id": 10002
+      "first_time_event_id": 100002
     },
     {
       "id": 903,
       "name": "Queen's Park Crescent 3",
       "brief_description": "This is Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent & College Crossroads, west to Anatomy Lane, or east to Queen's Park South.",
-      "long_description": "You are currently at Queen's Park Crescent 3. There's a lot happening around you.",
+      "long_description": "You are currently at Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent & College Crossroads, west to Anatomy Lane, or east to Queen's Park South.",
       "available_commands": {
         "go north": 902,
         "go south": 904,
@@ -301,8 +301,9 @@
     {
       "id": 1001,
       "name": "Queen's Park North",
-      "brief_description": "This is Queen's Park North. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
-      "long_description": "This is Queen's Park North. You can see the statue of King Edward VII looking over the park. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
+      "brief_description": "This is Queen's Park North. A suspicious mound sits right under the King Edward Statue. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
+      "long_description": "This is Queen's Park North. You can see the statue of King Edward VII looking over the park. A suspicious mound of dirt sits right under the King Edward Statue. You can go out west to Hoskin and Queen's Crescent Crossroads or south to Queen's Park Centre.",
+      "extra_description": "A suspicious mound sits right under the King Edward Statue. Perhaps you could find out what's hidden there, if only you had a digging tool?",
       "available_commands": {
         "go west": 800,
         "go south": 1002
@@ -314,13 +315,14 @@
       "id": 1002,
       "name": "Queen's Park Centre",
       "brief_description": "This is Queen's Park Centre. You can go out north to Queen's Park North, south to Ontario Governor'S Office, or west to Queen's Park Crescent 1.",
-      "long_description": "You are currently at Queen's Park Centre. There's a lot happening around you.",
+      "long_description": "This is Queen's Park Centre. You can go out north to Queen's Park North, south to Ontario Governor'S Office, or west to Queen's Park Crescent 1.",
       "available_commands": {
         "go north": 1001,
         "go south": 1003,
         "go west": 901
       },
-      "items": []
+      "items": [],
+      "first_time_event_id": 100005
     },
     {
       "id": 1003,
@@ -337,7 +339,7 @@
     {
       "id": 1004,
       "name": "Queen's Park South",
-      "brief_description": "This is Queen's Park South. You can go out north to Ontario Governor'S Office or west to Queen's Park Crescent 3.",
+      "brief_description": "This is Queen's Park South. You see the veteran's memorial and a fluffy tail behind it.. You can go out north to Ontario Governor'S Office or west to Queen's Park Crescent 3.",
       "long_description": "This is Queen's Park South, a scenic park right on the lawn of Ontario's legislative building. You can see the veteran's memorial, a smooth black marble monument, and a dog sleeping on top of the cold stone. You can go out north to Ontario Governor'S Office or west to Queen's Park Crescent 3.",
       "extra_description": "You see a poodle sleeping on the cool black marble of the Veteran's Memorial.",
       "available_commands": {
@@ -349,12 +351,15 @@
     {
       "id": 700,
       "name": "College and Queen's Crescent Crossroads",
-      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3.",
+      "brief_description": "This is College and Queen's Crescent Crossroads. You can go out west to College Street 3 or north to Queen's Park Crescent 3.",
       "long_description": "You are currently at College and Queen's Crescent Crossroads. There's a lot happening around you.",
+      "extra_description": "You look around for a bit and find a comically long stick on the ground.",
       "available_commands": {
+        "go north": 903,
         "go west": 603
       },
-      "items": []
+      "items": ["comically long stick"],
+      "first_time_event_id": 100012
     },
     {
       "id": 800,
@@ -416,7 +421,7 @@
       "id": 1700,
       "name": "Tower Road",
       "brief_description": "This is Tower Road. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
-      "long_description": "You are currently at Tower Road. There's a lot happening around you.",
+      "long_description": "You are currently at Tower Road. You are greeted by the vast fields of back campus and the old Soldier's Tower. You can go out north to Hoskin Street 2 or south to Front Campus 1.",
       "available_commands": {
         "go north": 402,
         "go south": 1201
@@ -662,6 +667,72 @@
       ],
       "choices": ["prepare to go out"],
       "new_objective": "Search for clues in Cafe Reznikoff."
+    },
+    {
+      "id": 10010,
+      "name": "Dorm Room (Items Assembled)",
+      "available_commands": {
+        "submit": 10011
+      },
+      "story_text": [
+        "Now that you've gathered all your missing items, you return to your dorm room.",
+        "As you enter, you feel a sense of unease. Of dread.",
+        "Your room... is tidy.",
+        "",
+        "The fact that somebody had access to your room is frightening, now that you've had time to think about it,",
+        "but seeing your room tidy? It sends shivers down your spine.",
+        "",
+        "You gingerly place down the items on your desk.",
+        "You plug your charger, plug in your usb, place the lucky mug on the pedestal it belongs.",
+        "And finally... You turn on the laptop.",
+        "",
+        "You open Markus, log in. You reread the files, make revisions, make sure every single thing, is in perfect order.",
+        "There's only one thing left to do."
+      ],
+      "choices": ["submit"],
+      "items": ["a sense of relief"],
+      "trigger_condition": "'lucky mug' in inventory and 'usb drive' in inventory and 'laptop charger' in inventory and 'a sense of relief' not in inventory"
+    },
+    {
+      "id": 10011,
+      "name": "Dorm Room (Items Assembled)",
+      "available_commands": {
+        "grab object": 10012
+      },
+      "story_text": [
+        "You've finally averted a crisis, possibly on of the biggest crises in your life.",
+        "You close your laptop, and get ready to get some proper sleep, at last. You'll find out who was behind the notes later...",
+        "",
+        "But the universe it seems, would like to disagree. As you lay down and tuck in, your eye catches a golden glint above your cupboard.",
+        "You investigate the alien object, and you find a note beside it.",
+        "",
+        "[\"You did it, Farrell. But there's one thing left to do.",
+        "- Warm regards, FPS\"]"
+      ],
+      "choices": ["grab object"],
+      "items": ["the time-turner"]
+    },
+    {
+      "id": 10012,
+      "name": "Dorm Room (Items Assembled)",
+      "available_commands": {
+        "pass the torch": 99999
+      },
+      "story_text": [
+        "You move to touch the gleaming object, a golden pocket watch with erratically moving hands.",
+        "And as you your fingers brush against its cool, metal rim, the memories flood in.",
+        "",
+        "YOUR memories.",
+        "",
+        "Memories you had. Or more precisely,",
+        "",
+        "Memories you WILL have.",
+        "",
+        "Realization dawns upon you.",
+        "\"Ooooh, I'm about to have so. much. fun.\""
+      ],
+      "choices": ["pass the torch"],
+      "items": []
     },
     {
       "id": 110001,
@@ -1230,12 +1301,12 @@
       "id": 100001,
       "name": "Queen's Park North (First Arrival)",
       "available_commands": {
-        "exit": 200
+        "exit": 1001
       },
       "story_text": [
         "You steps into Queen's Park, the winter wind biting at your ears.",
         "The stoic King Edward VIII equestrian statue stands in the centre, its cold gaze looking over the park.",
-        "As you approach, you spot a yellow note fluttering against the statue's base.",
+        "As you approach, you spot a yellow note fluttering against the statue's base. And the ominous dirt mound next to it.",
         "",
         "Beneath the monarch's watchful gaze",
         "Your luck awaits through earth's embrace.",
@@ -1286,17 +1357,216 @@
         "",
         "You hand over the dog to its owner.",
         "",
-        "\"Thanks a ton! I found this old handle while walking Max this morning. Figured it might be useful for something, but I think you’ll make better use of it. Good luck!\"",
+        "\"Thanks a ton! I found this old handle while walking Max this morning. Figured it might be useful for something, but I think you'll make better use of it. Good luck!\"",
         "\"Uhhh thanks?\", you reply."
       ],
       "choices": ["continue walking"],
-      "items": ["wooden handle"]
+      "items": ["wooden shaft"]
+    },
+    {
+      "id": 100005,
+      "name": "Queen's Park Centre (Gardener)",
+      "available_commands": {
+        "help": 100006
+      },
+      "story_text": [
+        "As you walk through queen's park, you spot a middle-aged gardener working in a thick green parka.",
+        "The man seems to be struggling with a particularly stubborn patch of weeds, grumbling under bated breath.",
+        "",
+        "\"Ah, these blasted weeds! They're like the final boss in a game of yard work.\"",
+        "You laugh.\"Need a hand, grandpa?\"",
+        "\"Oh, I'll show you a grandpa! Let's go! These weeds won't go down without a fight.\""
+      ],
+      "choices": ["help"],
+      "items": []
+    },
+    {
+      "id": 100006,
+      "name": "Weed Fight 1",
+      "available_commands": {
+        "weed killer": 100007,
+        "trowel": 100008
+      },
+      "story_text": [
+        "You dare challenge me, the sovereign of shrubs, the monarch of mulch? Prepare to be composted!",
+        "Weed King: 20 hp",
+        "",
+        "Gardener used: Max Pull Out!",
+        "Weed King lost 7 HP!",
+        "Your move:"
+      ],
+      "choices": ["weed killer", "trowel"],
+      "items": []
+    },
+    {
+      "id": 100007,
+      "name": "Weed Fight 2a",
+      "available_commands": {
+        "weed killer": 100009,
+        "trowel": 100010
+      },
+      "story_text": [
+        "You used: Weed Killer!",
+        "Weed King lost 5 hp! ",
+        "Weed king is poisoned! Weed King lost 3 hp!",
+        "Weed King: 5 hp",
+        "Weed King used: Spore Attack!",
+        "Grandpa lost 30 hp!",
+        "Grandpa fainted!",
+        "",
+        "\"I leave this to you, Boy'o!\"",
+        "Your move:"
+      ],
+      "choices": ["weed killer", "trowel"],
+      "items": []
+    },
+    {
+      "id": 100008,
+      "name": "Weed Fight 2b",
+      "available_commands": {
+        "weed killer": 100009,
+        "trowel": 1000010
+      },
+      "story_text": [
+        "You used: Trowel!",
+        "Weed King lost 8 hp!",
+        "Weed King: 5 hp",
+        "Weed King used: Spore Attack!",
+        "Grandpa lost 30 hp!",
+        "Grandpa fainted!",
+        "",
+        "\"I leave this to you, Boy'o!\"",
+        "Your move:"
+      ],
+      "choices": ["weed killer", "trowel"],
+      "items": []
+    },
+    {
+      "id": 100009,
+      "name": "Weed Fight 3a",
+      "available_commands": {
+        "continue": 100011
+      },
+      "story_text": [
+        "You used: Weed Killer!",
+        "Weed King lost 5 hp! ",
+        "Weed King Fainted.",
+        "You win!"
+      ],
+      "choices": ["continue"],
+      "items": []
+    },
+    {
+      "id": 100010,
+      "name": "Weed Fight 3b",
+      "available_commands": {
+        "continue": 100011
+      },
+      "story_text": [
+        "You used: trowel!",
+        "Weed King lost 8 hp! ",
+        "Weed King Fainted.",
+        "You win!"
+      ],
+      "choices": ["continue"],
+      "items": []
+    },
+    {
+      "id": 100011,
+      "name": "Queen's Park Centre (Shovel Blade)",
+      "available_commands": {
+        "continue walking": 1002
+      },
+      "story_text": [
+        "\"Well, I'll be. You defeated the Weed King!\" He digs into his tool bag and pulls out an old metal shaft, caked with dirt.",
+        "\"Found this buried in the compost heap last week. Thought I'd fix it up, but it's all yours now. Consider it a trophy.\""
+
+      ],
+      "choices": ["continue walking"],
+      "items": ["rusty spade"]
+    },
+    {
+      "id": 100012,
+      "name": "College and Queen's Crescent Crossroads (Kite) ",
+      "available_commands": {
+        "continue": 700
+      },
+      "story_text": [
+        "As you walk towards the crossroads where College and Queen's Crescent meets, you spot a brightly colored kite stuck upon a tree.",
+        "A small child stands beneath the tree, sniffling, while their parent looks up in exasperation.",
+        "",
+        "\"Mister, can you get my kite down? It's my favorite!\"",
+        "\"Weve tried everything short of climbing up there, but I'm too old for that. Got any ideas?\"",
+        "You look around for some clues."
+      ],
+      "choices": ["continue"],
+      "items": []
+    },
+    {
+      "id": 100013,
+      "name": "College and Queen's Crescent Crossroads (Stick) ",
+      "available_commands": {
+        "continue": 700
+      },
+      "story_text": [
+        "You carefully nudge the kite loose. It flutters down into the child's waiting arms.",
+        "The child grabs it and looks at you in delight. \"Thanks a bunch, mister!\"",
+        "\"You're a lifesaver. This old handle's been collecting dust in our garage. Maybe you can put it to good use.\""
+      ],
+      "choices": ["continue"],
+      "items": ["shovel handle"]
+    },
+    {
+      "id": 100014,
+      "name": "Shovel Assembled",
+      "available_commands": {
+        "continue": 1001
+      },
+      "story_text": [
+        "You sit down on a nearby park chair.",
+        "Now, with all three pieces of the tool assembled, you can finally continue your search.",
+        "You head towards the King Edward VII statue."
+      ],
+      "choices": ["continue"],
+      "items": ["shoddy shovel"],
+      "new_objective": "Dig out the suspicious mound.",
+      "trigger_condition": "'shovel handle' in inventory and 'rusty spade' in inventory and 'wooden shaft' in inventory and 'shoddy shovel' not in inventory"
+    },
+    {
+      "id": 100015,
+      "name": "Diggin' out the mug",
+      "available_commands": {
+        "celebrate": 1001
+      },
+      "story_text": [
+        "You glare at the suspicious mound of dirt with determination, and start digging.",
+        "The ground is tough, frozen in places, but after several minutes of effort, the shovel strikes something solid.",
+        "*thunk*",
+        "",
+        "You dig out the rest with your hand.",
+        "With a final heave, you unearth a small, dirt-caked object. Wiping it clean, your heart leaps.",
+        "It's your lucky UofT mug!"
+      ],
+      "choices": ["celebrate"],
+      "items": ["lucky mug"],
+      "new_objective": "Find your missing items before 4 PM. Tip: You can use \"examine mysterious note to view the clue\""
     },
     {
       "id": 90001,
       "name": "Game Over",
       "available_commands": {},
       "story_text": "You drift back into your slumber... but the deadline doesn't wait.",
+      "choices": []
+    },
+    {
+      "id": 99999,
+      "name": "Victory",
+      "available_commands": {
+        "pass the torch": 99999
+      },
+      "story_text": [
+        "Congratulations! You've completed the game!"
+      ],
       "choices": []
     }
   ],
@@ -1452,24 +1722,16 @@
       "triggers_event_id": 21001
     },
     {
-      "name": "laptop charger",
-      "description": "Your essential laptop charger.",
-      "start_position": 1608
-    },
-    {
       "name": "call number note",
       "description": "[Call Number: QA 76.73.P98] hint: it's a snake!",
-      "start_position": 20001
+      "start_position": 20001,
+      "current_position": 20001
     },
     {
       "name": "tcard",
       "description": "Your lovely TCard.",
-      "start_position": 160018
-    },
-    {
-      "name": "usb drive",
-      "description": "Contains your project.",
-      "start_position": 20004
+      "start_position": 160018,
+      "current_position": 160018
     },
     {
       "name": "dog whistle",
@@ -1482,28 +1744,74 @@
     {
       "name": "winnie the poodle",
       "description": "Who's a gooooood boooooooy!!!",
-      "start_position": 1004,
-      "current_position": 1004,
+      "start_position": 100003,
+      "current_position": 100003,
       "use_location": 902,
       "triggers_event_id": 100004
     },
     {
-      "name": "wooden handle",
+      "name": "wooden shaft",
       "description": "Looks like the shaft of some digging tool?",
-      "start_position": 100004,
-      "current_position": 100004,
+      "start_position": 10004,
+      "current_position": 10004
+    },
+    {
+      "name": "rusty spade",
+      "description": "A rusty old blade of some digging tool?",
+      "start_position": 100011,
+      "current_position": 100011
+    },
+    {
+      "name": "shovel handle",
+      "description": "A rusty old blade belonging of a shovel.",
+      "start_position": 100013,
+      "current_position": 100013
+    },
+    {
+      "name": "shoddy shovel",
+      "description": "A creaky shovel, but a shovel nonetheless.",
+      "start_position": 1000014,
+      "current_position": 1000014,
       "use_location": 1001,
-      "triggers_event_id": 100004
+      "triggers_event_id": 100015
+    },
+    {
+      "name": "comically long stick",
+      "description": "A comically long stick.",
+      "start_position": 700,
+      "current_position": 700,
+      "use_location": 700,
+      "triggers_event_id": 100013
+    },
+    {
+      "name": "laptop charger",
+      "description": "Your essential laptop charger.",
+      "start_position":  1608,
+      "current_position": 1608
+    },
+    {
+      "name": "usb drive",
+      "description": "Contains your project.",
+      "start_position": 20004,
+      "current_position": 20004
     },
     {
       "name": "lucky mug",
       "description": "Your lucky UofT mug.",
-      "start_position": 13
+      "start_position": 100015,
+      "current_position":  100015
+    },
+    {
+      "name": "a sense of relief",
+      "description": "A figurative item, symbolic of your relief :D",
+      "start_position": 10010,
+      "current_position": 10010
     },
     {
       "name": "time-turner",
       "description": "A golden-rimmed pocket watch, its hands moving strangely.",
-      "start_position": 13
+      "start_position": 10011,
+      "current_position": 10011
     }
   ]
 }
