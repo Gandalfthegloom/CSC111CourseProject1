@@ -14,14 +14,74 @@
     },
     {
       "id": 200,
-      "name": "Robarts Library",
-      "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads.",
-      "long_description": "You stand before an immense concrete citadel. A towering, brutalist fortress carved from the very essence of stone and geometry. Yes, stone and geometry forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads.",
+      "name": "Robarts Library 1st floor",
+      "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads, west to Robarts Commons, or elevator to the 9th-13th floors",
+      "long_description": "You stand before an immense concrete citadel. A towering, brutalist fortress carved from the very essence of stone and geometry. Yes, stone and geometry forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads or west to Robarts Commons.",
+      "extra_description": "You look around the first floor of the library. After some snooping around, you find a pamphlet.",
       "available_commands": {
-        "go east": 500
+        "go east": 500,
+        "go west": 201,
+        "go upstairs": 210,
+        "go up to stack": 205
       },
-      "items": [],
-      "first_time_event_id": 10000
+      "items": ["library pamphlet"],
+      "first_time_event_id": 20001
+    },
+    {
+      "id": 210,
+      "name": "Robarts Library 2nd floor",
+      "brief_description": "This is Robarts Library. You can go out east to Saint George and Hoskin Crossroads, west to Robarts Commons, or elevator to the 2nd floor or the stacks",
+      "long_description": "You stand before an immense concrete citadel. A towering, brutalist fortress carved from the very essence of stone and geometry. Yes, stone and geometry forming the fearsome silhouette of a... turkey. This is Robarts Library.  You can go out east to Saint George and Hoskin Crossroads or west to Robarts Commons.",
+      "extra_description": "You look around the first floor of the library. After some snooping around, you find a pamphlet.",
+      "available_commands": {
+        "go downstairs": 200,
+        "go up to stack": 205
+      },
+      "items": ["blue pamphlet second page"]
+    },
+    {
+      "id": 201,
+      "name": "Robarts Commons 1st floor",
+      "brief_description": "You can go east to Robarts Library, or upstairs to the second floor.",
+      "long_description": "In contrast to imposing library next door, the Robarts Commons has a vastly different feel. Modern and efficient, minimalist perhaps. The glass covering two sides of the building certainly gives it an open feel. There's a lot of students here. A LOT of students. It's basically full capacity. You can go east to Robarts Library, or upstairs to the second floor.",
+      "available_commands": {
+        "go east": 200,
+        "go upstairs": 202
+      },
+      "items": []
+    },
+    {
+      "id": 202,
+      "name": "Robarts Commons 2nd floor",
+      "brief_description": "This is the 2nd floor of Robarts Commons. You can go downstairs to the second floor.",
+      "long_description": "This is the 2nd floor of Robarts Commons. You can go downstairs to the second floor.",
+      "available_commands": {
+        "go upstairs": 203,
+        "go downstairs": 201
+      },
+      "items": []
+    },
+    {
+      "id": 203,
+      "name": "Robarts Commons 3rd floor",
+      "brief_description": "This is the 3rd floor of Robarts Commons. You can go downstairs to the second floor.",
+      "long_description": "This is the 3rd floor of Robarts Commons. You can go downstairs to the second floor.",
+      "extra_description": "After looking around for a bit, you find a blue pamphlet lying near the staircase.",
+      "available_commands": {
+        "go upstairs": 204,
+        "go downstairs": 202
+      },
+      "items": ["blue pamphlet"]
+    },
+    {
+      "id": 204,
+      "name": "Robarts Commons 4th floor",
+      "brief_description": "Under Construction...",
+      "long_description": "Under Construction...",
+      "available_commands": {
+        "go downstairs": 203
+      },
+      "items": []
     },
     {
       "id": 500,
@@ -1090,6 +1150,90 @@
       "new_objective": "Find your missing items before 4 PM. Tip: You can use \"examine mysterious note to view the clue\""
     },
     {
+      "id": 20001,
+      "name": "Robarts Library (First Visit)",
+      "available_commands": {
+        "look around": 20002
+      },
+      "story_text": [
+        "You approach Robarts Library, a towering brutalist monolith that looms over the campus like a concrete deity. A turkey-shaped deity, that is.",
+        "Its jagged edges and hulking form seem less like a place of learning and more like the final boss in an architecture student's fever dream",
+        "Inside, the air hums with the low, collective anxiety of a thousand students wrestling with existential dread and midterms.",
+        "You wander into the main study area, and pick a random table to sit on. Surprisingly enough (I'm surprised you're still surprised at this point), you spot a note fluttering under the table.",
+        "The note reads:",
+        "",
+        "[\"Call Number: QA 76.9 R35 2010\"]",
+        "",
+        "You're puzzled at this indecipherable code. Perhaps you can look around for more clues."
+      ],
+      "choices": ["look around"],
+      "items": ["call number note"],
+      "new_objective": "Find clues in Robarts Library."
+    },
+    {
+      "id": 20002,
+      "name": "Robarts Library (Google Search)",
+      "available_commands": {
+        "next": 20003
+      },
+      "story_text": [
+        "Navigating Robarts Library",
+        "Robarts Library contains the largest number of printed materials on campus,",
+        "as well as other useful library services that you may find helpful when writing your essay.",
+        "The 3rd floor of the library of Robarts is dedicated to different reference materials and helpful staff.",
+        "",
+        "The Stacks",
+        "This area of the library is likely to contain many books that you will find useful in this course and in others.",
+        "Thousands of books are found from floor 9 to 13 and are arranged by call numbers.",
+        "It may feel overwhelming when you first search for a book here, but following these steps can help make you an expert in no time!",
+        "",
+        "1. First find out where your book is located and the call number using the U of T Libraries website. ",
+        "The call number will be one or two letters followed by some numbers. For example: HQ759 .R48",
+        "",
+        "2. Next, find out what floor the call number corresponds to.",
+        "This can be found at Robarts Library stack guide, by using one of the blue pamphlets entitled “Robarts Library Stack Guide” that can be found around the library.",
+        "",
+        "Good luck!",
+        "Source: https://resourceguideraceclassgender.wordpress.com/navigating-u-of-t-libraries-in-person-and-online/navigating-robarts-library/"
+      ],
+      "choices": ["next"],
+      "items": []
+    },
+    {
+      "id": 20003,
+      "name": "Robarts Library (First Pamphlet)",
+      "available_commands": {
+        "look around": 201
+      },
+      "story_text": [
+        "\"Wait, so this pamphlet is telling me to go find another pamphlet?\"",
+        "You snarl at this waste of paper. Maybe you'll find better clues at the Commons?"
+      ],
+      "choices": ["look around"],
+      "items": []
+    },
+    {
+      "id": 20004,
+      "name": "Robarts Library (USB)",
+      "available_commands": {
+        "look around": 201
+      },
+      "story_text": [
+        "You sift through the endless rows of dusty tomes until you narrow down your search enough for something to catch your eye.",
+        "And catch your eye it does.",
+        "Nestled between \"Basic Beginner Python\" and \"Python Distilled\" is a bright, neon colored book titled \"How to Charm a Snake: Python Programming for Aspiring Wizards\".",
+        "You roll your eyes; the hardest roll you've possibly ever done. But now's not the time for that.",
+        "You grab it out of its shelf and open it.",
+        "",
+        "*clack*",
+        "",
+        "A familiar-looking blue-rimmed metal USB falls out of the book. You sigh in relief. That's one more step towards submission."
+      ],
+      "choices": ["look around"],
+      "items": ["usb"],
+      "new_objective": "Find your missing items before 4 PM. Tip: You can use \"examine mysterious note to view the clue\""
+    },
+    {
       "id": 90001,
       "name": "Game Over",
       "available_commands": {},
@@ -1128,6 +1272,63 @@
         "You can try entering the 5 digit passkey, or type investigate to continue investigating."
       ],
       "answers": ["73691"]
+    },
+    {
+      "id": 205,
+      "name": "Robarts Library Stack",
+      "available_commands": {
+        "book search": 206,
+        "go floor 1": 200
+      },
+      "puzzle_text": [
+        "This is the 9th-13th floor of Robarts Library. You see a LOT of books on the shelves. Which floor would you like to search?"
+      ],
+      "answers":["13"]
+    },
+    {
+      "id": 206,
+      "name": "Robarts Library 13th floor",
+      "available_commands": {
+        "book search": 207,
+        "go floor 1": 200
+      },
+      "puzzle_text": [
+        "This is the 13th floor of Robarts Library. You see a LOT of books on the shelves. Which category would you like to search?"
+      ],
+      "answers":["mathematics"]
+    },
+    {
+      "id": 207,
+      "name": "Robarts Library Mathematics (Q Section)",
+      "available_commands": {
+        "book search": 208,
+        "go floor 1": 200
+      },
+      "puzzle_text": ["This is the Mathematics section. Which subcategory would you like to visit?"],
+      "answers":["computer science"]
+    },
+    {
+      "id": 208,
+      "name": "Robarts Library Computer Science Shelf",
+      "available_commands": {
+        "book search": 20004,
+        "go floor 1": 200
+      },
+      "puzzle_text": ["This is the Computer Science Shelf. What topic are you looking for?"],
+      "answers":["python"]
+    },
+    {
+      "id": 21001,
+      "name": "The Second Blue Pamphlet",
+      "available_commands": {
+        "inquire": 21001,
+        "password": 210
+      },
+      "puzzle_text": [
+        "You find a blue pamphlet that contains an enormous amount of information.",
+        "If you wish to return, type password and then enter: return to the realm of the living."
+      ],
+      "answers": ["return to the realm of the living"]
     }
   ],
   "items": [
@@ -1151,7 +1352,7 @@
       "name": "mysterious note",
       "description": "\"In halls of code where minds ignite,\",\n        \"A lifeline lost to power your might. \",\n        \"Where turkeys roost with books in tow,\",\n        \"Your missing work hides deep below.\",\n        \"Amidst the trees where monarchs ride\",\n        \"A lucky charm waits safe inside.\"",
       "start_position": 110004,
-      "current_position": 110004,
+      "current_position": 110004
     },
     {
       "name": "mysterious key",
@@ -1170,9 +1371,36 @@
       "triggers_event_id": 160006
     },
     {
+      "name": "library pamphlet",
+      "description": "A figurative key to the library. type \"use library pamphlet\" to use.",
+      "start_position": 200,
+      "current_position": 200,
+      "use_location": 200,
+      "triggers_event_id": 20002
+    },
+    {
+      "name": "blue pamphlet first page",
+      "description": "9th Floor AC-AZ, B-BX, C-CT, D \n 10th Floor DA-DX, E. F-FC \n 11th Floor G-GV, H-HX, J-JZ, K-KZD  \n 12th Floor L-LT, M-MT, N-NX, P-PM  \n 13th Floor PN-PT, TR, TT, U-UH, V-VM, Z \n What do these codes mean? Consult the second page of our pamphlet :D",
+      "start_position": 203,
+      "current_position": 203
+    },
+    {
+      "name": "blue pamphlet second page",
+      "description": "This second \"page\" is uhhh rather long. Try using it.",
+      "start_position": 210,
+      "current_position": 210,
+      "use_location": 210,
+      "triggers_event_id": 21001
+    },
+    {
       "name": "laptop charger",
       "description": "Your essential laptop charger.",
       "start_position": 1608
+    },
+    {
+      "name": "book note",
+      "description": "[Call Number: QA 76.73.P98] hint: it's a snake!",
+      "start_position": 20001
     },
     {
       "name": "tcard",

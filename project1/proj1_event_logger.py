@@ -41,6 +41,7 @@ class Event:
     prev: Optional['Event']
     item_affected: Optional[str] = None  # Track the item affected (if any)
     item_prev_location: Optional[int] = None  # Store where the item was before the action
+    score_change: int = 0
 
 
 class EventList:
@@ -96,7 +97,7 @@ class EventList:
             self.last.next = event
             self.last = event
 
-    def remove_last_event(self) -> Optional[Event]:
+    def remove_last_event(self, score_ref: dict) -> Optional[Event]:
         """Remove the last event from this event list, reverting any item changes if necessary."""
         if self.is_empty():
             return None
@@ -110,6 +111,10 @@ class EventList:
             self.last = self.last.prev
             self.last.next = None
             self.last.next_command = None
+
+        if removed_event.score_change:
+            score_ref['score'] -= removed_event.score_change  # Mutation hell yeah
+            print(f"Score reverted by {removed_event.score_change}. New score: {score_ref['score']}")
 
         return removed_event
 

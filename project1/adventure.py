@@ -23,7 +23,7 @@ from typing import Dict, List, Optional
 
 from scripts.regsetup import description
 
-from game_entities import Location, Item, StoryEvent, Puzzle
+from game_entities import Location, Item, StoryEvent, Puzzle, inquire
 from proj1_event_logger import Event, EventList
 
 
@@ -89,7 +89,7 @@ class AdventureGame:
     @staticmethod
     def _load_game_data(filename: str) -> tuple[Dict[int, Location], List[str]]:
         """Load locations and items from a JSON file and return structured game data."""
-        with open(filename, 'r') as f:
+        with open(filename, 'r', encoding='utf-8') as f:
             data = json.load(f)  # Load JSON data
 
         locations = {}
@@ -154,10 +154,8 @@ class AdventureGame:
         """Return Location object associated with the provided location ID.
         If no ID is provided, return the Location object associated with the current location.
         """
-
         if loc_id is None:
             loc_id = self.current_location_id
-
         if loc_id in self._stories:
             return self._stories[loc_id]
         elif loc_id in self._locations:
@@ -188,36 +186,28 @@ class AdventureGame:
 
         # Handle Puzzle-specific movement (e.g., password)
         if isinstance(current_location, Puzzle) and direction != "password":
-            if isinstance(current_location, Puzzle) and direction != "password":
-                new_location_id = current_location.available_commands[direction]
-                self.current_location_id = new_location_id
-                print(f"You move to {self.get_location().name}.")
-                return True
-            elif isinstance(current_location, Puzzle):
-                # Prevent automatic puzzle solving during movement
-                print("This location requires a password to proceed. Use the 'password' command to attempt it.")
-                return False
-            else:
-                new_location_id = current_location.available_commands[direction]
-                self.current_location_id = new_location_id
-                print(f"You move to {self.get_location().name}.")
-                return True
+            new_location_id = current_location.available_commands[direction]
+            self.current_location_id = new_location_id
+            print(f"You move to {self.get_location().name}.")
+            return True
+        elif isinstance(current_location, Puzzle):
+            # Prevent automatic puzzle solving during movement
+            print("This location requires a password to proceed. Use the 'password' command to attempt it.")
+            return False
+        else:
+            # Update game time for regular locations
+            if not isinstance(new_location, StoryEvent):
+                self.current_time += 2
 
-        # Proceed with moving to the new location
-        self.current_location_id = new_location_id
-        print(f"You move to {new_location.name}.")
+            # Check for game over due to time
+            if self.current_time >= 16 * 60:
+                print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
+                self.ongoing = False
 
-        # Update game time for regular locations
-        if not isinstance(new_location, StoryEvent):
-            self.current_time += 2
-
-        # Check for game over due to time
-        if self.current_time >= 16 * 60:
-            print("\nYou've run out of time! It's now past 4:00 PM. Game Over.")
-            self.ongoing = False
-
-        return True
-
+            new_location_id = current_location.available_commands[direction]
+            self.current_location_id = new_location_id
+            print(f"You move to {self.get_location().name}.")
+            return True
 
     def _evaluate_unlock_condition(self, condition: Optional[str]) -> bool:
         """Evaluate if the unlock condition is met."""
@@ -243,10 +233,9 @@ class AdventureGame:
         """Handle visiting a location or triggering a story event."""
         location = self.get_location()
 
-        # If it's a StoryEvent, display story content
+        # If it's a StoryEvent, display story content and handle it accordingly.
         if isinstance(location, StoryEvent):
             print(location.get_description())
-            # Give items from the story event
             for item_name in location.items:
                 item = next((i for i in self._items if i.name == item_name), None)
                 if item:
@@ -260,18 +249,25 @@ class AdventureGame:
                 exit()
             return
 
-        # Handle first-time story event trigger for regular locations
-        if not location.visited:
-            self.score += 5
-            if location.first_time_event_id:
-                self.current_location_id = location.first_time_event_id
-                location.visited = True
-                self._handle_location_visit()
-                return
-
-        # Normal location visit handling
-        print(location.get_description())
-        location.visited = True
+        # For regular locations, check if it has not been visited.
+        if hasattr(location, 'visited'):
+            if not location.visited:
+                # First, check for a first-time event trigger.
+                if location.first_time_event_id:
+                    self.current_location_id = location.first_time_event_id
+                    self._handle_location_visit()
+                    location.visited = True
+                    return
+                else:
+                    # No first-time event to trigger, so display the description,
+                    # award 5 bonus points, and mark the location as visited.
+                    print(location.get_description())
+                    self.score += 5
+                    location.visited = True
+                    return
+            else:
+                # Location was already visited: simply display its description.
+                print(location.get_description())
 
     def _display_available_actions(self) -> None:
         """Display available actions and commands to the player."""
@@ -371,8 +367,21 @@ class AdventureGame:
                 new_event.description = new_location.brief_description
         elif choice == "password":
             self._handle_password_input(game)
+        elif choice == "book search":
+            self._handle_book_search(game)
+        elif choice == "inquire":
+            inquire()
         else:
             self._handle_movement(choice, game)
+
+        new_event.id_num = self.current_location_id
+
+        # new_location = self.get_location(new_event.id_num)
+        # if hasattr(new_location, 'visited') and not new_location.visited:
+        #     # Add 5 points for first visit
+        #     self.score += 5
+        #     new_event.score_change += 5
+        #     new_location.visited = True
 
         game_log.add_event(new_event, choice)
 
@@ -402,7 +411,10 @@ class AdventureGame:
 
     def _handle_undo_command(self, game: AdventureGame, game_log: EventList) -> None:
         """Handle undo command."""
-        last_event = game_log.remove_last_event()
+        score_ref = {'score': self.score}
+        last_event = game_log.remove_last_event(score_ref)
+        self.score = score_ref['score']
+
         if last_event is None:
             print("Nothing to undo!")
             return
@@ -442,6 +454,7 @@ class AdventureGame:
             event.item_affected = item.name
             event.item_prev_location = item.start_position
             item.current_position = -1
+            event.score_change = 10  # Track score gained from picking up the item
             self.score += 10
             print(f"You picked up {item.name}! (+10 points)")
         else:
@@ -523,6 +536,23 @@ class AdventureGame:
         else:
             print("There's no password to enter here.")
 
+    def _handle_book_search(self, game: AdventureGame) -> None:
+        """Handle password input for puzzle locations."""
+        current_location = game.get_location()
+
+        if isinstance(current_location, Puzzle):
+            password_attempt = input("Enter : ").strip().lower()
+            if password_attempt in current_location.answers:
+                print("Correct!")
+                # Move to the next location after solving the puzzle
+                next_location_id = list(current_location.available_commands.values())[0]
+                self.current_location_id = next_location_id
+                print(f"You move to {self.get_location(next_location_id).name}.")
+            else:
+                print("The book you are looking for is not there. Try again.")
+        else:
+            print("There's no password to enter here.")
+
 if __name__ == "__main__":
     game_log = EventList()
     game = AdventureGame('game_data.json', 1) #Insert starting ID here :D
@@ -530,7 +560,6 @@ if __name__ == "__main__":
 
     while game.ongoing:
         # Handle location visit logic
-        game._handle_location_visit()
 
         # Get valid items for current location
         valid_items = [item.name.lower() for item in game._items
@@ -555,3 +584,5 @@ if __name__ == "__main__":
             game._process_menu_command(choice, game, game_log)
         else:
             game._process_game_command(choice, game, game_log)
+
+        game._handle_location_visit()

@@ -22,6 +22,10 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Union
 import textwrap
 
+import os
+import sys
+import subprocess  # For inquire
+
 @dataclass
 class Location:
     """A location in our text adventure game world."""
@@ -132,6 +136,27 @@ def shadow_projection_puzzle() -> bool:
     """Simulates solving the projection shadow puzzle."""
     user_input = input("What location do the unshadowed letters spell out? ").strip().lower()
     return user_input == "bathroom"
+
+def inquire() -> None:
+    """
+    Opens an outline pdf file for the Library of Congress Index. 
+    All thanks to Stack Overflow!
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    pdf_path = os.path.join(script_dir, "loc_outline.pdf")
+    
+    try:
+        if sys.platform.startswith('win'):
+            # On Windows, use os.startfile to open the file with its associated application
+            os.startfile(pdf_path)
+        elif sys.platform.startswith('darwin'):
+            # On macOS, use the 'open' command via subprocess
+            subprocess.run(["open", pdf_path], check=True)
+        else:
+            # On Linux or Unix-like systems, use 'xdg-open'
+            subprocess.run(["xdg-open", pdf_path], check=True)
+    except Exception as e:
+        print(f"Error opening file: {e}")
 
 
 if __name__ == "__main__":
