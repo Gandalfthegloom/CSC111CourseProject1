@@ -97,7 +97,10 @@ class LockedLocation(Location):
 
     def get_description(self) -> str:
         """Return the puzzle text as the description."""
-        return "\n".join(self.puzzle_text)
+        if self.is_locked:
+            return textwrap.fill(self.locked_description, width=160)
+        else:
+            return textwrap.fill(self.unlocked_description, width=160)
 
 @dataclass
 class StoryEvent(Location):

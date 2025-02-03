@@ -446,10 +446,37 @@
       "long_description": "This is the CSSU. It's a relatively small room that feels homely. You see several vending machines and snack drawers near the entrance.",
       "extra_description": "You find nothing of note. Maybe you should use the key ",
       "available_commands": {
-        "go out": 1601
+        "go out": 1604
       },
       "items": []
     },
+    {
+      "id": 1602,
+      "name": "Adel Sedra Auditorium",
+      "locked_description": "This is the Adel Sedra Auditorium. The door is currently locked. You can go out into the main hall.",
+      "long_description": "This is the Adel Sedra Auditorium. It's a big, open space, almost like a movie theatre, except that it's lined with tables. You can go out into the main hall.",
+      "extra_description": "You try to look around the room for some clues. As you approach the stage, you find a locked box with a keyslot on top of the lectern. Perhaps you should use a key here.",
+      "available_commands": {
+        "go out":1600
+      },
+      "items": [],
+      "is_locked": true,
+      "unlock_condition": "'mysterious-er key' in inventory"
+    },
+    {
+      "id": 1608,
+      "name": "Room 2294",
+      "locked_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
+      "unlocked_description": "Room 2294, the promised land. A rather unassuming promised land at that. It's a lab filled with lines of tables and computers. You see the lost-and-found box in the corner.",
+      "extra_description": "You find your charger in the lost-and-found box",
+      "available_commands": {
+        "go east": 1604
+      },
+      "items": ["laptop charger"],
+      "is_locked": true,
+      "unlock_condition": "'tcard' in inventory",
+      "first_time_event_id": 160002
+    }
   ],
   "story_events": [
     {
@@ -1030,42 +1057,42 @@
       "items": []
     },
     {
+      "id": 160017,
+      "name": "Auditorium Puzzle 9th row",
+      "available_commands": {
+        "next": 1602
+      },
+      "story_text": [
+        "You enter the passkey, and the padlock clicks open! You promptly open the box. You find...",
+        "[\"Yar yar yar. Thou hast passed all my trials! Check your bag :D\"]",
+        "",
+        "\"Check my bag?\", you think to your self. Realization dawns upon you.",
+        "",
+        "\"No way!\" You are in disbelief. You proceed to check your bag. (Use bag, if you have it. If not, check your dorm room, though you gotta open it here :D)."
+      ],
+      "choices": ["next"],
+      "items": []
+    },
+    {
+      "id": 160018,
+      "name": "Bag Check!",
+      "available_commands": {
+        "next": 1602
+      },
+      "story_text": [
+        "You quickly open your bag, heart racing. \"You've got to be kidding me!\"",
+        "Right there, in the front compartment of your bag, lies your TCard."
+      ],
+      "choices": ["next"],
+      "items": ["tcard"]
+    },
+    {
       "id": 90001,
       "name": "Game Over",
       "available_commands": {},
       "story_text": "You drift back into your slumber... but the deadline doesn't wait.",
       "choices": []
     }
-  ],
-  "locked_locations": [
-    {
-      "id": 1602,
-      "name": "Adel Sedra Auditorium",
-      "locked_description": "This is the Adel Sedra Auditorium. The door is currently locked. You can go out into the main hall.",
-      "long_description": "This is the Adel Sedra Auditorium. It's a big, open space, almost like a movie theatre, except that it's lined with tables. You can go out into the main hall.",
-      "extra_description": "You try to look around the room for some clues. As you approach the stage, you find a locked box with a keyslot on top of the lectern. Perhaps you should use a key here.",
-      "available_commands": {
-        "go out":1600
-      },
-      "items": [],
-      "is_locked": true,
-      "unlock_condition": "'mysterious-er key' in inventory"
-    },
-    {
-      "id": 1608,
-      "name": "Room 2294",
-      "locked_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
-      "unlocked_description": "Room 2294, the promised land. A rather unassuming promised land at that. It's a lab filled with lines of tables and computers. You see the lost-and-found box in the corner.",
-      "extra_description": "You find your charger in the lost-and-found box",
-      "available_commands": {
-        "go east": 1604
-      },
-      "items": ["laptop charger"],
-      "is_locked": true,
-      "unlock_condition": "'tcard' in inventory",
-      "first_time_event_id": 160002
-    }
-
   ],
   "puzzle": [
     {
@@ -1091,10 +1118,11 @@
       "id": 160017,
       "name": "Auditorium Puzzle",
       "available_commands":{
-        "passkey": 100
+        "password": 160018,
+        "investigate": 160007
       },
       "puzzle_text": [
-        "You try entering the 5-digit passkey"
+        "You can try entering the 5 digit passkey, or type investigate to continue investigating."
       ],
       "answers": ["73691"]
     }
@@ -1112,7 +1140,9 @@
       "name": "bag",
       "description": "Just a bag :D",
       "start_position": 100,
-      "current_position": 100
+      "current_position": 100,
+      "use_location": 1602,
+      "triggers_event_id": 160018
     },
     {
       "name": "mysterious key",
@@ -1134,6 +1164,11 @@
       "name": "laptop charger",
       "description": "Your essential laptop charger.",
       "start_position": 1608
+    },
+    {
+      "name": "tcard",
+      "description": "Your lovely TCard.",
+      "start_position": 100
     },
     {
       "name": "library note",
