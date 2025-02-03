@@ -179,7 +179,6 @@ class AdventureGame:
             else:
                 print(
                     f"{new_location.name} is locked. {'You need to fulfill the unlock condition.'}")
-                return False
 
         # Handle Puzzle-specific movement (e.g., password)
         if isinstance(current_location, Puzzle) and direction != "password":
@@ -279,7 +278,6 @@ class AdventureGame:
                 print("-", action)
 
         elif location.is_locked:
-            print(f"\n{location.name} is locked. You need to fulfill a condition to proceed.")
             print("At this location, you can only:")
             for action in location.available_commands:
                 print("-", action)

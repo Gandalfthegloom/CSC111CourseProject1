@@ -468,7 +468,7 @@
       "name": "Room 2294",
       "locked_description": "Room 2294, the computer lab that *supposedly* contains your missing charger.",
       "unlocked_description": "Room 2294, the promised land. A rather unassuming promised land at that. It's a lab filled with lines of tables and computers. You see the lost-and-found box in the corner.",
-      "extra_description": "You find your charger in the lost-and-found box",
+      "extra_description": "Room 2294, the promised land. A rather unassuming promised land at that. It's a lab filled with lines of tables and computers. You see the lost-and-found box in the corner, and you find your charger in it.",
       "available_commands": {
         "go east": 1604
       },
@@ -673,6 +673,7 @@
         "The only question is... why?"
       ],
       "choices": ["prepare to go out"],
+      "items": ["Mysterious Note"],
       "new_objective": "Find your missing items before 4 PM."
     },
     {
@@ -1039,7 +1040,7 @@
         "investigate 6th row": 160013,
         "investigate 7th row": 160014,
         "investigate 8th row": 160015,
-        "enter password": 160017
+        "password": 160017
       },
       "story_text": [
         "You find a spilled water bottle on one of the chairs."
@@ -1053,12 +1054,12 @@
         "investigate 6th row",
         "investigate 7th row",
         "investigate 8th row",
-        "enter password"],
+        "password"],
       "items": []
     },
     {
-      "id": 160017,
-      "name": "Auditorium Puzzle 9th row",
+      "id": 160018,
+      "name": "Lectern Box",
       "available_commands": {
         "next": 1602
       },
@@ -1074,7 +1075,7 @@
       "items": []
     },
     {
-      "id": 160018,
+      "id": 160019,
       "name": "Bag Check!",
       "available_commands": {
         "next": 1602
@@ -1085,7 +1086,7 @@
       ],
       "choices": ["next"],
       "items": ["tcard"],
-      "new_objective": "\"Find your missing items before 4 PM.\""
+      "new_objective": "\"In halls of code where minds ignite,\",\n        \"A lifeline lost to power your might. \",\n        \"Where turkeys roost with books in tow,\",\n        \"Your missing work hides deep below.\",\n        \"Amidst the trees where monarchs ride\",\n        \"A lucky charm waits safe inside.\","
     },
     {
       "id": 90001,
@@ -1143,7 +1144,7 @@
       "start_position": 100,
       "current_position": 100,
       "use_location": 1602,
-      "triggers_event_id": 160018
+      "triggers_event_id": 160019
     },
     {
       "name": "mysterious key",
