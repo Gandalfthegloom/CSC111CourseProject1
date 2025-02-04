@@ -81,12 +81,13 @@ class EventList:
         """
         # Hint: You should update the previous node's <next_command> as needed
 
+        event.next_command = command
+
         if self.is_empty():
             self.first = event
             self.last = event
             event.prev = None
         else:
-            self.last.next_command = command  # Assign the command to the previous event
             event.prev = self.last
             self.last.next = event
             self.last = event
@@ -121,12 +122,11 @@ class EventList:
 
 
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })

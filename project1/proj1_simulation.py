@@ -23,7 +23,6 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 from __future__ import annotations
 from proj1_event_logger import Event, EventList
 from adventure import AdventureGame
-from game_entities import Location, Puzzle
 
 
 class AdventureGameSimulation:
@@ -93,7 +92,6 @@ class AdventureGameSimulation:
         """Run the game simulation and print location descriptions."""
         current_event = self._events.first
         while current_event:
-            print(current_event.description)
             if current_event is not self._events.last:
                 print("You chose:", current_event.next_command)
             current_event = current_event.next
@@ -103,11 +101,11 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
 
     win_walkthrough = [
         "turn off alarm", "wake up", "check alarm label", "next", "read note",
@@ -138,49 +136,116 @@ if __name__ == "__main__":
         "continue walking", "continue", "look", "use shoddy shovel", "celebrate",
         "submit", "grab object", "pass the torch"]
 
-    expected_log = [
-        1, 10001, 10002, 10003, 10004, 10005, 10006, 10007,
-        10008, 10009, 100, 100, 100, 100, 100, 303,
-        302, 301, 110001, 110002, 110003, 110004, 1100, 301,
-        1100, 301, 302, 303, 304, 160001, 1600, 1601,
-        1604, 160002, 1608, 160003, 160003, 1608, 1604, 1607,
-        160005, 160005, 1604, 1601, 1600, 1602, 160018, 160018,
-        1602, 160019, 160019, 1602, 1600, 1601, 1604, 1608,
-        1608, 1608, 1608, 1608, 1604, 1601, 1600, 304,
-        303, 302, 301, 500, 20001, 200, 200, 200,
-        200, 200, 20002, 20002, 20003, 201, 202, 203,
-        203, 203, 203, 203, 202, 201, 200, 210,
-        210, 210, 210, 210, 21001, 21001, 200, 20004,
-        20004, 200, 500, 401, 402, 403, 800, 100001,
-        1001, 100005, 100006, 100007, 100010, 100011, 1002, 1003,
-        100002, 902, 903, 100012, 700, 700, 700, 700,
-        700, 100013, 100013, 700, 903, 1004, 1004, 1004,
-        100003, 100003, 1004, 1003, 1002, 901, 902, 902,
-        902, 902, 902, 100004, 100004, 100014, 1001, 1001,
-        1001, 100015, 100015, 10010, 10011, 10012, 99999]
+    expected_log = [1, 10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 100, 100, 100, 100, 100, 100, 100,
+                    303, 302, 301, 110001, 110002, 110003, 110004, 1100, 301, 1100, 301, 302, 303, 304, 160001, 1600,
+                    1601, 1604, 160002, 1608, 160003, 160003, 160003, 1608, 1604, 1607, 160005, 160005, 1604, 1601,
+                    1600, 1602, 160018, 160018, 1602, 160019, 160019, 160019, 1602, 1600, 1601, 1604, 1608, 1608, 1608,
+                    1608, 1608, 1608, 1604, 1601, 1600, 304, 303, 302, 301, 500, 20001, 200, 200, 200, 200, 200, 200,
+                    20002, 20002, 20002, 20003, 201, 202, 203, 203, 203, 203, 203, 203, 202, 201, 200, 210, 210, 210,
+                    210, 210, 210, 21001, 21001, 21001, 200, 20004, 20004, 200, 500, 401, 402, 403, 800, 100001, 1001,
+                    100005, 100006, 100007, 100010, 100011, 1002, 1003, 100002, 902, 903, 100012, 700, 700, 700, 700,
+                    700, 700, 100013, 100013, 100013, 700, 903, 1004, 1004, 1004, 100003, 100003, 100003, 1004, 1003,
+                    1002, 901, 902, 902, 902, 902, 902, 902, 100004, 100004, 100004, 100014, 1001, 1001, 1001, 100015,
+                    100015, 100015, 10010, 10011, 10012, 99999]
+
     # Uncomment the line below to test your walkthrough
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = []
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
+    lose_demo = [
+        "turn off alarm", "wake up", "check alarm label", "next", "read note",
+        "flip out", "calm down", "walk out", "wear pants",
+        "prepare to go out", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east",
+        "go west"
+    ]
+    expected_log_lose = [1, 10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303,
+                         100,
+                         303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 303, 100, 100]
+    #
+    # Update this log list to include the IDs of all locations that would be visited
     # Uncomment the line below to test your demo
-    # assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo)
+    # assert expected_log_lose == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
 
-    # TODO: Add code below to provide walkthroughs that show off certain features of the game
-    # TODO: Create a list of commands involving visiting locations, picking up items, and then
     #   checking the inventory, your list must include the "inventory" command at least once
-    # inventory_demo = [..., "inventory", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    inventory_demo = ["tp 100", "pick up wallet", "pick up bag", "inventory",
+                      "drop wallet", "drop bag", "inventory", "quit"]
+    expected_log_inv = [1, 100, 100, 100, 100, 100, 100, 100, 100,
+                        100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+    assert expected_log_inv == AdventureGameSimulation('game_data.json', 1, inventory_demo).get_id_log()
 
-    # scores_demo = [..., "score", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    scores_demo = [
+        "tp 100", "score", "go west", "go north", "score", "go east", "go west", "score",
+        "go south", "go east", "score", "pick up bag", "pick up wallet", "score"
+    ]
+    expected_log_scores = [1, 100, 100, 100, 100, 303, 302, 302, 302, 1800, 302, 302, 302, 303, 100, 100, 100, 100, 100,
+                           100, 100, 100, 100, 100, 100]
+    assert expected_log_scores == AdventureGameSimulation('game_data.json', 1, scores_demo).get_id_log()
 
-    # Add more enhancement_demos if you have more enhancements
-    # enhancement1_demo = [...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    first_time_event_demo = [
+        "tp 100", "go west", "go north", "go north", "go east", "order coffee", "grab napkin",
+        "flip napkin", "prepare to go out", "go west", "go east"
+    ]
+    expected_log_demo = [1, 100, 100, 303, 302, 301, 110001, 110002, 110003, 110004, 1100, 301, 1100]
+    assert expected_log_demo == AdventureGameSimulation('game_data.json', 1, first_time_event_demo).get_id_log()
+    #
+    # # Add more enhancement_demos if you have more enhancements
+    story_event_items_and_item_triggered_events_demo = [
+        "tp 1001", "go east", "exit",
+        "go south", "help", "weed killer", "trowel", "continue",
+        "continue walking", "go south", "go west", "continue walking", "go south",
+        "go south", "continue", "look", "pick up comically long stick",
+        "use comically long stick", "continue", "go north", "go east", "look",
+        "use dog whistle", "continue walking", "go north", "go north", "go west",
+        "go south", "look", "use dog whistle", "use winnie the poodle",
+        "continue walking", "continue", "look", "use shoddy shovel", "celebrate", "quit"]
+    expected_log_si = [1, 1001, 100001, 1001, 100005, 100006, 100007, 100010, 100011, 1002, 1003, 100002, 902, 903,
+                       100012, 700, 700, 700, 700, 700, 700, 100013, 100013, 100013, 700, 903, 1004, 1004, 1004, 100003,
+                       100003, 100003, 1004, 1003, 1002, 901, 902, 902, 902, 902, 902, 902, 100004, 100004, 100004,
+                       100014,
+                       1001, 1001, 1001, 100015, 100015, 100015, 1001, 1001]
+    assert expected_log_si == AdventureGameSimulation('game_data.json', 1,
+                                                      story_event_items_and_item_triggered_events_demo).get_id_log()
+    #
+    # # Add more enhancement_demos if you have more enhancements
+    openpdf_demo = ["tp 200", "look around", "go upstairs", "pick up blue pamphlet second page",
+                    "use blue pamphlet second page",
+                    "inquire", "quit"]
+    expected_log_pdf = [1, 200, 20001, 200, 210, 210, 210, 210, 21001, 21001, 21001, 200, 200]
+    assert expected_log_pdf == AdventureGameSimulation('game_data.json', 1, openpdf_demo).get_id_log()
+    #
+    # # Add more enhancement_demos if you have more enhancements
+    objectives_demo = ["tp 100", "turn off alarm", "wake up", "check alarm label", "next", "read note",
+                       "flip out", "calm down", "walk out", "wear pants",
+                       "prepare to go out", "objective",
+                       "go west", "go north", "go north",
+                       "go east", "order coffee", "grab napkin", "flip napkin", "prepare to go out", "objective",
+                       "quit"
+                       ]
+    expected_log_objectives = [1, 100, 100, 100, 100, 303, 302, 301, 110001, 110002,
+                               110003, 110004, 1100, 1100, 1100, 1100]
 
-    # Note: You can add more code below for your own testing purposes
+    assert expected_log_objectives == AdventureGameSimulation('game_data.json', 1, objectives_demo).get_id_log()

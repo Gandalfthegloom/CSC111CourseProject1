@@ -26,6 +26,7 @@ import os
 import sys
 import subprocess  # For inquire
 
+
 @dataclass
 class Location:
     """A location in our text adventure game world."""
@@ -38,10 +39,10 @@ class Location:
     items: List[str]  # List of item names present in this location
     extra_description: Optional[str] = None  # New field for additional details
     visited: bool = False  # Tracks if player has been here before
-    looked: bool = False # Tracks if player has looked here before
+    looked: bool = False  # Tracks if player has looked here before
     first_time_event_id: Optional[int] = None
-    is_locked: bool = False# Check whether room is locked
-    unlock_condition: Optional[str] = None # If locked, unlock requirement.
+    is_locked: bool = False  # Check whether room is locked
+    unlock_condition: Optional[str] = None  # If locked, unlock requirement.
 
     def get_description(self) -> str:
         """Return the appropriate description based on whether this location has been visited."""
@@ -52,6 +53,7 @@ class Location:
         """Return additional details if available, otherwise return a generic response."""
         extra = self.extra_description if self.extra_description else "You find nothing of note."
         return textwrap.fill(extra, width=160)
+
 
 @dataclass
 class Item:
@@ -81,6 +83,7 @@ class Item:
     use_location: Optional[int] = None  # Location ID where this item can be used
     triggers_event_id: Optional[int] = None  # ID of the StoryEvent triggered when used
 
+
 @dataclass
 class Puzzle(Location):
     """A puzzle location where the player must enter a password to proceed."""
@@ -91,6 +94,7 @@ class Puzzle(Location):
     def get_description(self) -> str:
         """Return the puzzle text as the description."""
         return "\n".join(self.puzzle_text)
+
 
 @dataclass
 class LockedLocation(Location):
@@ -107,13 +111,14 @@ class LockedLocation(Location):
         else:
             return textwrap.fill(self.unlocked_description, width=160)
 
+
 @dataclass
 class StoryEvent(Location):
     """A story event that functions like a location, allowing for narrative-driven choices."""
 
     story_text: Optional[Union[str, List[str]]] = None  # Allow story_text to be a list or a string
     choices: Optional[List[str]] = None  # List of available choices
-    new_objective: Optional[str] = None # For objective command
+    new_objective: Optional[str] = None  # For objective command
     trigger_condition: Optional[str] = None
 
     def get_description(self) -> str:
@@ -126,32 +131,28 @@ class StoryEvent(Location):
 def inquire() -> None:
     """
     Opens an outline pdf file for the Library of Congress Index.
-    All thanks to Stack Overflow!
+    All hail Stack Overflow!
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     pdf_path = os.path.join(script_dir, "loc_outline.pdf")
 
-    try:
-        if sys.platform.startswith('win'):
-            # On Windows, use os.startfile to open the file with its associated application
-            os.startfile(pdf_path)
-        elif sys.platform.startswith('darwin'):
-            # On macOS, use the 'open' command via subprocess
-            subprocess.run(["open", pdf_path], check=True)
-        else:
-            # On Linux or Unix-like systems, use 'xdg-open'
-            subprocess.run(["xdg-open", pdf_path], check=True)
-    except Exception as e:
-        print(f"Error opening file: {e}")
+    if sys.platform.startswith('win'):
+        # On Windows, use os.startfile to open the file with its associated application
+        os.startfile(pdf_path)
+    elif sys.platform.startswith('darwin'):
+        # On macOS, use the 'open' command via subprocess
+        subprocess.run(["open", pdf_path], check=True)
+    else:
+        # On Linux or Unix-like systems, use 'xdg-open'
+        subprocess.run(["xdg-open", pdf_path], check=True)
 
 
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })

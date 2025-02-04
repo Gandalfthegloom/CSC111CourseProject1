@@ -189,7 +189,7 @@ class AdventureGame:
                 print(
                     f"{new_location.name} is locked. {'You need to fulfill the unlock condition.'}")
 
-        # Handle Puzzle-specific movement (e.g., password)
+        # Handle Puzzle-specific movement
         if isinstance(current_location, Puzzle) and direction != "password":
             new_location_id = current_location.available_commands[direction]
             self.current_location_id = new_location_id
@@ -210,6 +210,7 @@ class AdventureGame:
                 print(f"Score: {self.score}")
                 self._handle_time_command()
                 self.ongoing = False
+                return False
 
             new_location_id = current_location.available_commands[direction]
             self.current_location_id = new_location_id
@@ -223,11 +224,7 @@ class AdventureGame:
             return False
 
         inventory = [item.name.lower() for item in self._items if item.current_position == -1]
-        try:
-            return eval(condition, {}, {"inventory": inventory})
-        except Exception as e:
-            print(f"Error evaluating unlock condition: {e}")
-            return False
+        return eval(condition, {}, {"inventory": inventory})
 
     def _handle_movement(self, choice: str, game: AdventureGame) -> None:
         """Handle movement between locations."""
@@ -255,14 +252,15 @@ class AdventureGame:
                 print("Game Over. Better luck next time!")
                 print(f"Score: {self.score}")
                 self._handle_time_command()
-                exit()
+                return
+
             if location.name == "Victory":
                 self.score += 100
                 self.ongoing = False
                 print("You pass the torch onwards. Or maybe bacwards?")
                 print(f"Score: {self.score}")
                 self._handle_time_command()
-            return
+                return
 
         # For regular locations, check if it has not been visited.
         if hasattr(location, 'visited'):
@@ -281,8 +279,8 @@ class AdventureGame:
                     location.visited = True
                     return
             else:
-                # Location was already visited: simply display its description.
-                print(location.get_description())
+                if self.ongoing:
+                    print(location.get_description())
 
     def display_available_actions(self) -> None:
         """Display available actions and commands to the player."""
@@ -359,7 +357,9 @@ class AdventureGame:
             game_log.display_events()
         elif choice == "quit":
             game.ongoing = False
+            game_log.display_events()
             print("Quitting game...")
+            return
         elif choice == "time":
             self._handle_time_command()
         elif choice == "objective":
@@ -374,14 +374,9 @@ class AdventureGame:
         """Handle game commands that affect game state."""
         new_event = self._create_new_event()
 
-        if choice.startswith("use "):
-            self._handle_use_item(choice)
-        elif choice.startswith("pick up "):
-            self._handle_item_pickup(choice, game, new_event)
-        elif choice.startswith("drop "):
-            self._handle_item_drop(choice, game, new_event)
-        elif choice.startswith("examine "):
-            self._handle_examine_item(choice)
+        if (choice.startswith("use ") or choice.startswith("pick up ")
+                or choice.startswith("drop ") or choice.startswith("examine ")):
+            self.process_game_command_extra(choice, game, game_log)
         elif choice.startswith("tp "):
             self._handle_teleport_command(choice)
             new_location = self.get_location()
@@ -415,12 +410,25 @@ class AdventureGame:
 
         new_event.id_num = self.current_location_id
 
-        # new_location = self.get_location(new_event.id_num)
-        # if hasattr(new_location, 'visited') and not new_location.visited:
-        #     # Add 5 points for first visit
-        #     self.score += 5
-        #     new_event.score_change += 5
-        #     new_location.visited = True
+        game_log.add_event(new_event, choice)
+
+        if AdventureGame.debug_mode:
+            print(f"[DEBUG] Event logged: Location={new_event.id_num}, Command={choice}")
+            game_log.display_events()
+
+    def process_game_command_extra(self, choice: str, game: AdventureGame, game_log: EventList) -> None:
+        """Handle game commands that affect game state."""
+        new_event = self._create_new_event()
+        if choice.startswith("use "):
+            self._handle_use_item(choice)
+        elif choice.startswith("pick up "):
+            self._handle_item_pickup(choice, game, new_event)
+        elif choice.startswith("drop "):
+            self._handle_item_drop(choice, game, new_event)
+        else:
+            self._handle_examine_item(choice)
+
+        new_event.id_num = self.current_location_id
 
         game_log.add_event(new_event, choice)
 
@@ -628,11 +636,11 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
     game_obj_log = EventList()
     game_obj = AdventureGame('game_data.json', 1)  # Insert starting ID here :D
     menu_list = ["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"]
