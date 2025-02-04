@@ -292,8 +292,8 @@
       "long_description": "You are currently at Queen's Park Crescent 3. You can go out north to Queen's Park Crescent 2, south to Queen's Park Crescent & College Crossroads, west to Anatomy Lane, or east to Queen's Park South.",
       "available_commands": {
         "go north": 902,
-        "go south": 904,
-        "go west": 700,
+        "go south": 700,
+        "go west": 1300,
         "go east": 1004
       },
       "items": []
@@ -1650,14 +1650,15 @@
       "id": 21001,
       "name": "The Second Blue Pamphlet",
       "available_commands": {
-        "inquire": 21001,
-        "password": 210
+        "inquire": 200,
+        "password": 200
       },
       "puzzle_text": [
         "You find a blue pamphlet that contains an enormous amount of information.",
         "If you wish to return, type password and then enter: return to the realm of the living."
       ],
-      "answers": ["return to the realm of the living"]
+      "answers": ["return to the realm of the living"],
+      "choice": ["password"]
     }
   ],
   "items": [

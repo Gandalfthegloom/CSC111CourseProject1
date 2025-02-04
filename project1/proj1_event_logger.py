@@ -26,9 +26,6 @@ from dataclasses import dataclass
 from typing import Optional, Any
 
 
-# TODO: Copy/paste your ex1_event_logger code below, and modify it if needed to fit your game
-
-
 @dataclass
 class Event:
     """
@@ -108,7 +105,6 @@ class EventList:
         else:
             self.last = self.last.prev
             self.last.next = None
-            self.last.next_command = None
 
         return removed_event
 

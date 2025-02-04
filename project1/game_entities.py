@@ -122,30 +122,15 @@ class StoryEvent(Location):
             return "\n".join(self.story_text)  # Join list elements into a multi-line string
         return self.story_text if self.story_text else super().get_description()
 
-# Example Puzzle Functions
-def caesar_cipher_puzzle() -> bool:
-    """Simulates solving a Caesar cipher puzzle."""
-    user_input = input("Enter the 5-letter code to unlock the safe: ").strip().upper()
-    return user_input == "JULIUS"
-
-def mirror_riddle_puzzle() -> bool:
-    """Simulates solving the mirror reflection riddle."""
-    user_input = input("What do you do after reading the reversed note? ").strip().lower()
-    return user_input == "check bag"
-
-def shadow_projection_puzzle() -> bool:
-    """Simulates solving the projection shadow puzzle."""
-    user_input = input("What location do the unshadowed letters spell out? ").strip().lower()
-    return user_input == "bathroom"
 
 def inquire() -> None:
     """
-    Opens an outline pdf file for the Library of Congress Index. 
+    Opens an outline pdf file for the Library of Congress Index.
     All thanks to Stack Overflow!
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     pdf_path = os.path.join(script_dir, "loc_outline.pdf")
-    
+
     try:
         if sys.platform.startswith('win'):
             # On Windows, use os.startfile to open the file with its associated application
