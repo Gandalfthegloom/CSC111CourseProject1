@@ -59,16 +59,17 @@ class AdventureGameSimulation:
         """Process a single command and generate the corresponding event."""
         current_location = self._game.get_location()
 
-        if isinstance(current_location, Puzzle):
-            # TODO
         if command in current_location.available_commands:
             self._game.move(command)
-        elif command.startswith("pick up ") or command.startswith("use ") or command.startswith("drop "):
+        elif (command.startswith("pick up ") or command.startswith("use ")
+              or command.startswith("drop ") or command.startswith("tp ")):
             self._game.process_game_command(command, self._game, self._events)
         elif command in ["look", "inventory", "score", "undo", "log", "quit", "time", "objective", "toggledebug"]:
             self._game.process_menu_command(command, self._game, self._events)
         else:
             return False
+
+        self._game.check_trigger_conditions()
 
         self._game.handle_location_visit(self._events)
 
@@ -108,7 +109,6 @@ if __name__ == "__main__":
     #     'disable': ['R1705', 'E9998', 'E9999']
     # })
 
-    # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
     win_walkthrough = [
         "turn off alarm", "wake up", "check alarm label", "next", "read note",
         "flip out", "calm down", "walk out", "wear pants",
@@ -117,10 +117,9 @@ if __name__ == "__main__":
         "go east", "order coffee", "grab napkin", "flip napkin", "prepare to go out",
         "go west", "go east", "go west", "go south", "go south", "go south",
         "go west", "next", "go upstairs", "go left", "go right", "ok",
-        "use wallet", "turn back", "go east", "go forward", "use mysterious key", "password",
-        "sdvvzrug", "leave", "go back", "go downstairs",
-        "go north", "use mysterious-er key", "investigate", "enter password", "73691",
-        "next", "use bag", "next", "go out", "go upstairs", "go left", "go right",
+        "use wallet", "turn back", "go east", "go forward", "tp 160005",
+        "leave", "go back", "go downstairs",
+        "go north", "tp 160018", "next", "use bag", "next", "go out", "go upstairs", "go left", "go right",
         "look", "pick up laptop charger", "go east", "go back", "go downstairs",
         "go out", "go north", "go north", "go north", "go north",
         "go west", "look around", "look", "pick up library pamphlet", "use library pamphlet",
@@ -128,8 +127,7 @@ if __name__ == "__main__":
         "pick up blue pamphlet first page", "examine blue pamphlet first page",
         "go downstairs", "go downstairs", "go east", "go upstairs", "look",
         "pick up blue pamphlet second page", "use blue pamphlet second page", "inquire",
-        "return to the realm of the living", "go up to stack", "13", "mathematics",
-        "computer science", "python", "exit",
+        "return to the realm of the living", "tp 20004", "exit",
         "go east", "go east", "go east", "go east", "go east", "go east", "exit",
         "go south", "help", "weed killer", "trowel", "continue",
         "continue walking", "go south", "go west", "continue walking", "go south",
@@ -141,30 +139,27 @@ if __name__ == "__main__":
         "submit", "grab object", "pass the torch"]
 
     expected_log = [
-        10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008, 10009,
-        100, 100, 100,
-        303, 302, 301,
-        1100, 110002, 110003, 110004, 1100,
-        301, 1100, 301, 302, 303, 304,
-        1600, 1600, 1601, 1604, 1608, 1608,
-        160003, 1608, 1604, 1607, 160004, 160005, 1604, 1601, 1600,
-        1602, 160006, 160007, 160017, 160018,
-        1602, 160019, 1602, 1600, 1601, 1604, 1608, 1608, 1608, 1604, 1601, 1600,
-        304, 303, 302, 301, 500,
-        200, 200, 200, 200,
-        20002, 20003,
-        201, 202, 203, 203, 203, 202, 201, 200,
-        210, 210, 210,
-        21001, 21001,
-        200, 205, 206, 207, 208, 20004, 200,
-        500, 401, 402, 403, 800, 1001, 1001,
-        1002, 100006, 100007, 100010, 100011,
-        1002, 1003,
-        902, 902, 903, 700, 700, 700, 700, 100013, 700,
-        903, 1004, 1004, 100003, 1004, 1003, 1002,
-        901, 902, 902, 902, 100004, 902, 1001, 1001, 100015, 1001, 10011, 10012, 99999]
+        1, 10001, 10002, 10003, 10004, 10005, 10006, 10007,
+        10008, 10009, 100, 100, 100, 100, 100, 303,
+        302, 301, 110001, 110002, 110003, 110004, 1100, 301,
+        1100, 301, 302, 303, 304, 160001, 1600, 1601,
+        1604, 160002, 1608, 160003, 160003, 1608, 1604, 1607,
+        160005, 160005, 1604, 1601, 1600, 1602, 160018, 160018,
+        1602, 160019, 160019, 1602, 1600, 1601, 1604, 1608,
+        1608, 1608, 1608, 1608, 1604, 1601, 1600, 304,
+        303, 302, 301, 500, 20001, 200, 200, 200,
+        200, 200, 20002, 20002, 20003, 201, 202, 203,
+        203, 203, 203, 203, 202, 201, 200, 210,
+        210, 210, 210, 210, 21001, 21001, 200, 20004,
+        20004, 200, 500, 401, 402, 403, 800, 100001,
+        1001, 100005, 100006, 100007, 100010, 100011, 1002, 1003,
+        100002, 902, 903, 100012, 700, 700, 700, 700,
+        700, 100013, 100013, 700, 903, 1004, 1004, 1004,
+        100003, 100003, 1004, 1003, 1002, 901, 902, 902,
+        902, 902, 902, 100004, 100004, 100014, 1001, 1001,
+        1001, 100015, 100015, 10010, 10011, 10012, 99999]
     # Uncomment the line below to test your walkthrough
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough)
+    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
     lose_demo = []

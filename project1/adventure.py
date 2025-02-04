@@ -259,11 +259,9 @@ class AdventureGame:
             if location.name == "Victory":
                 self.score += 100
                 self.ongoing = False
-                game_log.display_events()
                 print("You pass the torch onwards. Or maybe bacwards?")
                 print(f"Score: {self.score}")
                 self._handle_time_command()
-                exit()
             return
 
         # For regular locations, check if it has not been visited.

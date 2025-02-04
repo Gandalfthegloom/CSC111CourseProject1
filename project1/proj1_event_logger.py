@@ -81,13 +81,12 @@ class EventList:
         """
         # Hint: You should update the previous node's <next_command> as needed
 
-        event.next_command = command
-
         if self.is_empty():
             self.first = event
             self.last = event
             event.prev = None
         else:
+            self.last.next_command = command  # Assign the command to the previous event
             event.prev = self.last
             self.last.next = event
             self.last = event
